@@ -1,5 +1,5 @@
 package ftn.uns.repository;
 
-public class StudentRepo {
+public interface StudentRepo {
 
 }
