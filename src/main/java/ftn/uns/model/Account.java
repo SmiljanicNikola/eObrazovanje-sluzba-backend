@@ -18,13 +18,13 @@ public class Account {
 	@Column(name = "account_id", unique = true, nullable = false)
 	private Integer account_id;
 
-	@Column(name = "accountBallance", unique = false, nullable = false)
-	private String accountBallance;
+	@Column(name = "account_ballance", unique = false, nullable = false)
+	private String account_ballance;
 
 	public Account(Integer account_id, String accountBallance) {
 		super();
 		this.account_id = account_id;
-		this.accountBallance = accountBallance;
+		this.account_ballance = accountBallance;
 	}
 
 	public Integer getAccount_id() {
@@ -36,13 +36,16 @@ public class Account {
 	}
 
 	public String getAccountBallance() {
-		return accountBallance;
+		return account_ballance;
 	}
 
 	public void setAccountBallance(String accountBallance) {
-		this.accountBallance = accountBallance;
+		this.account_ballance = account_ballance;
 	}
 
-	
-	
+	@Override
+	public String toString() {
+		return "Account [account_id=" + account_id + ", accountBallance=" + account_ballance + "]";
+	}
+
 }

@@ -8,13 +8,13 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "admin")
-public class Admin {
+@Table(name = "lecturer")
+public class Lecturer {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "admin_id", unique = true, nullable = false)
-	private Integer admin_id;
+	@Column(name = "lecturer_id", unique = true, nullable = false)
+	private Integer lecturer_id;
 
 	@Column(name = "name", unique = false, nullable = false)
 	private String name;
@@ -34,28 +34,33 @@ public class Admin {
 	@Column(name = "jmbg", unique = true, nullable = false)
 	private String jmbg;
 
+	@Column(name = "pay", unique = false, nullable = false)
+	private Integer pay;
+
 	@Column(name = "blocked", unique = false, nullable = false)
 	private boolean blocked;
 
-	public Admin(Integer admin_id, String name, String surname, String username, String password, String address,
-			String jmbg, boolean blocked) {
+
+	public Lecturer(Integer lecturer_id, String name, String surname, String username, String password, String address,
+			String jmbg, Integer pay, boolean blocked) {
 		super();
-		this.admin_id = admin_id;
+		this.lecturer_id = lecturer_id;
 		this.name = name;
 		this.surname = surname;
 		this.username = username;
 		this.password = password;
 		this.address = address;
 		this.jmbg = jmbg;
+		this.pay = pay;
 		this.blocked = blocked;
 	}
 
-	public Integer getId() {
-		return admin_id;
+	public Integer getLecturer_Id() {
+		return lecturer_id;
 	}
 
-	public void setId(Integer id) {
-		this.admin_id = id;
+	public void setLecturer_Id(Integer lecturer_Id) {
+		this.lecturer_id = lecturer_Id;
 	}
 
 	public String getName() {
@@ -106,6 +111,14 @@ public class Admin {
 		this.jmbg = jmbg;
 	}
 
+	public Integer getPay() {
+		return pay;
+	}
+
+	public void setPay(Integer pay) {
+		this.pay = pay;
+	}
+
 	public boolean isBlocked() {
 		return blocked;
 	}
@@ -116,8 +129,9 @@ public class Admin {
 
 	@Override
 	public String toString() {
-		return "Admin [admin_Id=" + admin_id + ", name=" + name + ", surname=" + surname + ", username=" + username
-				+ ", password=" + password + ", address=" + address + ", jmbg=" + jmbg + ", blocked=" + blocked + "]";
+		return "Lecturer [lecturer_Id=" + lecturer_id + ", name=" + name + ", surname=" + surname + ", username="
+				+ username + ", password=" + password + ", address=" + address + ", jmbg=" + jmbg + ", pay=" + pay
+				+ ", blocked=" + blocked + "]";
 	}
-
+	
 }

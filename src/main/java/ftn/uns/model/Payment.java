@@ -18,8 +18,8 @@ public class Payment {
 	@Column(name = "payment_id", unique = true, nullable = false)
 	private Integer payment_id;
 
-	@Column(name = "purposeOfPayment", unique = false, nullable = false)
-	private String purposeOfPayment;
+	@Column(name = "purpose_of_payment", unique = false, nullable = false)
+	private String purpose_of_payment;
 
 	@Column(name = "amount", unique = false, nullable = false)
 	private String amount;
@@ -30,10 +30,10 @@ public class Payment {
 	@Column(name = "account_id", unique = false, nullable = false)
 	private Account account_id;
 
-	public Payment(Integer payment_id, String purposeOfPayment, String amount, LocalDate datum, Account account_id) {
+	public Payment(Integer payment_id, String purpose_of_payment, String amount, LocalDate datum, Account account_id) {
 		super();
 		this.payment_id = payment_id;
-		this.purposeOfPayment = purposeOfPayment;
+		this.purpose_of_payment = purpose_of_payment;
 		this.amount = amount;
 		this.datum = datum;
 		this.account_id = account_id;
@@ -48,11 +48,11 @@ public class Payment {
 	}
 
 	public String getPurposeOfPayment() {
-		return purposeOfPayment;
+		return purpose_of_payment;
 	}
 
 	public void setPurposeOfPayment(String purposeOfPayment) {
-		this.purposeOfPayment = purposeOfPayment;
+		this.purpose_of_payment = purposeOfPayment;
 	}
 
 	public String getAmount() {
@@ -77,6 +77,12 @@ public class Payment {
 
 	public void setAccount_id(Account account_id) {
 		this.account_id = account_id;
+	}
+
+	@Override
+	public String toString() {
+		return "Payment [payment_id=" + payment_id + ", purposeOfPayment=" + purpose_of_payment + ", amount=" + amount
+				+ ", datum=" + datum + ", account_id=" + account_id + "]";
 	}
 	
 	
