@@ -18,5 +18,10 @@ public class LecturerOnTheSubject {
 
 	@Column(name = "lecturer_id", unique = false, nullable = false)
 	private Lecturer lecturer_id;
+	
+	@Column(name = "subject_performances_id", nullable = false)
+    private SubjectPerformance subject_performances_id;
+	
+	
 
 }

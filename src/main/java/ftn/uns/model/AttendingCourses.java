@@ -21,29 +21,25 @@ public class AttendingCourses {
     private Student studentId;
 
     @Column(name = "course_conduting_id", nullable = false)
-    private Integer courseCondutingId;
+    private Integer course_conduting_id;
+    ;
     
-    @Column(name = "grade", nullable = false)
-    private Integer grade;
+    @Column(name = "subject_performances_id", nullable = false)
+    private SubjectPerformance subject_performances_id;
 
-    @Column(name = "passed")
-    private Boolean passed;
-
-	public AttendingCourses(Integer id, Student studentId, Integer courseCondutingId, Integer grade, Boolean passed) {
+	public AttendingCourses(Integer id, Student studentId, Integer course_conduting_id, SubjectPerformance subject_performances_id) {
 		super();
 		this.id = id;
 		this.studentId = studentId;
-		this.courseCondutingId = courseCondutingId;
-		this.grade = grade;
-		this.passed = passed;
+		this.course_conduting_id = course_conduting_id;
+		this.subject_performances_id =subject_performances_id;
 	}
 
-	public AttendingCourses(Student studentId, Integer courseCondutingId, Integer grade, Boolean passed) {
+	public AttendingCourses(Student studentId, Integer course_conduting_id , SubjectPerformance subject_performances_id) {
 		super();
 		this.studentId = studentId;
-		this.courseCondutingId = courseCondutingId;
-		this.grade = grade;
-		this.passed = passed;
+		this.course_conduting_id = course_conduting_id;
+		this.subject_performances_id =subject_performances_id;
 	}
 
 	public Integer getId() {
@@ -63,33 +59,18 @@ public class AttendingCourses {
 	}
 
 	public Integer getCourseCondutingId() {
-		return courseCondutingId;
+		return course_conduting_id;
 	}
 
 	public void setCourseCondutingId(Integer courseCondutingId) {
-		this.courseCondutingId = courseCondutingId;
+		this.course_conduting_id = course_conduting_id;
 	}
 
-	public Integer getGrade() {
-		return grade;
-	}
-
-	public void setGrade(Integer grade) {
-		this.grade = grade;
-	}
-
-	public Boolean getPassed() {
-		return passed;
-	}
-
-	public void setPassed(Boolean passed) {
-		this.passed = passed;
-	}
 
 	@Override
 	public String toString() {
-		return "AttendingCourses [id=" + id + ", studentId=" + studentId + ", courseCondutingId=" + courseCondutingId
-				+ ", grade=" + grade + ", passed=" + passed + "]";
+		return "AttendingCourses [id=" + id + ", studentId=" + studentId + ", courseCondutingId=" + course_conduting_id
+				+ ", course_conduting_id=" + course_conduting_id + ", passed=" + course_conduting_id + "]";
 	}
     
 	
