@@ -18,7 +18,7 @@ public class AttendingCourses {
 	private Integer id;
     
     @Column(name = "student_id", nullable = false)
-    private Integer studentId;
+    private Student studentId;
 
     @Column(name = "course_conduting_id", nullable = false)
     private Integer courseCondutingId;
@@ -29,7 +29,7 @@ public class AttendingCourses {
     @Column(name = "passed")
     private Boolean passed;
 
-	public AttendingCourses(Integer id, Integer studentId, Integer courseCondutingId, Integer grade, Boolean passed) {
+	public AttendingCourses(Integer id, Student studentId, Integer courseCondutingId, Integer grade, Boolean passed) {
 		super();
 		this.id = id;
 		this.studentId = studentId;
@@ -38,7 +38,7 @@ public class AttendingCourses {
 		this.passed = passed;
 	}
 
-	public AttendingCourses(Integer studentId, Integer courseCondutingId, Integer grade, Boolean passed) {
+	public AttendingCourses(Student studentId, Integer courseCondutingId, Integer grade, Boolean passed) {
 		super();
 		this.studentId = studentId;
 		this.courseCondutingId = courseCondutingId;
@@ -54,11 +54,11 @@ public class AttendingCourses {
 		this.id = id;
 	}
 
-	public Integer getStudentId() {
+	public Student getStudentId() {
 		return studentId;
 	}
 
-	public void setStudentId(Integer studentId) {
+	public void setStudentId(Student studentId) {
 		this.studentId = studentId;
 	}
 
@@ -84,6 +84,12 @@ public class AttendingCourses {
 
 	public void setPassed(Boolean passed) {
 		this.passed = passed;
+	}
+
+	@Override
+	public String toString() {
+		return "AttendingCourses [id=" + id + ", studentId=" + studentId + ", courseCondutingId=" + courseCondutingId
+				+ ", grade=" + grade + ", passed=" + passed + "]";
 	}
     
 	

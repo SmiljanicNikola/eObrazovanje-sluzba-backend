@@ -38,14 +38,14 @@ public class Student {
     @Column(name = "index_number", nullable = false)
 	private String indexNumber;
     
-    @Column(name = "payment_id", nullable = false)
-	private Integer paymentId;
+	@Column(name = "account_id", unique = false, nullable = false)
+	private Account account_id;
     
     @Column(name = "blocked")
 	private boolean blocked;
 
 	public Student(Integer id, String username, String firstname, String lastname, String password, String jmbg,
-			String adress, String indexNumber, Integer paymentId, boolean blocked) {
+			String adress, String indexNumber, Account account_id, boolean blocked) {
 		super();
 		this.id = id;
 		this.username = username;
@@ -55,12 +55,12 @@ public class Student {
 		this.jmbg = jmbg;
 		this.adress = adress;
 		this.indexNumber = indexNumber;
-		this.paymentId = paymentId;
+		this.account_id = account_id;
 		this.blocked = blocked;
 	}
 
 	public Student(String username, String firstname, String lastname, String password, String jmbg, String adress,
-			String indexNumber, Integer paymentId, boolean blocked) {
+			String indexNumber, Account account_id, boolean blocked) {
 		super();
 		this.username = username;
 		this.firstname = firstname;
@@ -69,7 +69,7 @@ public class Student {
 		this.jmbg = jmbg;
 		this.adress = adress;
 		this.indexNumber = indexNumber;
-		this.paymentId = paymentId;
+		this.account_id = account_id;
 		this.blocked = blocked;
 	}
 
@@ -137,12 +137,12 @@ public class Student {
 		this.indexNumber = indexNumber;
 	}
 
-	public Integer getPaymentId() {
-		return paymentId;
+	public Account getAccount_id() {
+		return account_id;
 	}
 
-	public void setPaymentId(Integer paymentId) {
-		this.paymentId = paymentId;
+	public void setAccount_id(Account account_id) {
+		this.account_id = account_id;
 	}
 
 	public boolean isBlocked() {
@@ -154,81 +154,10 @@ public class Student {
 	}
 
 	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((adress == null) ? 0 : adress.hashCode());
-		result = prime * result + (blocked ? 1231 : 1237);
-		result = prime * result + ((firstname == null) ? 0 : firstname.hashCode());
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		result = prime * result + ((indexNumber == null) ? 0 : indexNumber.hashCode());
-		result = prime * result + ((jmbg == null) ? 0 : jmbg.hashCode());
-		result = prime * result + ((lastname == null) ? 0 : lastname.hashCode());
-		result = prime * result + ((password == null) ? 0 : password.hashCode());
-		result = prime * result + ((paymentId == null) ? 0 : paymentId.hashCode());
-		result = prime * result + ((username == null) ? 0 : username.hashCode());
-		return result;
+	public String toString() {
+		return "Student [id=" + id + ", username=" + username + ", firstname=" + firstname + ", lastname=" + lastname
+				+ ", password=" + password + ", jmbg=" + jmbg + ", adress=" + adress + ", indexNumber=" + indexNumber
+				+ ", account_id=" + account_id + ", blocked=" + blocked + "]";
 	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Student other = (Student) obj;
-		if (adress == null) {
-			if (other.adress != null)
-				return false;
-		} else if (!adress.equals(other.adress))
-			return false;
-		if (blocked != other.blocked)
-			return false;
-		if (firstname == null) {
-			if (other.firstname != null)
-				return false;
-		} else if (!firstname.equals(other.firstname))
-			return false;
-		if (id == null) {
-			if (other.id != null)
-				return false;
-		} else if (!id.equals(other.id))
-			return false;
-		if (indexNumber == null) {
-			if (other.indexNumber != null)
-				return false;
-		} else if (!indexNumber.equals(other.indexNumber))
-			return false;
-		if (jmbg == null) {
-			if (other.jmbg != null)
-				return false;
-		} else if (!jmbg.equals(other.jmbg))
-			return false;
-		if (lastname == null) {
-			if (other.lastname != null)
-				return false;
-		} else if (!lastname.equals(other.lastname))
-			return false;
-		if (password == null) {
-			if (other.password != null)
-				return false;
-		} else if (!password.equals(other.password))
-			return false;
-		if (paymentId == null) {
-			if (other.paymentId != null)
-				return false;
-		} else if (!paymentId.equals(other.paymentId))
-			return false;
-		if (username == null) {
-			if (other.username != null)
-				return false;
-		} else if (!username.equals(other.username))
-			return false;
-		return true;
-	}
-    
-    
 
 }
