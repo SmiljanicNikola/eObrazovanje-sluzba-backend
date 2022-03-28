@@ -2,11 +2,14 @@ package ftn.uns.model;
 
 import java.time.LocalDate;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -24,9 +27,19 @@ public class StudentHistory {
 	@Column(name = "year", unique = false, nullable = false)
 	private Integer year;
 	
+	// !!!!!!!
+	
 	@Column(name = "department_id", unique = false, nullable = false)
 	private Department department_id;
 
+	
+//	!!!!!!!
+	
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "student_id", referencedColumnName = "id")
+	private Student student;
+	
+	
 	public StudentHistory(LocalDate enrollment_year, Integer year, Department department_id) {
 		super();
 		this.enrollment_year = enrollment_year;

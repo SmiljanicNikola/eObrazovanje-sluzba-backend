@@ -7,6 +7,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -27,16 +29,17 @@ public class Payment {
 	@Column(name = "datum", unique = false, nullable = false)
 	private LocalDate datum;
 	
-	@Column(name = "account_id", unique = false, nullable = false)
-	private Account account_id;
+    @ManyToOne
+    @JoinColumn(name="account_id", nullable=false)
+    private Account account;
 
-	public Payment(Integer payment_id, String purpose_of_payment, String amount, LocalDate datum, Account account_id) {
+	public Payment(Integer payment_id, String purpose_of_payment, String amount, LocalDate datum, Account account) {
 		super();
 		this.payment_id = payment_id;
 		this.purpose_of_payment = purpose_of_payment;
 		this.amount = amount;
 		this.datum = datum;
-		this.account_id = account_id;
+		this.account = account;
 	}
 
 	public Integer getPayment_id() {
@@ -71,18 +74,18 @@ public class Payment {
 		this.datum = datum;
 	}
 
-	public Account getAccount_id() {
-		return account_id;
+	public Account getAccount() {
+		return account;
 	}
 
-	public void setAccount_id(Account account_id) {
-		this.account_id = account_id;
+	public void setAccount(Account account) {
+		this.account = account;
 	}
 
 	@Override
 	public String toString() {
 		return "Payment [payment_id=" + payment_id + ", purposeOfPayment=" + purpose_of_payment + ", amount=" + amount
-				+ ", datum=" + datum + ", account_id=" + account_id + "]";
+				+ ", datum=" + datum + ", account_id=" + account + "]";
 	}
 	
 	

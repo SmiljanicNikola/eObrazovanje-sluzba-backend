@@ -1,10 +1,13 @@
 package ftn.uns.model;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -13,7 +16,7 @@ public class SubjectPerformance {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "subject_performances_id", unique = true, nullable = false)
+	@Column(name = "id", unique = true, nullable = false)
 	private Integer subject_performances_id;
 
 	@Column(name = "subject_id", unique = false, nullable = false)
@@ -21,6 +24,9 @@ public class SubjectPerformance {
 
 	@Column(name = "school_year", unique = false, nullable = false)
 	private String school_year;
+	
+    @OneToMany(mappedBy="subjectPerformance")
+    private List<AttendingCourses> attendingCourses;
 
 	public SubjectPerformance(Integer subject_performances_id, Subject subject_id, String school_year) {
 		super();

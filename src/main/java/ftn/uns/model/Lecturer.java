@@ -1,10 +1,13 @@
 package ftn.uns.model;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -36,6 +39,9 @@ public class Lecturer {
 
 	@Column(name = "pay", unique = false, nullable = false)
 	private Integer pay;
+	
+    @OneToMany(mappedBy="lecturer")
+    private List<TakingExam> taking_exams;
 
 	@Column(name = "blocked", unique = false, nullable = false)
 	private boolean blocked;

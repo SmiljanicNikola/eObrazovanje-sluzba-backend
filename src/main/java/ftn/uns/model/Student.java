@@ -1,10 +1,16 @@
 package ftn.uns.model;
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -38,14 +44,21 @@ public class Student {
     @Column(name = "index_number", nullable = false)
 	private String indexNumber;
     
-	@Column(name = "account_id", unique = false, nullable = false)
-	private Account account_id;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "account_id", referencedColumnName = "account_id")
+	private Account account;
+    
+	@OneToOne(mappedBy = "student")
+	private StudentHistory studentHistory;
+	
+    @OneToMany(mappedBy="student")
+    private List<AttendingCourses> attendingCourses;
     
     @Column(name = "blocked")
 	private boolean blocked;
 
 	public Student(Integer id, String username, String firstname, String lastname, String password, String jmbg,
-			String adress, String indexNumber, Account account_id, boolean blocked) {
+			String adress, String indexNumber, Account account, boolean blocked) {
 		super();
 		this.id = id;
 		this.username = username;
@@ -55,12 +68,12 @@ public class Student {
 		this.jmbg = jmbg;
 		this.adress = adress;
 		this.indexNumber = indexNumber;
-		this.account_id = account_id;
+		this.account = account;
 		this.blocked = blocked;
 	}
 
 	public Student(String username, String firstname, String lastname, String password, String jmbg, String adress,
-			String indexNumber, Account account_id, boolean blocked) {
+			String indexNumber, Account account, boolean blocked) {
 		super();
 		this.username = username;
 		this.firstname = firstname;
@@ -69,7 +82,7 @@ public class Student {
 		this.jmbg = jmbg;
 		this.adress = adress;
 		this.indexNumber = indexNumber;
-		this.account_id = account_id;
+		this.account = account;
 		this.blocked = blocked;
 	}
 
@@ -137,12 +150,12 @@ public class Student {
 		this.indexNumber = indexNumber;
 	}
 
-	public Account getAccount_id() {
-		return account_id;
+	public Account getAccount() {
+		return account;
 	}
 
-	public void setAccount_id(Account account_id) {
-		this.account_id = account_id;
+	public void setAccount(Account account) {
+		this.account = account;
 	}
 
 	public boolean isBlocked() {
@@ -157,7 +170,7 @@ public class Student {
 	public String toString() {
 		return "Student [id=" + id + ", username=" + username + ", firstname=" + firstname + ", lastname=" + lastname
 				+ ", password=" + password + ", jmbg=" + jmbg + ", adress=" + adress + ", indexNumber=" + indexNumber
-				+ ", account_id=" + account_id + ", blocked=" + blocked + "]";
+				+ ", account_id=" + account + ", blocked=" + blocked + "]";
 	}
 
 }
