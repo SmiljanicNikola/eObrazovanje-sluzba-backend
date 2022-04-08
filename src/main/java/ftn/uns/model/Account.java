@@ -1,5 +1,6 @@
 package ftn.uns.model;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -14,7 +15,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "accounts")
-public class Account {
+public class Account implements Serializable{
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

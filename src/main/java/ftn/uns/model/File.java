@@ -1,12 +1,19 @@
 package ftn.uns.model;
 
+import static javax.persistence.CascadeType.ALL;
+
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 
-public class File {
+public class File implements Serializable{
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -16,8 +23,8 @@ public class File {
 	@Column(name = "path", unique = false, nullable = false)
 	private String path;
 	
-	@JoinColumn(name = "document_id", referencedColumnName = "document_id")
-	private Document document;
+	@OneToMany(cascade= {ALL}, mappedBy= "file")
+    private List<Document> documents = new ArrayList<Document>();
 
 	public Integer getId() {
 		return id;
@@ -35,19 +42,23 @@ public class File {
 		this.path = path;
 	}
 
-	public Document getDocument() {
-		return document;
-	}
-
-	public void setDocument(Document document) {
-		this.document = document;
-	}
-
-	public File(Integer id, String path, Document document) {
+	public File(String path) {
 		super();
-		this.id = id;
 		this.path = path;
-		this.document = document;
+	}
+
+	public File(String path, List<Document> documents) {
+		super();
+		this.path = path;
+		this.documents = documents;
+	}
+
+	public List<Document> getDocuments() {
+		return documents;
+	}
+
+	public void setDocuments(List<Document> documents) {
+		this.documents = documents;
 	}
 
 	public File() {
