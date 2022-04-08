@@ -30,7 +30,7 @@ public class TypeOfRequirement implements Serializable{
     @JoinColumn(name="pre_examination_obligations_id", referencedColumnName = "pre_examination_obligation_id")
     private PreExaminationObligations preExaminationObligations;*/
 	
-	@OneToMany(mappedBy="typeOfRequirements")
+	@OneToMany(mappedBy="typeOfRequirement")
     private List<PreExaminationObligations> typeOfRequirements = new ArrayList<PreExaminationObligations>();
 
 	public String getName() {

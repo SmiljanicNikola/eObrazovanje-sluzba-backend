@@ -7,18 +7,22 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
+@Entity
+@Table(name = "files")
 public class File implements Serializable{
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "file_id", unique=true, nullable = false)
-	private Integer id;
+	private Integer file_id;
 	
 	@Column(name = "path", unique = false, nullable = false)
 	private String path;
@@ -27,11 +31,11 @@ public class File implements Serializable{
     private List<Document> documents = new ArrayList<Document>();
 
 	public Integer getId() {
-		return id;
+		return file_id;
 	}
 
-	public void setId(Integer id) {
-		this.id = id;
+	public void setId(Integer file_id) {
+		this.file_id = file_id;
 	}
 
 	public String getPath() {
@@ -67,7 +71,7 @@ public class File implements Serializable{
 
 	@Override
 	public String toString() {
-		return "File [id=" + id + ", path=" + path + "]";
+		return "File [id=" + file_id + ", path=" + path + "]";
 	}
 	
 	
