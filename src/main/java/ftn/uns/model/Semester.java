@@ -1,16 +1,24 @@
 package ftn.uns.model;
 
+import static javax.persistence.CascadeType.ALL;
+
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
 @Table(name="semesters")
-public class Semester {
+public class Semester implements Serializable{
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,8 +28,12 @@ public class Semester {
 	@Column(name = "semester_number", unique = false, nullable = false)
 	private Integer semesterNumber;
 	
+	@ManyToOne
 	@JoinColumn(name = "department_id", referencedColumnName = "department_id")
 	private Department department;
+	
+	@OneToMany(cascade= {ALL}, mappedBy= "semester")
+    private List<Subject> subjects = new ArrayList<Subject>();
 
 	public Semester(Integer id, Integer semesterNumber, Department department) {
 		super();

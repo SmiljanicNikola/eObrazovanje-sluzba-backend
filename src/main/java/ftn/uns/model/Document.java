@@ -1,15 +1,21 @@
 package ftn.uns.model;
 
+import java.io.Serializable;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "documents")
-public class Document {
+public class Document implements Serializable{
 	
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,25 +26,35 @@ public class Document {
     @Column(name = "name", nullable = false)
     private String name;
     
-    @Column(name = "student_id", nullable = false)
-    private Student studentId;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "student_id", referencedColumnName = "student_id")
+	private Student student;
 
-    @Column(name = "document_type_id", nullable = false)
-    private DocumentType document_type_id;
+    @ManyToOne
+	@JoinColumn(name = "document_type_id", referencedColumnName = "document_type_id")
+    private DocumentType documentType;
+    
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "file_id", referencedColumnName = "file_id")
+	private File file;
 
-	public Document(Integer id, String name, Student studentId, DocumentType document_type_id) {
+	
+    
+	public Document(String name, Student student, DocumentType documentType, File file) {
+		super();
+		this.name = name;
+		this.student = student;
+		this.documentType = documentType;
+		this.file = file;
+	}
+
+	public Document(Integer id, String name, Student student, DocumentType documentType, File file) {
 		super();
 		this.id = id;
 		this.name = name;
-		this.studentId = studentId;
-		this.document_type_id = document_type_id;
-	}
-
-	public Document(String name, Student studentId, DocumentType document_type_id) {
-		super();
-		this.name = name;
-		this.studentId = studentId;
-		this.document_type_id = document_type_id;
+		this.student = student;
+		this.documentType = documentType;
+		this.file = file;
 	}
 
 	public Integer getId() {
@@ -57,28 +73,37 @@ public class Document {
 		this.name = name;
 	}
 
-	public Student getStudentId() {
-		return studentId;
+	public Student getStudent() {
+		return student;
 	}
 
-	public void setStudentId(Student studentId) {
-		this.studentId = studentId;
+	public void setStudent(Student student) {
+		this.student = student;
 	}
 
-	public DocumentType getDocument_type_id() {
-		return document_type_id;
+	public DocumentType getDocumentType() {
+		return documentType;
 	}
 
-	public void setDocument_type_id(DocumentType document_type_id) {
-		this.document_type_id = document_type_id;
+	public void setDocumentType(DocumentType documentType) {
+		this.documentType = documentType;
+	}
+
+	public File getFile() {
+		return file;
+	}
+
+	public void setFile(File file) {
+		this.file = file;
 	}
 
 	@Override
 	public String toString() {
-		return "Document [id=" + id + ", name=" + name + ", studentId=" + studentId + ", document_type_id="
-				+ document_type_id + "]";
+		return "Document [id=" + id + ", name=" + name + ", student=" + student + ", documentType=" + documentType
+				+ ", file=" + file + "]";
 	}
-    
+
+	
     
 
 }

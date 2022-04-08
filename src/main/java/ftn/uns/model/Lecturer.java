@@ -1,5 +1,9 @@
 package ftn.uns.model;
 
+import static javax.persistence.CascadeType.ALL;
+
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -12,7 +16,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "lecturers")
-public class Lecturer {
+public class Lecturer implements Serializable{
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -41,7 +45,10 @@ public class Lecturer {
 	private Integer pay;
 	
     @OneToMany(mappedBy="lecturer")
-    private List<TakingExam> taking_exams;
+    private List<TakingExam> taking_exams;//
+    
+    @OneToMany(cascade= {ALL}, mappedBy= "lecturer")
+    private List<LecturerOnTheSubject> lecturersOnTheSubject = new ArrayList<LecturerOnTheSubject>();
 
 	@Column(name = "blocked", unique = false, nullable = false)
 	private boolean blocked;

@@ -1,15 +1,22 @@
 package ftn.uns.model;
 
+import static javax.persistence.CascadeType.ALL;
+
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "document_types")
-public class DocumentType {
+public class DocumentType implements Serializable{
 	
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,6 +26,9 @@ public class DocumentType {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "name", nullable = false)
     private String name;
+    
+    @OneToMany(cascade= {ALL}, mappedBy= "documentType")
+    private List<Document> documents = new ArrayList<Document>();
 
 	public DocumentType(Integer id, String name) {
 		super();

@@ -1,15 +1,22 @@
 package ftn.uns.model;
 
+import static javax.persistence.CascadeType.ALL;
+
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "roles")
-public class Role {
+public class Role implements Serializable{
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,6 +25,9 @@ public class Role {
 
 	@Column(name = "name", unique = false, nullable = false)
 	private String name;
+	
+	@OneToMany(cascade= {ALL}, mappedBy= "role")
+    private List<LecturerOnTheSubject> lecturersOnTheSubject = new ArrayList<LecturerOnTheSubject>();
 
 	public Role(Integer role_id, String name) {
 		super();
@@ -49,6 +59,14 @@ public class Role {
 	@Override
 	public String toString() {
 		return "Role [role_id=" + role_id + ", name=" + name + "]";
+	}
+
+	public List<LecturerOnTheSubject> getLecturersOnTheSubject() {
+		return lecturersOnTheSubject;
+	}
+
+	public void setLecturersOnTheSubject(List<LecturerOnTheSubject> lecturersOnTheSubject) {
+		this.lecturersOnTheSubject = lecturersOnTheSubject;
 	}
 	
 	

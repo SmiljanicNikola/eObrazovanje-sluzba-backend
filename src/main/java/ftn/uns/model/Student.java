@@ -1,5 +1,6 @@
 package ftn.uns.model;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -15,12 +16,12 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "students")
-public class Student {
+public class Student implements Serializable{
 	
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "student_id", unique = true, nullable = false)
-	private Integer id;
+	private Integer student_id;
     
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "username", unique = true, nullable = false)
@@ -48,8 +49,12 @@ public class Student {
     @JoinColumn(name = "account_id", referencedColumnName = "account_id")
 	private Account account;
     
-	@OneToOne(mappedBy = "student")
-	private StudentHistory studentHistory;
+	/*@OneToOne(mappedBy = "student")
+	private StudentHistory studentHistory;*/
+	
+	 @OneToOne(cascade = CascadeType.ALL)
+	 @JoinColumn(name = "history_id", referencedColumnName = "history_id")
+	 private StudentHistory studentHistory;
 	
     @OneToMany(mappedBy="student")
     private List<AttendingCourses> attendingCourses;
@@ -57,10 +62,10 @@ public class Student {
     @Column(name = "blocked")
 	private boolean blocked;
 
-	public Student(Integer id, String username, String firstname, String lastname, String password, String jmbg,
+	public Student(Integer student_id, String username, String firstname, String lastname, String password, String jmbg,
 			String adress, String indexNumber, Account account, boolean blocked) {
 		super();
-		this.id = id;
+		this.student_id = student_id;
 		this.username = username;
 		this.firstname = firstname;
 		this.lastname = lastname;
@@ -86,12 +91,30 @@ public class Student {
 		this.blocked = blocked;
 	}
 
-	public Integer getId() {
-		return id;
+	
+
+	public Integer getStudent_id() {
+		return student_id;
 	}
 
-	public void setId(Integer id) {
-		this.id = id;
+	public void setStudent_id(Integer student_id) {
+		this.student_id = student_id;
+	}
+
+	public StudentHistory getStudentHistory() {
+		return studentHistory;
+	}
+
+	public void setStudentHistory(StudentHistory studentHistory) {
+		this.studentHistory = studentHistory;
+	}
+
+	public List<AttendingCourses> getAttendingCourses() {
+		return attendingCourses;
+	}
+
+	public void setAttendingCourses(List<AttendingCourses> attendingCourses) {
+		this.attendingCourses = attendingCourses;
 	}
 
 	public String getUsername() {
@@ -168,7 +191,7 @@ public class Student {
 
 	@Override
 	public String toString() {
-		return "Student [id=" + id + ", username=" + username + ", firstname=" + firstname + ", lastname=" + lastname
+		return "Student [id=" + student_id + ", username=" + username + ", firstname=" + firstname + ", lastname=" + lastname
 				+ ", password=" + password + ", jmbg=" + jmbg + ", adress=" + adress + ", indexNumber=" + indexNumber
 				+ ", account_id=" + account + ", blocked=" + blocked + "]";
 	}

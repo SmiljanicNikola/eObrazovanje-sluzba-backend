@@ -1,5 +1,7 @@
 package ftn.uns.model;
 
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -14,7 +16,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "taking_exam")
-public class TakingExam {
+public class TakingExam implements Serializable{
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,8 +33,8 @@ public class TakingExam {
     @JoinColumn(name="lecturer_id", nullable=false)
     private Lecturer lecturer;
 	
-    @OneToMany(mappedBy="taking_exam")
-    private List<ExamDate> exam_dates;
+    @OneToMany(mappedBy="takingExam")
+    private List<ExamDate> examDates = new ArrayList<ExamDate>();
     
     @ManyToOne
     @JoinColumn(name="attending_courses_id", nullable=false)
@@ -70,16 +72,20 @@ public class TakingExam {
 		this.lecturer = lecturer;
 	}
 
-	public List<ExamDate> getExam_dates() {
-		return exam_dates;
+	public List<ExamDate> getExamDates() {
+		return examDates;
 	}
 
-	public void setExam_dates(List<ExamDate> exam_dates) {
-		this.exam_dates = exam_dates;
+	public void setExamDates(List<ExamDate> examDates) {
+		this.examDates = examDates;
 	}
-    
-    
-	
-	
+
+	public AttendingCourses getAttendingCourses() {
+		return attendingCourses;
+	}
+
+	public void setAttendingCourses(AttendingCourses attendingCourses) {
+		this.attendingCourses = attendingCourses;
+	}
 
 }

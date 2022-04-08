@@ -1,30 +1,41 @@
 package ftn.uns.model;
 
+import static javax.persistence.CascadeType.ALL;
+
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
-public class File {
+@Entity
+@Table(name = "files")
+public class File implements Serializable{
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "file_id", unique=true, nullable = false)
-	private Integer id;
+	private Integer file_id;
 	
 	@Column(name = "path", unique = false, nullable = false)
 	private String path;
 	
-	@JoinColumn(name = "document_id", referencedColumnName = "document_id")
-	private Document document;
+	@OneToMany(cascade= {ALL}, mappedBy= "file")
+    private List<Document> documents = new ArrayList<Document>();
 
 	public Integer getId() {
-		return id;
+		return file_id;
 	}
 
-	public void setId(Integer id) {
-		this.id = id;
+	public void setId(Integer file_id) {
+		this.file_id = file_id;
 	}
 
 	public String getPath() {
@@ -35,19 +46,23 @@ public class File {
 		this.path = path;
 	}
 
-	public Document getDocument() {
-		return document;
-	}
-
-	public void setDocument(Document document) {
-		this.document = document;
-	}
-
-	public File(Integer id, String path, Document document) {
+	public File(String path) {
 		super();
-		this.id = id;
 		this.path = path;
-		this.document = document;
+	}
+
+	public File(String path, List<Document> documents) {
+		super();
+		this.path = path;
+		this.documents = documents;
+	}
+
+	public List<Document> getDocuments() {
+		return documents;
+	}
+
+	public void setDocuments(List<Document> documents) {
+		this.documents = documents;
 	}
 
 	public File() {
@@ -56,7 +71,7 @@ public class File {
 
 	@Override
 	public String toString() {
-		return "File [id=" + id + ", path=" + path + "]";
+		return "File [id=" + file_id + ", path=" + path + "]";
 	}
 	
 	
