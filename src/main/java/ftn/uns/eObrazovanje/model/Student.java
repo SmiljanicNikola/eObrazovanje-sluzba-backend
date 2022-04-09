@@ -6,6 +6,7 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -45,25 +46,25 @@ public class Student implements Serializable{
     @Column(name = "index_number", nullable = false)
 	private String indexNumber;
     
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "account_id", referencedColumnName = "account_id")
 	private Account account;
     
 	/*@OneToOne(mappedBy = "student")
 	private StudentHistory studentHistory;*/
 	
-	 @OneToOne(cascade = CascadeType.ALL)
+	 @OneToOne(cascade = CascadeType.MERGE)
 	 @JoinColumn(name = "history_id", referencedColumnName = "history_id")
 	 private StudentHistory studentHistory;
 	
-    @OneToMany(mappedBy="student")
+    @OneToMany(mappedBy="student", cascade=CascadeType.ALL, fetch = FetchType.EAGER)
     private List<AttendingCourses> attendingCourses;
     
     @Column(name = "blocked")
 	private boolean blocked;
 
 	public Student(Integer student_id, String username, String firstname, String lastname, String password, String jmbg,
-			String adress, String indexNumber, Account account, boolean blocked) {
+			String adress, String indexNumber,boolean blocked) {
 		super();
 		this.student_id = student_id;
 		this.username = username;
@@ -73,7 +74,6 @@ public class Student implements Serializable{
 		this.jmbg = jmbg;
 		this.adress = adress;
 		this.indexNumber = indexNumber;
-		this.account = account;
 		this.blocked = blocked;
 	}
 

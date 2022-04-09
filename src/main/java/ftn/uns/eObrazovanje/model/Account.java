@@ -13,6 +13,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "accounts")
 public class Account implements Serializable{
@@ -22,9 +24,10 @@ public class Account implements Serializable{
 	@Column(name = "account_id", unique = true, nullable = false)
 	private Integer account_id;
 
-	@Column(name = "account_ballance", unique = false, nullable = false)
+	@Column(name = "account_ballance", unique = false)
 	private String account_ballance;
 	
+	@JsonIgnore
 	@OneToOne(mappedBy = "account")
 	private Student student;
 	
@@ -56,7 +59,7 @@ public class Account implements Serializable{
 	}
 
 	public void setAccountBallance(String accountBallance) {
-		this.account_ballance = account_ballance;
+		this.account_ballance = accountBallance;
 	}
 
 	@Override
