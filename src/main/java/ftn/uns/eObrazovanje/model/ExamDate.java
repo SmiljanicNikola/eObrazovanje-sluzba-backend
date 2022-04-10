@@ -31,13 +31,14 @@ public class ExamDate implements Serializable{
 	private String name;
 	
     @ManyToOne
-    @JoinColumn(name="taking_exam_id", nullable=false)
+    @JoinColumn(name="taking_exam_id", referencedColumnName = "taking_exam_id", nullable=false)
     private TakingExam takingExam;
     
     @OneToMany(mappedBy="examDate")
     private List<PreExaminationObligations> examinationObligations = new ArrayList<PreExaminationObligations>();
     
-    
+    @Column(name = "deleted", unique = false, nullable = false)
+	private boolean deleted;
 
 	public Integer getId() {
 		return id;
@@ -70,24 +71,58 @@ public class ExamDate implements Serializable{
 	public void setTakingExam(TakingExam takingExam) {
 		this.takingExam = takingExam;
 	}
+	
+	
 
-	public ExamDate(Integer id, LocalDate date, String name, TakingExam takingExam) {
+	
+
+	public ExamDate(LocalDate date, String name, TakingExam takingExam, boolean deleted) {
+		super();
+		this.date = date;
+		this.name = name;
+		this.takingExam = takingExam;
+		this.deleted = deleted;
+	}
+
+	public ExamDate(LocalDate date, String name, TakingExam takingExam,
+			List<PreExaminationObligations> examinationObligations, boolean deleted) {
+		super();
+		this.date = date;
+		this.name = name;
+		this.takingExam = takingExam;
+		this.examinationObligations = examinationObligations;
+		this.deleted = deleted;
+	}
+
+	public ExamDate(Integer id, LocalDate date, String name, TakingExam takingExam,
+			List<PreExaminationObligations> examinationObligations, boolean deleted) {
 		super();
 		this.id = id;
 		this.date = date;
 		this.name = name;
 		this.takingExam = takingExam;
-	}
-
-	public ExamDate(LocalDate date, String name, TakingExam takingExam) {
-		super();
-		this.date = date;
-		this.name = name;
-		this.takingExam = takingExam;
+		this.examinationObligations = examinationObligations;
+		this.deleted = deleted;
 	}
 
 	public ExamDate() {
 		super();
+	}
+
+	public List<PreExaminationObligations> getExaminationObligations() {
+		return examinationObligations;
+	}
+
+	public void setExaminationObligations(List<PreExaminationObligations> examinationObligations) {
+		this.examinationObligations = examinationObligations;
+	}
+
+	public boolean isDeleted() {
+		return deleted;
+	}
+
+	public void setDeleted(boolean deleted) {
+		this.deleted = deleted;
 	}
     
     

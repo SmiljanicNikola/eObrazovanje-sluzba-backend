@@ -15,54 +15,53 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "documents")
-public class Document implements Serializable{
-	
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "document_id", unique = true, nullable = false)
+public class Document implements Serializable {
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "document_id", unique = true, nullable = false)
 	private Integer id;
-    
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "name", nullable = false)
-    private String name;
-    
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "student_id", referencedColumnName = "student_id")
+
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "name", nullable = false)
+	private String name;
+
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "student_id", referencedColumnName = "student_id")
 	private Student student;
 
-    @ManyToOne
+	@ManyToOne
 	@JoinColumn(name = "document_type_id", referencedColumnName = "document_type_id")
-    private DocumentType documentType;
-    
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "file_id", referencedColumnName = "file_id")
+	private DocumentType documentType;
+
+	@Column(name = "blocked", unique = false, nullable = false)
+	private boolean blocked;
+
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "file_id", referencedColumnName = "file_id")
 	private File file;
 
-	
-    
-	public Document(String name, Student student, DocumentType documentType, File file) {
+	public Document(String name, Student student, DocumentType documentType, File file, Boolean blocked) {
 		super();
 		this.name = name;
 		this.student = student;
 		this.documentType = documentType;
 		this.file = file;
+		this.blocked = blocked;
 	}
-	
-	
 
 	public Document() {
 		super();
 	}
 
-
-
-	public Document(Integer id, String name, Student student, DocumentType documentType, File file) {
+	public Document(Integer id, String name, Student student, DocumentType documentType, File file, Boolean blocked) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.student = student;
 		this.documentType = documentType;
 		this.file = file;
+		this.blocked = blocked;
 	}
 
 	public Integer getId() {
@@ -79,6 +78,14 @@ public class Document implements Serializable{
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public boolean isBlocked() {
+		return blocked;
+	}
+
+	public void setBlocked(boolean blocked) {
+		this.blocked = blocked;
 	}
 
 	public Student getStudent() {
@@ -110,8 +117,5 @@ public class Document implements Serializable{
 		return "Document [id=" + id + ", name=" + name + ", student=" + student + ", documentType=" + documentType
 				+ ", file=" + file + "]";
 	}
-
-	
-    
 
 }

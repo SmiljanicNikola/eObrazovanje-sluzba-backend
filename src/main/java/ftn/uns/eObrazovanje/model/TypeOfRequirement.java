@@ -31,7 +31,7 @@ public class TypeOfRequirement implements Serializable{
     private PreExaminationObligations preExaminationObligations;*/
 	
 	@OneToMany(mappedBy="typeOfRequirement")
-    private List<PreExaminationObligations> typeOfRequirements = new ArrayList<PreExaminationObligations>();
+    private List<PreExaminationObligations> preExaminationObligations = new ArrayList<PreExaminationObligations>();
 
 	public String getName() {
 		return name;
@@ -49,25 +49,29 @@ public class TypeOfRequirement implements Serializable{
 		this.id = id;
 	}
 
-	public List<PreExaminationObligations> getTypeOfRequirements() {
-		return typeOfRequirements;
+	public List<PreExaminationObligations> getPreExaminationObligations() {
+		return preExaminationObligations;
 	}
 
-	public void setTypeOfRequirements(List<PreExaminationObligations> typeOfRequirements) {
-		this.typeOfRequirements = typeOfRequirements;
+	public void setPreExaminationObligations(List<PreExaminationObligations> preExaminationObligations) {
+		this.preExaminationObligations = preExaminationObligations;
 	}
 
-	public TypeOfRequirement(Integer id, String name, List<PreExaminationObligations> typeOfRequirements) {
+	public TypeOfRequirement(Integer id, String name) {
 		super();
 		this.id = id;
 		this.name = name;
-		this.typeOfRequirements = typeOfRequirements;
 	}
 
-	public TypeOfRequirement(String name, List<PreExaminationObligations> typeOfRequirements) {
+	public TypeOfRequirement(String name) {
 		super();
 		this.name = name;
-		this.typeOfRequirements = typeOfRequirements;
+	}
+
+	public TypeOfRequirement(String name, List<PreExaminationObligations> preExaminationObligations) {
+		super();
+		this.name = name;
+		this.preExaminationObligations = preExaminationObligations;
 	}
 
 	public TypeOfRequirement() {
@@ -76,7 +80,7 @@ public class TypeOfRequirement implements Serializable{
 
 	@Override
 	public String toString() {
-		return "TypeOfRequirement [id=" + id + ", name=" + name + ", typeOfRequirements=" + typeOfRequirements + "]";
+		return "TypeOfRequirement [id=" + id + ", name=" + name + ", preExaminationObligations="
+				+ preExaminationObligations + "]";
 	}
-	
 }

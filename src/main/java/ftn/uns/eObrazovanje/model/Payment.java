@@ -27,23 +27,50 @@ public class Payment implements Serializable{
 	@Column(name = "amount", unique = false, nullable = false)
 	private String amount;
 
-	@Column(name = "datum", unique = false, nullable = false)
-	private LocalDate datum;
+	@Column(name = "date_of_payment", unique = false, nullable = false)
+	private LocalDate date_of_payment;
 	
     @ManyToOne
     @JoinColumn(name="account_id", nullable=false)
     private Account account;
+    
+    @Column(name = "deleted", unique = false, nullable = false)
+	private boolean deleted;
 
-	public Payment(Integer payment_id, String purpose_of_payment, String amount, LocalDate datum, Account account) {
+	public Payment(Integer payment_id, String purpose_of_payment, String amount, LocalDate date_of_payment, Account account) {
 		super();
 		this.payment_id = payment_id;
 		this.purpose_of_payment = purpose_of_payment;
 		this.amount = amount;
-		this.datum = datum;
+		this.date_of_payment = date_of_payment;
 		this.account = account;
 	}
 	
 	
+
+	public Payment(String purpose_of_payment, String amount, LocalDate date_of_payment, Account account,
+			boolean deleted) {
+		super();
+		this.purpose_of_payment = purpose_of_payment;
+		this.amount = amount;
+		this.date_of_payment = date_of_payment;
+		this.account = account;
+		this.deleted = deleted;
+	}
+
+
+
+	public boolean isDeleted() {
+		return deleted;
+	}
+
+
+
+	public void setDeleted(boolean deleted) {
+		this.deleted = deleted;
+	}
+
+
 
 	public Payment() {
 		super();
@@ -75,13 +102,42 @@ public class Payment implements Serializable{
 		this.amount = amount;
 	}
 
-	public LocalDate getDatum() {
-		return datum;
+	
+
+	public Payment(String purpose_of_payment, String amount, LocalDate date_of_payment,
+			Account account) {
+		super();
+		this.purpose_of_payment = purpose_of_payment;
+		this.amount = amount;
+		this.date_of_payment = date_of_payment;
+		this.account = account;
 	}
 
-	public void setDatum(LocalDate datum) {
-		this.datum = datum;
+
+
+	public String getPurpose_of_payment() {
+		return purpose_of_payment;
 	}
+
+
+
+	public void setPurpose_of_payment(String purpose_of_payment) {
+		this.purpose_of_payment = purpose_of_payment;
+	}
+
+
+
+	public LocalDate getDate_of_payment() {
+		return date_of_payment;
+	}
+
+
+
+	public void setDate_of_payment(LocalDate date_of_payment) {
+		this.date_of_payment = date_of_payment;
+	}
+
+
 
 	public Account getAccount() {
 		return account;
@@ -94,7 +150,7 @@ public class Payment implements Serializable{
 	@Override
 	public String toString() {
 		return "Payment [payment_id=" + payment_id + ", purposeOfPayment=" + purpose_of_payment + ", amount=" + amount
-				+ ", datum=" + datum + ", account_id=" + account + "]";
+				+ ", datum=" + date_of_payment + ", account_id=" + account + "]";
 	}
 	
 	
