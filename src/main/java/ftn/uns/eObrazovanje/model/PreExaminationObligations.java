@@ -47,6 +47,9 @@ public class PreExaminationObligations implements Serializable{
     @ManyToOne
     @JoinColumn(name="type_of_requirement_id", referencedColumnName = "type_of_requirement_id")
     private TypeOfRequirement typeOfRequirement;
+    
+    @Column(name = "deleted", unique = false, nullable = false)
+	private boolean deleted;
 
 	public Integer getPre_examination_obligation_id() {
 		return pre_examination_obligation_id;
@@ -130,6 +133,28 @@ public class PreExaminationObligations implements Serializable{
 		this.examDate = examDate;
 		this.subjectPerformance = subjectPerformance;
 		this.typeOfRequirement = typeOfRequirement;
+	}
+	
+	
+
+	public PreExaminationObligations(Subject subject, Boolean mandatory, Float points, ExamDate examDate,
+			SubjectPerformance subjectPerformance, TypeOfRequirement typeOfRequirement, boolean deleted) {
+		super();
+		this.subject = subject;
+		this.mandatory = mandatory;
+		this.points = points;
+		this.examDate = examDate;
+		this.subjectPerformance = subjectPerformance;
+		this.typeOfRequirement = typeOfRequirement;
+		this.deleted = deleted;
+	}
+
+	public boolean isDeleted() {
+		return deleted;
+	}
+
+	public void setDeleted(boolean deleted) {
+		this.deleted = deleted;
 	}
 	
     
