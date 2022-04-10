@@ -31,13 +31,17 @@ public class Account implements Serializable{
 	@OneToOne(mappedBy = "account")
 	private Student student;
 	
+	@Column(name = "blocked", unique = false, nullable = false)
+	private boolean blocked;
+	
     @OneToMany(mappedBy="account")
     private List<Payment> payments;
 
-	public Account(Integer account_id, String accountBallance) {
+	public Account(Integer account_id, String accountBallance, Boolean blocked) {
 		super();
 		this.account_id = account_id;
 		this.account_ballance = accountBallance;
+		this.blocked = blocked;
 	}
 	
 
@@ -61,6 +65,17 @@ public class Account implements Serializable{
 	public void setAccountBallance(String accountBallance) {
 		this.account_ballance = accountBallance;
 	}
+	
+
+	public boolean isBlocked() {
+		return blocked;
+	}
+
+
+	public void setBlocked(boolean blocked) {
+		this.blocked = blocked;
+	}
+
 
 	@Override
 	public String toString() {

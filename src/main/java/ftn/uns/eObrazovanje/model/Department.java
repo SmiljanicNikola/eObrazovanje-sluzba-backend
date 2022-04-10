@@ -32,6 +32,9 @@ public class Department implements Serializable{
 	@Column(name = "name", unique = false, nullable = false)
 	private String name;
 	
+	@Column(name = "blocked", unique = false, nullable = false)
+	private boolean blocked;
+	
 	@OneToMany(cascade= {ALL}, mappedBy= "department")
     private List<Semester> semesters = new ArrayList<Semester>();
 
@@ -59,11 +62,20 @@ public class Department implements Serializable{
 		this.name = name;
 	}
 
-	public Department(Integer id, Integer numberOfStudents, String name) {
+	public boolean isBlocked() {
+		return blocked;
+	}
+
+	public void setBlocked(boolean blocked) {
+		this.blocked = blocked;
+	}
+
+	public Department(Integer id, Integer numberOfStudents, String name, Boolean blocked) {
 		super();
 		this.id = id;
 		this.numberOfStudents = numberOfStudents;
 		this.name = name;
+		this.blocked = blocked;
 	}
 
 	public Department() {
