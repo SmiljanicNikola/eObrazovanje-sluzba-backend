@@ -89,6 +89,8 @@ public class AddPreExaminationObligationRequest {
 		super();
 	}
 
+
+
 	public AddPreExaminationObligationRequest(Integer pre_examination_obligation_id, Integer subjectId,
 			Boolean mandatory, Float points, Integer examDateId, Integer subjectPerformanceId,
 			Integer typeOfRequirementId, boolean deleted) {

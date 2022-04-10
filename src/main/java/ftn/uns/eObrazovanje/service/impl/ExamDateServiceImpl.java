@@ -2,36 +2,38 @@ package ftn.uns.eObrazovanje.service.impl;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import ftn.uns.eObrazovanje.model.ExamDate;
+import ftn.uns.eObrazovanje.repository.ExamDateRepo;
 import ftn.uns.eObrazovanje.service.ExamDateService;
 
 @Service
 public class ExamDateServiceImpl implements ExamDateService {
+	
+	@Autowired
+	private ExamDateRepo examDateRepo;
 
 	@Override
 	public List<ExamDate> findAll() {
-		// TODO Auto-generated method stub
-		return null;
+		return examDateRepo.findAll();
 	}
 
 	@Override
 	public ExamDate save(ExamDate examDate) {
-		// TODO Auto-generated method stub
-		return null;
+		examDateRepo.save(examDate);
+		return examDate;
 	}
 
 	@Override
 	public ExamDate findOne(Integer id) {
-		// TODO Auto-generated method stub
-		return null;
+		return examDateRepo.findById(id).orElse(null);
 	}
 
 	@Override
 	public void remove(Integer id) {
-		// TODO Auto-generated method stub
-		
+		examDateRepo.deleteById(id);
 	}
 
 }
