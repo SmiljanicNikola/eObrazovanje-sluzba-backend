@@ -44,7 +44,10 @@ public class LecturerController {
 	@GetMapping(value = "/username/{username}")
 	public ResponseEntity<Lecturer> getLecturerByUsername(@PathVariable("username") String username){
 		Lecturer lecturer = lecturerService.findByUsername(username);
-		
+        if (lecturer  == null) {
+        	System.out.println("NISMO GA NASLI");
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
 		return ResponseEntity.ok().body(lecturer);
 	}
 	

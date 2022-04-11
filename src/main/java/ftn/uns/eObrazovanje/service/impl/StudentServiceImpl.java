@@ -5,7 +5,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import ftn.uns.eObrazovanje.model.Admin;
 import ftn.uns.eObrazovanje.model.Student;
 import ftn.uns.eObrazovanje.repository.StudentRepo;
 import ftn.uns.eObrazovanje.service.StudentService;
