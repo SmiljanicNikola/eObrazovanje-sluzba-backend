@@ -13,16 +13,10 @@ public class AccountServiceImpl implements AccountService {
 
 	private AccountRepo accRep;
 	
-	/*@Override
+	@Override
 	public List<Account> findAll() {
 		return accRep.findAll();
 		}
-
-	@Override
-	public void add(Account account) {
-		accRep.save(account);
-		
-	}
 
 	@Override
 	public Account findOne(Integer accountId) {
@@ -38,6 +32,6 @@ public class AccountServiceImpl implements AccountService {
 	@Override
 	public Account save(Account account) {
 		return accRep.save(account);
-	}*/
+	}
 
 }
