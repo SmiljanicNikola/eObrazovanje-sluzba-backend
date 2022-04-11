@@ -4,17 +4,14 @@ import java.util.List;
 
 import ftn.uns.eObrazovanje.model.Account;
 
-
 public interface AccountService {
 
-	/*List<Account> findAll();
+	List<Account> findAll();
 
-    void add(Account account);
-    
-    Account findOne(Integer accountId);
-    
-    void remove(Integer id);
-    
-    Account save(Account account);*/
-	
+	Account findOne(Integer accountId);
+
+	Account save(Account account);
+
+	void remove(Integer id);
+
 }
