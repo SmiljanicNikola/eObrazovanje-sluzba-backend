@@ -26,22 +26,7 @@ import io.jsonwebtoken.ExpiredJwtException;
 public class JwtRequestFilter extends OncePerRequestFilter{
 
 	@Autowired
-	private AdminDetailsServiceImpl adminDetailsService;
-	
-	@Autowired
-	private StudentDetailsServiceImpl studentDetailsService;
-	
-	@Autowired
-	private LecturerDetailsServiceImpl lecturerDetailsService;
-	
-	@Autowired
-	private AdminRepo adminRepo;
-
-	@Autowired
-	private StudentRepo studentRepo;
-	
-	@Autowired
-	private LecturerRepo lecturerRepo;
+	private UserDetailsServiceImpl jwtUserDetailsService;
 	
 	@Autowired
 	private JwtUtil jwtTokenUtil;
@@ -64,70 +49,24 @@ public class JwtRequestFilter extends OncePerRequestFilter{
 				System.out.println("JWT Token has expired");
 			}
 		} else {
-			logger.warn("JWT Token does not begin with Bearer Stringg");
+			logger.warn("JWT Token does not begin with Bearer String");
 		}
 		
-		try {
-			System.out.println(adminRepo.findByUsername(username));
-			if(adminRepo.findByUsername(username) != null) {
-				Admin admin = adminRepo.findByUsername(username);
-				
-				if (admin != null && username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-					System.out.println("EVO GA JWTREQUESTFILTER80" + username);
-					UserDetails userDetails = this.adminDetailsService.loadUserByUsername(username);
-					
-					if (jwtTokenUtil.validateToken(jwtToken, userDetails)) {
-						UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(
-								userDetails, null, userDetails.getAuthorities());
-						usernamePasswordAuthenticationToken
-								.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+		
+		
+		if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
+			UserDetails userDetails = this.jwtUserDetailsService.loadUserByUsername(username);
+			
+			if (jwtTokenUtil.validateToken(jwtToken, userDetails)) {
+				UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(
+						userDetails, null, userDetails.getAuthorities());
+				usernamePasswordAuthenticationToken
+						.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
 
-						SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
-					}
-			}else if(studentRepo.findByUsername(username) != null) {
-				Student student = studentRepo.findByUsername(username);
-				if(student != null && username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-					System.out.println("EVO GA JWTREQUESTFILTER92"+ username);
-					UserDetails userDetails = this.studentDetailsService.loadUserByUsername(username);
-					
-					if (jwtTokenUtil.validateToken(jwtToken, userDetails)) {
-						UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(
-								userDetails, null, userDetails.getAuthorities());
-						usernamePasswordAuthenticationToken
-								.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-
-						SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
-					}
-				}
-			}else if(lecturerRepo.findByUsername(username) != null) {
-				Lecturer lecturer = lecturerRepo.findByUsername(username);
-				
-				if(lecturer != null && username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-					System.out.println("EVO GA JWTREQUESTFILTER104"+ username);
-					UserDetails userDetails = this.lecturerDetailsService.loadUserByUsername(username);
-					
-					if (jwtTokenUtil.validateToken(jwtToken, userDetails)) {
-						UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(
-								userDetails, null, userDetails.getAuthorities());
-						usernamePasswordAuthenticationToken
-								.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-
-						SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
-					}
-				}
+				SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
 			}
 		}
-			chain.doFilter(request, response);
-		}catch(Exception e) {
-			System.out.println("NEMA");
-		}
-		
-
-		
-		
-		
-		
-
+		chain.doFilter(request, response);
 	}
 
 

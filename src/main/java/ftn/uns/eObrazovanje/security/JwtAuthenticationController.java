@@ -19,10 +19,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import ftn.uns.eObrazovanje.model.Admin;
+import ftn.uns.eObrazovanje.model.User;
 import ftn.uns.eObrazovanje.model.request.LoginRequest;
 import ftn.uns.eObrazovanje.repository.AdminRepo;
 import ftn.uns.eObrazovanje.repository.LecturerRepo;
+import ftn.uns.eObrazovanje.repository.RoleMainRepo;
+import ftn.uns.eObrazovanje.repository.RoleRepo;
 import ftn.uns.eObrazovanje.repository.StudentRepo;
+import ftn.uns.eObrazovanje.repository.UserRepo;
 
 @RestController
 @CrossOrigin(origins = "*")
@@ -36,57 +40,58 @@ public class JwtAuthenticationController {
 	private JwtUtil jwtTokenUtil;
 	
 	@Autowired
-	private AdminRepo adminRepo;
+	RoleMainRepo roleRepository;
 	
 	@Autowired
-	private StudentRepo studentRepo;
+	private UserRepo userRepository;
 	
 	@Autowired
-	private LecturerRepo lecturerRepo;
+	private AdminRepo adminRepository;
 	
 	@Autowired
-	private AdminDetailsServiceImpl adminDetailsImpl;
+	private StudentRepo studentRepository;
 	
 	@Autowired
-	private StudentDetailsServiceImpl studentDetailsImpl;
+	private LecturerRepo lecturerRepository;
 	
-//	@Autowired
-//	private LecturerDetailsServiceImpl lecturerDetailsImpl;
+	
+	@Autowired
+	private UserDetailsServiceImpl userDetailsService;
 	
 	@Autowired
 	PasswordEncoder encoder;
+
 	
 	@PostMapping("/login")
 	public ResponseEntity<?> login(@Valid @RequestBody LoginRequest loginRequest){
 		
-		Admin admin = adminRepo.findByUsername(loginRequest.getUsername());
+		User user = userRepository.findByUsername(loginRequest.getUsername());
 		
-		if(!admin.isBlocked()) {
-			
+		if(!user.isBlocked()) {
 			Authentication authentication = authenticationManager.authenticate(
 					new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
-			System.out.println("EVO NECEGA" + loginRequest.getPassword());
+			
 			SecurityContextHolder.getContext().setAuthentication(authentication);
 			
-			MyAdminDetails adminDetails =  (MyAdminDetails) authentication.getPrincipal();
-			
-			String jwt = jwtTokenUtil.generateToken(adminDetails);
+			MyUserDetails userDetails =  (MyUserDetails) authentication.getPrincipal();
+			System.out.println(user);
+			String jwt = jwtTokenUtil.generateToken(userDetails);
 			
 
-			List<String> roles = adminDetails.getAuthorities().stream()
+			List<String> roles = userDetails.getAuthorities().stream()
 					.map(item -> item.getAuthority())
 					.collect(Collectors.toList());
 			
 			
 			return ResponseEntity.ok(new JwtResponse(jwt, 
-					adminDetails.getId(), 
-					adminDetails.getUsername(), 
+					 userDetails.getId(), 
+					 userDetails.getUsername(), 
 					 roles));
 		}else {
 			return (ResponseEntity<?>) ResponseEntity.badRequest();
 		}
 
 
-	}
+}
 
 }

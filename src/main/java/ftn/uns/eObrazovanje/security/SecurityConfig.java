@@ -24,37 +24,18 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	
-//	@Autowired
-//	private JwtRequestFilter jwtRequestFilter;
+	@Autowired
+	private JwtRequestFilter jwtRequestFilter;
 	
 	@Autowired
-	@Lazy
-	private AdminDetailsServiceImpl adminDetailsService;
-	
-	@Autowired
-	@Lazy
-	private StudentDetailsServiceImpl studentDetailsService;
-	
-	@Autowired
-	@Lazy
-	private LecturerDetailsServiceImpl lecturerDetailsService;
+	private UserDetailsServiceImpl myUserDetailsService;
 	
 	@Autowired
 	private JwtAuthenticationEntryPoint unauthorizedHandler;
-	
+
 	@Bean
-	public AdminDetailsServiceImpl adminDetailsService() {
-		return new AdminDetailsServiceImpl();
-	}
-	
-	@Bean
-	public StudentDetailsServiceImpl studentDetailsService() {
-		return new StudentDetailsServiceImpl();
-	}
-	
-	@Bean
-	public LecturerDetailsServiceImpl lecturerDetailsService() {
-		return new LecturerDetailsServiceImpl();
+	public UserDetailsService userDetailsService() {
+		return new UserDetailsServiceImpl();
 	}
 	
 	@Bean
@@ -67,12 +48,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		return new JwtRequestFilter();
 	}
 	
+	
 	@Bean
 	public DaoAuthenticationProvider authenticationProvider() {
 		DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
-		authProvider.setUserDetailsService(adminDetailsService());
-		authProvider.setUserDetailsService(studentDetailsService());
-		authProvider.setUserDetailsService(lecturerDetailsService());
+		authProvider.setUserDetailsService(userDetailsService());
 		authProvider.setPasswordEncoder(passwordEncoder());
 		return authProvider;
 	}
@@ -80,16 +60,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 		auth.authenticationProvider(authenticationProvider());
-		auth.userDetailsService(adminDetailsService).passwordEncoder(passwordEncoder());
-		auth.userDetailsService(studentDetailsService).passwordEncoder(passwordEncoder());
-		auth.userDetailsService(lecturerDetailsService).passwordEncoder(passwordEncoder());
+		auth.userDetailsService(myUserDetailsService).passwordEncoder(passwordEncoder());
 	}
 	
+
 	@Override
 	@Bean
 	public AuthenticationManager authenticationManagerBean() throws Exception {
 		return super.authenticationManagerBean();
 	}
+	
 	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
@@ -97,7 +77,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			.exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
 			.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
 			.authorizeRequests().antMatchers("/api/auth/login").permitAll()
+//			.antMatchers("/api/ordersElastic").permitAll()
 //			.antMatchers("/api/**").permitAll()
+//			.antMatchers("/api/articles").permitAll()
+//			.antMatchers("/api/articles/**").permitAll()
+//			.antMatchers("/api/articles/getImage/banana.png").anonymous()
 //			
 //			.antMatchers(HttpMethod.POST, "/api/articles/new").hasAnyAuthority("SALESMEN","ADMIN")
 //			.antMatchers(HttpMethod.POST, "/api/articles/addToCart").hasAnyAuthority("SALESMEN","ADMIN","BUYER")
@@ -108,9 +92,4 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
 	}
 	
-	@Override
-	public void configure(WebSecurity web) throws Exception {
-	    web.ignoring().antMatchers("/api/auth/login");
-	}
-
 }

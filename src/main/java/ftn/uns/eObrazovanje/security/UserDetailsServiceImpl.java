@@ -6,21 +6,23 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Service;
 
-import ftn.uns.eObrazovanje.model.Student;
-import ftn.uns.eObrazovanje.repository.StudentRepo;
+import ftn.uns.eObrazovanje.model.User;
+import ftn.uns.eObrazovanje.repository.UserRepo;
 
-public class StudentDetailsServiceImpl implements UserDetailsService{
+@Service
+public class UserDetailsServiceImpl implements UserDetailsService{
 
 	@Autowired
-	private StudentRepo studentRepo;
+	private UserRepo userRepository;
+	
 	
 	@Override
 	@Transactional
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		Student student = studentRepo.findByUsername(username);
-		return MyStudentDetails.build(student);
+		User user = userRepository.findByUsername(username);
+		return MyUserDetails.build(user);
 	}
 
-	
 }

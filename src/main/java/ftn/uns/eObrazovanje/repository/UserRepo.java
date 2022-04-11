@@ -3,9 +3,11 @@ package ftn.uns.eObrazovanje.repository;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import ftn.uns.eObrazovanje.model.Rolee;
+import ftn.uns.eObrazovanje.model.User;
 
 @Repository
-public interface RoleRepo extends JpaRepository<Rolee, Integer>{
+public interface UserRepo extends JpaRepository<User, Integer>{
+	
+	User findByUsername(String username);
 
 }

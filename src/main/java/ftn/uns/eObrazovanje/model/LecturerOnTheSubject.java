@@ -31,7 +31,7 @@ public class LecturerOnTheSubject implements Serializable{
 	
 	@ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "role_id", referencedColumnName = "role_id")
-	private Role role;
+	private Rolee role;
 
 	public Integer getLecturerOnTheSubject_Id() {
 		return lecturerOnTheSubject_Id;
@@ -57,11 +57,11 @@ public class LecturerOnTheSubject implements Serializable{
 		this.subjectPerformance = subjectPerformance;
 	}
 
-	public Role getRole() {
+	public Rolee getRole() {
 		return role;
 	}
 
-	public void setRole(Role role) {
+	public void setRole(Rolee role) {
 		this.role = role;
 	}
 
@@ -70,7 +70,7 @@ public class LecturerOnTheSubject implements Serializable{
 	}
 
 	public LecturerOnTheSubject(Integer lecturerOnTheSubject_Id, Lecturer lecturer,
-			SubjectPerformance subjectPerformance, Role role) {
+			SubjectPerformance subjectPerformance, Rolee role) {
 		super();
 		this.lecturerOnTheSubject_Id = lecturerOnTheSubject_Id;
 		this.lecturer = lecturer;
@@ -78,7 +78,7 @@ public class LecturerOnTheSubject implements Serializable{
 		this.role = role;
 	}
 
-	public LecturerOnTheSubject(Lecturer lecturer, SubjectPerformance subjectPerformance, Role role) {
+	public LecturerOnTheSubject(Lecturer lecturer, SubjectPerformance subjectPerformance, Rolee role) {
 		super();
 		this.lecturer = lecturer;
 		this.subjectPerformance = subjectPerformance;
