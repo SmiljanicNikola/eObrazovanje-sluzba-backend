@@ -18,7 +18,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import ftn.uns.eObrazovanje.model.Student;
+import ftn.uns.eObrazovanje.model.User;
 import ftn.uns.eObrazovanje.model.DTO.StudentDTO;
+import ftn.uns.eObrazovanje.repository.UserRepo;
 import ftn.uns.eObrazovanje.service.StudentService;
 
 @RestController
@@ -28,6 +30,9 @@ public class StudentController {
 	
 	@Autowired
 	private StudentService studentService;
+	
+	@Autowired
+	private UserRepo userRepo;
 	
 	@GetMapping
 	public ResponseEntity<List<Student>> getStudents(){
@@ -76,6 +81,18 @@ public class StudentController {
         if (studentService.findOne(id) == null) {
         	return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
+        
+        User user =userRepo.findByUsername(student.getUsername());
+        
+        user.setName(student.getFirstname());
+        user.setSurname(student.getLastname());
+        user.setUsername(student.getUsername());
+        user.setAddress(student.getAdress());
+        user.setPassword(student.getPassword());
+        user.setBlocked(student.isBlocked());
+        user.setJmbg(student.getJmbg());
+        
+        userRepo.save(user);
 
         studentService.add(student);
         return ResponseEntity
