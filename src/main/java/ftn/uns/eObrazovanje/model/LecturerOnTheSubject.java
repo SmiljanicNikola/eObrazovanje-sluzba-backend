@@ -14,7 +14,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "lecturers_on_the_subject")
-public class LecturerOnTheSubject implements Serializable{
+public class LecturerOnTheSubject implements Serializable {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -32,6 +32,33 @@ public class LecturerOnTheSubject implements Serializable{
 	@ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "role_id", referencedColumnName = "role_id")
 	private Rolee role;
+	
+	
+	@Column(name = "deleted", unique = false, nullable = false)
+	private boolean deleted;
+	
+
+	public LecturerOnTheSubject(Integer lecturerOnTheSubject_Id, Lecturer lecturer,
+			SubjectPerformance subjectPerformance, Rolee role, boolean deleted) {
+		super();
+		this.lecturerOnTheSubject_Id = lecturerOnTheSubject_Id;
+		this.deleted = deleted;
+		this.lecturer = lecturer;
+		this.subjectPerformance = subjectPerformance;
+		this.role = role;
+	}
+	
+	
+
+	public LecturerOnTheSubject(Lecturer lecturer, SubjectPerformance subjectPerformance, Rolee role, boolean deleted) {
+		super();
+		this.deleted = deleted;
+		this.lecturer = lecturer;
+		this.subjectPerformance = subjectPerformance;
+		this.role = role;
+	}
+
+
 
 	public Integer getLecturerOnTheSubject_Id() {
 		return lecturerOnTheSubject_Id;
@@ -69,22 +96,20 @@ public class LecturerOnTheSubject implements Serializable{
 		super();
 	}
 
-	public LecturerOnTheSubject(Integer lecturerOnTheSubject_Id, Lecturer lecturer,
-			SubjectPerformance subjectPerformance, Rolee role) {
-		super();
-		this.lecturerOnTheSubject_Id = lecturerOnTheSubject_Id;
-		this.lecturer = lecturer;
-		this.subjectPerformance = subjectPerformance;
-		this.role = role;
+	public boolean isDeleted() {
+		return deleted;
 	}
 
-	public LecturerOnTheSubject(Lecturer lecturer, SubjectPerformance subjectPerformance, Rolee role) {
-		super();
-		this.lecturer = lecturer;
-		this.subjectPerformance = subjectPerformance;
-		this.role = role;
+	public void setDeleted(boolean deleted) {
+		this.deleted = deleted;
 	}
-	
+
+	@Override
+	public String toString() {
+		return "LecturerOnTheSubject [lecturerOnTheSubject_Id=" + lecturerOnTheSubject_Id + ", lecturer=" + lecturer
+				+ ", subjectPerformance=" + subjectPerformance + ", role=" + role + ", deleted=" + deleted + "]";
+	}
+
 	
 
 }

@@ -81,6 +81,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //			.antMatchers("/api/**").permitAll()
 //			.antMatchers("/api/articles").permitAll()
 //			.antMatchers("/api/articles/**").permitAll()
+//			.antMatchers("/api/semesters").permitAll()
+//			.antMatchers("/api/semesters/**").permitAll()
 //			.antMatchers("/api/articles/getImage/banana.png").anonymous()
 //			
 //			.antMatchers(HttpMethod.POST, "/api/articles/new").hasAnyAuthority("SALESMEN","ADMIN")

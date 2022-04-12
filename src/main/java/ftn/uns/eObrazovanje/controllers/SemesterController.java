@@ -53,7 +53,7 @@ public class SemesterController {
 	}
 	
 	@PutMapping("/{id}")
-    public ResponseEntity<Semester> updateLecturer(
+    public ResponseEntity<Semester> updateSemester(
         @PathVariable(value = "id", required = false) final Integer id,
         @RequestBody Semester semester
     ) throws URISyntaxException {

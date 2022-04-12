@@ -38,12 +38,18 @@ public class Semester implements Serializable{
 	@OneToMany(cascade= {ALL}, mappedBy= "semester")
     private List<Subject> subjects = new ArrayList<Subject>();
 
-	public Semester(Integer id, Integer semesterNumber, Department department) {
+	
+
+	public Semester(Integer id, Integer semesterNumber, boolean deleted, Department department,
+			List<Subject> subjects) {
 		super();
 		this.id = id;
 		this.semesterNumber = semesterNumber;
+		this.deleted = deleted;
 		this.department = department;
+		this.subjects = subjects;
 	}
+
 
 	public boolean isDeleted() {
 		return deleted;
