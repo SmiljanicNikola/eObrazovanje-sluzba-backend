@@ -73,7 +73,7 @@ public class User {
 	}
 
 	public User(String name, String surname, String username, String password, String address, String jmbg,
-			boolean blocked, Set<Role> roles) {
+			boolean blocked) {
 		super();
 		this.name = name;
 		this.surname = surname;
@@ -82,7 +82,6 @@ public class User {
 		this.address = address;
 		this.jmbg = jmbg;
 		this.blocked = blocked;
-		this.roles = roles;
 	}
 
 	public Integer getUser_id() {

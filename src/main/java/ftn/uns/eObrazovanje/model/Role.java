@@ -36,6 +36,12 @@ public class Role {
 	}
 
 
+	public Role(String name) {
+		super();
+		this.name = name;
+	}
+
+
 	public Integer getId() {
 		return id;
 	}

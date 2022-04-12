@@ -10,5 +10,5 @@ import ftn.uns.eObrazovanje.model.Role;
 @Repository
 public interface RoleMainRepo extends JpaRepository<Role, Integer>{
 
-	Optional<Role> findByName(String name);
+	Role findByName(String name);
 }

@@ -38,7 +38,7 @@ public class StudentHistory implements Serializable{
 	@JsonIgnore
     @OneToOne(mappedBy="studentHistory")
 	private Student student;
-
+	
 	public Integer getId() {
 		return id;
 	}
@@ -88,11 +88,10 @@ public class StudentHistory implements Serializable{
 		this.student = student;
 	}
 
-	public StudentHistory(LocalDate enrollment_year, Integer year, Student student) {
+	public StudentHistory(LocalDate enrollment_year, Integer year) {
 		super();
 		this.enrollment_year = enrollment_year;
 		this.year = year;
-		this.student = student;
 	}
 
 	public StudentHistory() {
