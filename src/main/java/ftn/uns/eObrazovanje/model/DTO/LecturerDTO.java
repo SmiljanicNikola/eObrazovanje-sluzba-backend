@@ -1,41 +1,20 @@
 package ftn.uns.eObrazovanje.model.DTO;
 
-public class AdminDTO {
-	private Integer student_id;
+public class LecturerDTO {
+	
+	private Integer id;
 	private String username;
 	private String firstname;
 	private String lastname;
 	private String password;
 	private String jmbg;
 	private String adress;
-	public AdminDTO() {
-		super();
+	private Integer pay;
+	public Integer getId() {
+		return id;
 	}
-	public AdminDTO(String username, String firstname, String lastname, String password, String jmbg, String adress) {
-		super();
-		this.username = username;
-		this.firstname = firstname;
-		this.lastname = lastname;
-		this.password = password;
-		this.jmbg = jmbg;
-		this.adress = adress;
-	}
-	public AdminDTO(Integer student_id, String username, String firstname, String lastname, String password,
-			String jmbg, String adress) {
-		super();
-		this.student_id = student_id;
-		this.username = username;
-		this.firstname = firstname;
-		this.lastname = lastname;
-		this.password = password;
-		this.jmbg = jmbg;
-		this.adress = adress;
-	}
-	public Integer getStudent_id() {
-		return student_id;
-	}
-	public void setStudent_id(Integer student_id) {
-		this.student_id = student_id;
+	public void setId(Integer id) {
+		this.id = id;
 	}
 	public String getUsername() {
 		return username;
@@ -73,7 +52,32 @@ public class AdminDTO {
 	public void setAdress(String adress) {
 		this.adress = adress;
 	}
+	public Integer getPay() {
+		return pay;
+	}
+	public void setPay(Integer pay) {
+		this.pay = pay;
+	}
+	public LecturerDTO(String username, String firstname, String lastname, String password, String jmbg, String adress,
+			Integer pay) {
+		super();
+		this.username = username;
+		this.firstname = firstname;
+		this.lastname = lastname;
+		this.password = password;
+		this.jmbg = jmbg;
+		this.adress = adress;
+		this.pay = pay;
+	}
+	public LecturerDTO() {
+		super();
+	}
+	@Override
+	public String toString() {
+		return "LecturerDTO [id=" + id + ", username=" + username + ", firstname=" + firstname + ", lastname="
+				+ lastname + ", password=" + password + ", jmbg=" + jmbg + ", adress=" + adress + ", pay=" + pay + "]";
+	}
+	
+	
 
-	
-	
 }

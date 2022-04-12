@@ -72,6 +72,22 @@ public class Lecturer implements Serializable{
 		this.blocked = blocked;
 	}
 
+	
+	public Lecturer(String name, String surname, String username, String password, String address, String jmbg,
+			Integer pay,boolean blocked) {
+		super();
+		this.name = name;
+		this.surname = surname;
+		this.username = username;
+		this.password = password;
+		this.address = address;
+		this.jmbg = jmbg;
+		this.pay = pay;
+		this.taking_exams = taking_exams;
+		this.lecturersOnTheSubject = lecturersOnTheSubject;
+		this.blocked = blocked;
+	}
+
 	public Integer getLecturer_Id() {
 		return lecturer_id;
 	}
