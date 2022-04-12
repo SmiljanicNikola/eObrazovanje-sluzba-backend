@@ -3,6 +3,7 @@ package ftn.uns.eObrazovanje.service;
 import java.util.List;
 
 import ftn.uns.eObrazovanje.model.Lecturer;
+import ftn.uns.eObrazovanje.model.DTO.LecturerDTO;
 
 
 public interface LecturerService {
@@ -19,5 +20,5 @@ public interface LecturerService {
     
     void remove(Integer id);
     
-    Lecturer save(Lecturer lecturer);
+    Lecturer save(LecturerDTO lecturer);
 }

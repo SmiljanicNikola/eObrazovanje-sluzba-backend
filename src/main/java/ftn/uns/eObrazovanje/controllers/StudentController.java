@@ -7,6 +7,7 @@ import java.util.Objects;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,14 +18,21 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import ftn.uns.eObrazovanje.model.Student;
+import ftn.uns.eObrazovanje.model.User;
+import ftn.uns.eObrazovanje.model.DTO.StudentDTO;
+import ftn.uns.eObrazovanje.repository.UserRepo;
 import ftn.uns.eObrazovanje.service.StudentService;
 
 @RestController
+@CrossOrigin(origins="*")
 @RequestMapping(value = "api/students")
 public class StudentController {
 	
 	@Autowired
 	private StudentService studentService;
+	
+	@Autowired
+	private UserRepo userRepo;
 	
 	@GetMapping
 	public ResponseEntity<List<Student>> getStudents(){
@@ -54,8 +62,8 @@ public class StudentController {
     }
     
 	@PostMapping
-	public void save(@RequestBody Student student) {
-		studentService.save(student);
+	public void save(@RequestBody StudentDTO studentDto) {
+		studentService.save(studentDto);
 	}
 	
     @PutMapping("/{id}")
@@ -73,11 +81,22 @@ public class StudentController {
         if (studentService.findOne(id) == null) {
         	return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
+        
+        User user =userRepo.findByUsername(student.getUsername());
+        
+        user.setName(student.getFirstname());
+        user.setSurname(student.getLastname());
+        user.setUsername(student.getUsername());
+        user.setAddress(student.getAdress());
+        user.setPassword(student.getPassword());
+        user.setBlocked(student.isBlocked());
+        user.setJmbg(student.getJmbg());
+        
+        userRepo.save(user);
 
-        Student result = studentService.save(student);
+        studentService.add(student);
         return ResponseEntity
-            .ok()
-            .body(result);
+            .ok().body(student);
     }
     
     @DeleteMapping(value = "/{id}")
@@ -86,12 +105,12 @@ public class StudentController {
         
         if (student.isBlocked()) {
         	student.setBlocked(false);
-        	studentService.save(student);
+        	studentService.add(student);
 
 
         } else {
         	student.setBlocked(true);
-        	studentService.save(student);
+        	studentService.add(student);
             return new ResponseEntity<>(HttpStatus.OK);
         
         }

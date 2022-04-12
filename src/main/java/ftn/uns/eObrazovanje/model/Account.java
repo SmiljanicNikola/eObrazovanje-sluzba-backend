@@ -25,7 +25,7 @@ public class Account implements Serializable{
 	private Integer account_id;
 
 	@Column(name = "account_ballance", unique = false)
-	private String account_ballance;
+	private Float account_ballance;
 	
 	@JsonIgnore
 	@OneToOne(mappedBy = "account")
@@ -37,13 +37,24 @@ public class Account implements Serializable{
     @OneToMany(mappedBy="account")
     private List<Payment> payments;
 
-	public Account(Integer account_id, String accountBallance, Boolean blocked) {
+	public Account(Integer account_id, Float accountBallance, Boolean blocked) {
 		super();
 		this.account_id = account_id;
 		this.account_ballance = accountBallance;
 		this.blocked = blocked;
 	}
 	
+	
+	
+
+	public Account(Float account_ballance, boolean blocked) {
+		super();
+		this.account_ballance = account_ballance;
+		this.blocked = blocked;
+	}
+
+
+
 
 	public Account() {
 		super();
@@ -58,11 +69,11 @@ public class Account implements Serializable{
 		this.account_id = account_id;
 	}
 
-	public String getAccountBallance() {
+	public Float getAccountBallance() {
 		return account_ballance;
 	}
 
-	public void setAccountBallance(String accountBallance) {
+	public void setAccountBallance(Float accountBallance) {
 		this.account_ballance = accountBallance;
 	}
 	

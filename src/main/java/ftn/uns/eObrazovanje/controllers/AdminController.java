@@ -7,6 +7,7 @@ import java.util.Objects;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 //import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -19,17 +20,23 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import ftn.uns.eObrazovanje.model.Admin;
+import ftn.uns.eObrazovanje.model.User;
+import ftn.uns.eObrazovanje.model.DTO.AdminDTO;
+import ftn.uns.eObrazovanje.repository.RoleMainRepo;
+import ftn.uns.eObrazovanje.repository.UserRepo;
 import ftn.uns.eObrazovanje.service.AdminService;
 
 @RestController
+@CrossOrigin(origins="*")
 @RequestMapping(value = "api/admins")
 public class AdminController {
 	
     @Autowired
     private AdminService adminService;
     
-//	@Autowired
-//	private PasswordEncoder passwordEncoder;
+    @Autowired
+    private UserRepo userRepo;
+
 	
 	@GetMapping
 	public ResponseEntity<List<Admin>> getAdmins(){
@@ -59,7 +66,7 @@ public class AdminController {
     }
     
 	@PostMapping
-	public void save(@RequestBody Admin admin) {
+	public void save(@RequestBody AdminDTO admin) {
 		adminService.save(admin);
 	}
 	
@@ -79,11 +86,24 @@ public class AdminController {
         if (adminService.findOne(id) == null) {
         	return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
+        
+        User user =userRepo.findByUsername(admin.getUsername());
+        
+        user.setName(admin.getName());
+        user.setSurname(admin.getSurname());
+        user.setUsername(admin.getUsername());
+        user.setAddress(admin.getAddress());
+        user.setPassword(admin.getPassword());
+        user.setBlocked(admin.isBlocked());
+        user.setJmbg(admin.getJmbg());
+        
+        userRepo.save(user);
+        
 
-        Admin result = adminService.save(admin);
+        adminService.add(admin);
         return ResponseEntity
             .ok()
-            .body(result);
+            .body(admin);
     }
     
     @DeleteMapping(value = "/{id}")
@@ -92,12 +112,12 @@ public class AdminController {
         
         if (admin.isBlocked()) {
         	admin.setBlocked(false);
-        	adminService.save(admin);
+        	adminService.add(admin);
 
 
         } else {
         	admin.setBlocked(true);
-        	adminService.save(admin);
+        	adminService.add(admin);
             return new ResponseEntity<>(HttpStatus.OK);
         
         }
