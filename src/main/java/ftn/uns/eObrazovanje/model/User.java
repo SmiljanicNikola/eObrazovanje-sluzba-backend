@@ -84,6 +84,18 @@ public class User {
 		this.blocked = blocked;
 		this.roles = roles;
 	}
+	
+	
+
+	public User(String name, String surname, String username, String password, String address, String jmbg) {
+		super();
+		this.name = name;
+		this.surname = surname;
+		this.username = username;
+		this.password = password;
+		this.address = address;
+		this.jmbg = jmbg;
+	}
 
 	public Integer getUser_id() {
 		return user_id;
