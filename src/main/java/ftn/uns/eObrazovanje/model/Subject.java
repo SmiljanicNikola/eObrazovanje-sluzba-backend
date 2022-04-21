@@ -16,6 +16,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "subjects")
 public class Subject implements Serializable {
@@ -38,6 +40,7 @@ public class Subject implements Serializable {
 	@Column(name = "blocked", unique = false, nullable = false)
 	private boolean blocked;
 
+	@JsonIgnore
 	@OneToMany(cascade = { ALL }, mappedBy = "subject")
 	private List<SubjectPerformance> subjectPerformances = new ArrayList<SubjectPerformance>();
 

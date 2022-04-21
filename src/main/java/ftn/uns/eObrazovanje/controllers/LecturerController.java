@@ -7,6 +7,7 @@ import java.util.Objects;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,15 +18,23 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import ftn.uns.eObrazovanje.model.Lecturer;
-import ftn.uns.eObrazovanje.model.Student;
+import ftn.uns.eObrazovanje.model.User;
+import ftn.uns.eObrazovanje.model.DTO.LecturerDTO;
+import ftn.uns.eObrazovanje.repository.UserRepo;
 import ftn.uns.eObrazovanje.service.LecturerService;
 
 @RestController
+@CrossOrigin(origins="*")
 @RequestMapping(value = "api/lecturers")
 public class LecturerController {
 	
 	@Autowired
 	private LecturerService lecturerService;
+	
+	@Autowired
+	private UserRepo userRepo;
+	
+	
 	
 	@GetMapping
 	public ResponseEntity<List<Lecturer>> getLecturers(){
@@ -44,12 +53,16 @@ public class LecturerController {
 	@GetMapping(value = "/username/{username}")
 	public ResponseEntity<Lecturer> getLecturerByUsername(@PathVariable("username") String username){
 		Lecturer lecturer = lecturerService.findByUsername(username);
-		
+        if (lecturer  == null) {
+        	System.out.println("NISMO GA NASLI");
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
 		return ResponseEntity.ok().body(lecturer);
 	}
 	
 	@PostMapping
-	public ResponseEntity<Lecturer> saveLecturer(@RequestBody Lecturer lecturer){
+	public ResponseEntity<Lecturer> saveLecturer(@RequestBody LecturerDTO lecturer){
+		System.out.println(lecturer);
 		Lecturer lecturerNew = lecturerService.save(lecturer);
 		return ResponseEntity.status(201).body(lecturerNew);
 	}
@@ -69,11 +82,23 @@ public class LecturerController {
         if (lecturerService.findOne(id) == null) {
         	return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
+        
+        User user =userRepo.findByUsername(lecturer.getUsername());
+        
+        user.setName(lecturer.getName());
+        user.setSurname(lecturer.getSurname());
+        user.setUsername(lecturer.getUsername());
+        user.setAddress(lecturer.getAddress());
+        user.setPassword(lecturer.getPassword());
+        user.setBlocked(lecturer.isBlocked());
+        user.setJmbg(lecturer.getJmbg());
+        
+        userRepo.save(user);
 
-        Lecturer result = lecturerService.save(lecturer);
+        lecturerService.add(lecturer);
         return ResponseEntity
             .ok()
-            .body(result);
+            .body(lecturer);
     }
     
     
@@ -83,12 +108,12 @@ public class LecturerController {
         
         if (lecturer.isBlocked()) {
         	lecturer.setBlocked(false);
-        	lecturerService.save(lecturer);
+        	lecturerService.add(lecturer);
 
 
         } else {
         	lecturer.setBlocked(true);
-        	lecturerService.save(lecturer);
+        	lecturerService.add(lecturer);
             return new ResponseEntity<>(HttpStatus.OK);
         
         }

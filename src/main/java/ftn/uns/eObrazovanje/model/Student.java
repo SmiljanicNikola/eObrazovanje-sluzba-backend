@@ -78,7 +78,7 @@ public class Student implements Serializable{
 	}
 
 	public Student(String username, String firstname, String lastname, String password, String jmbg, String adress,
-			String indexNumber, Account account, boolean blocked) {
+			String indexNumber, Account account,StudentHistory studentHistory, boolean blocked) {
 		super();
 		this.username = username;
 		this.firstname = firstname;
@@ -88,6 +88,7 @@ public class Student implements Serializable{
 		this.adress = adress;
 		this.indexNumber = indexNumber;
 		this.account = account;
+		this.studentHistory = studentHistory;
 		this.blocked = blocked;
 	}
 

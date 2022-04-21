@@ -3,6 +3,7 @@ package ftn.uns.eObrazovanje.service;
 import java.util.List;
 
 import ftn.uns.eObrazovanje.model.Admin;
+import ftn.uns.eObrazovanje.model.DTO.AdminDTO;
 
 public interface AdminService {
 
@@ -18,5 +19,5 @@ public interface AdminService {
     
     void remove(Integer id);
     
-    Admin save(Admin admin);
+    Admin save(AdminDTO admin);
 }

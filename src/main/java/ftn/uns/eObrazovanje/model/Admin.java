@@ -54,6 +54,20 @@ public class Admin implements Serializable{
 	
 	
 
+	public Admin(String name, String surname, String username, String password, String address, String jmbg,
+			boolean blocked) {
+		super();
+		this.name = name;
+		this.surname = surname;
+		this.username = username;
+		this.password = password;
+		this.address = address;
+		this.jmbg = jmbg;
+		this.blocked = blocked;
+	}
+
+
+
 	public Admin() {
 		super();
 	}

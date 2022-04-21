@@ -29,6 +29,9 @@ public class TakingExam implements Serializable{
 	@Column(name = "passed", unique = false, nullable = false)
 	private boolean passed;
 	
+	@Column(name = "deleted", unique = false, nullable = false)
+	private boolean deleted;
+	
     @ManyToOne
     @JoinColumn(name="lecturer_id", nullable=false)
     private Lecturer lecturer;
@@ -39,6 +42,18 @@ public class TakingExam implements Serializable{
     @ManyToOne
     @JoinColumn(name="attending_courses_id", nullable=false)
     private AttendingCourses attendingCourses;
+
+	public TakingExam(Integer taking_exam_id, Integer grade, boolean passed, boolean deleted, Lecturer lecturer,
+			List<ExamDate> examDates, AttendingCourses attendingCourses) {
+		super();
+		this.taking_exam_id = taking_exam_id;
+		this.grade = grade;
+		this.passed = passed;
+		this.deleted = deleted;
+		this.lecturer = lecturer;
+		this.examDates = examDates;
+		this.attendingCourses = attendingCourses;
+	}
 
 	public Integer getTaking_exam_id() {
 		return taking_exam_id;
@@ -87,5 +102,22 @@ public class TakingExam implements Serializable{
 	public void setAttendingCourses(AttendingCourses attendingCourses) {
 		this.attendingCourses = attendingCourses;
 	}
+
+	public boolean isDeleted() {
+		return deleted;
+	}
+
+	public void setDeleted(boolean deleted) {
+		this.deleted = deleted;
+	}
+
+	@Override
+	public String toString() {
+		return "TakingExam [taking_exam_id=" + taking_exam_id + ", grade=" + grade + ", passed=" + passed + ", deleted="
+				+ deleted + ", lecturer=" + lecturer + ", examDates=" + examDates + ", attendingCourses="
+				+ attendingCourses + "]";
+	}
+	
+	
 
 }

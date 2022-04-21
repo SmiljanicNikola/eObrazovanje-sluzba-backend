@@ -1,7 +1,6 @@
 package ftn.uns.eObrazovanje.model.DTO;
 
-public class StudentDTO {
-	
+public class AdminDTO {
 	private Integer student_id;
 	private String username;
 	private String firstname;
@@ -9,13 +8,20 @@ public class StudentDTO {
 	private String password;
 	private String jmbg;
 	private String adress;
-	private String indexNumber;
-	
-	public StudentDTO() {
+	public AdminDTO() {
 		super();
 	}
-	public StudentDTO(Integer student_id, String username, String firstname, String lastname, String password,
-			String jmbg, String adress, String indexNumber) {
+	public AdminDTO(String username, String firstname, String lastname, String password, String jmbg, String adress) {
+		super();
+		this.username = username;
+		this.firstname = firstname;
+		this.lastname = lastname;
+		this.password = password;
+		this.jmbg = jmbg;
+		this.adress = adress;
+	}
+	public AdminDTO(Integer student_id, String username, String firstname, String lastname, String password,
+			String jmbg, String adress) {
 		super();
 		this.student_id = student_id;
 		this.username = username;
@@ -24,18 +30,6 @@ public class StudentDTO {
 		this.password = password;
 		this.jmbg = jmbg;
 		this.adress = adress;
-		this.indexNumber = indexNumber;
-	}
-	public StudentDTO(String username, String firstname, String lastname, String password, String jmbg, String adress,
-			String indexNumber) {
-		super();
-		this.username = username;
-		this.firstname = firstname;
-		this.lastname = lastname;
-		this.password = password;
-		this.jmbg = jmbg;
-		this.adress = adress;
-		this.indexNumber = indexNumber;
 	}
 	public Integer getStudent_id() {
 		return student_id;
@@ -79,13 +73,7 @@ public class StudentDTO {
 	public void setAdress(String adress) {
 		this.adress = adress;
 	}
-	public String getIndexNumber() {
-		return indexNumber;
-	}
-	public void setIndexNumber(String indexNumber) {
-		this.indexNumber = indexNumber;
-	}
-	
-	
 
+	
+	
 }

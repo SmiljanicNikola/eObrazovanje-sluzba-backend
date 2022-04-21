@@ -8,4 +8,5 @@ import ftn.uns.eObrazovanje.model.AttendingCourses;
 @Repository
 public interface AttendingCourseRepo extends JpaRepository<AttendingCourses, Integer>{
 
+	
 }

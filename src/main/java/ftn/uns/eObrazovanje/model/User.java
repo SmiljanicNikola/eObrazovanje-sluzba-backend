@@ -1,27 +1,29 @@
 package ftn.uns.eObrazovanje.model;
 
-import static javax.persistence.CascadeType.ALL;
+import java.util.HashSet;
+import java.util.Set;
 
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
-
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
-@Entity
-@Table(name = "lecturers")
-public class Lecturer implements Serializable{
 
+@Entity
+@Table(name = "users")
+public class User {
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "lecturer_id", unique = true, nullable = false)
-	private Integer lecturer_id;
+	@Column(name = "user_id", unique = true, nullable = false)
+	private Integer user_id;
 
 	@Column(name = "name", unique = false, nullable = false)
 	private String name;
@@ -41,40 +43,37 @@ public class Lecturer implements Serializable{
 	@Column(name = "jmbg", unique = true, nullable = false)
 	private String jmbg;
 
-	@Column(name = "pay", unique = false, nullable = false)
-	private Integer pay;
-	
-    @OneToMany(mappedBy="lecturer")
-    private List<TakingExam> taking_exams;//
-    
-    @OneToMany(cascade= {ALL}, mappedBy= "lecturer")
-    private List<LecturerOnTheSubject> lecturersOnTheSubject = new ArrayList<LecturerOnTheSubject>();
-
 	@Column(name = "blocked", unique = false, nullable = false)
 	private boolean blocked;
-
-
-	public Lecturer() {
-		super();
-	}
-
-	public Lecturer(Integer lecturer_id, String name, String surname, String username, String password, String address,
-			String jmbg, Integer pay, boolean blocked) {
-		super();
-		this.lecturer_id = lecturer_id;
-		this.name = name;
-		this.surname = surname;
-		this.username = username;
-		this.password = password;
-		this.address = address;
-		this.jmbg = jmbg;
-		this.pay = pay;
-		this.blocked = blocked;
-	}
-
 	
-	public Lecturer(String name, String surname, String username, String password, String address, String jmbg,
-			Integer pay,boolean blocked) {
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
+    @JoinTable(
+            name = "users_roles",
+            joinColumns = {@JoinColumn(name = "user_id")},
+            inverseJoinColumns = {@JoinColumn(name = "role_id")}
+    )
+    private Set<Role> roles = new HashSet<>();
+
+	public User() {
+		super();
+	}
+
+	public User(Integer user_id, String name, String surname, String username, String password, String address,
+			String jmbg, boolean blocked, Set<Role> roles) {
+		super();
+		this.user_id = user_id;
+		this.name = name;
+		this.surname = surname;
+		this.username = username;
+		this.password = password;
+		this.address = address;
+		this.jmbg = jmbg;
+		this.blocked = blocked;
+		this.roles = roles;
+	}
+
+	public User(String name, String surname, String username, String password, String address, String jmbg,
+			boolean blocked) {
 		super();
 		this.name = name;
 		this.surname = surname;
@@ -82,18 +81,27 @@ public class Lecturer implements Serializable{
 		this.password = password;
 		this.address = address;
 		this.jmbg = jmbg;
-		this.pay = pay;
-		this.taking_exams = taking_exams;
-		this.lecturersOnTheSubject = lecturersOnTheSubject;
 		this.blocked = blocked;
 	}
+	
+	
 
-	public Integer getLecturer_Id() {
-		return lecturer_id;
+	public User(String name, String surname, String username, String password, String address, String jmbg) {
+		super();
+		this.name = name;
+		this.surname = surname;
+		this.username = username;
+		this.password = password;
+		this.address = address;
+		this.jmbg = jmbg;
 	}
 
-	public void setLecturer_Id(Integer lecturer_Id) {
-		this.lecturer_id = lecturer_Id;
+	public Integer getUser_id() {
+		return user_id;
+	}
+
+	public void setUser_id(Integer user_id) {
+		this.user_id = user_id;
 	}
 
 	public String getName() {
@@ -144,14 +152,6 @@ public class Lecturer implements Serializable{
 		this.jmbg = jmbg;
 	}
 
-	public Integer getPay() {
-		return pay;
-	}
-
-	public void setPay(Integer pay) {
-		this.pay = pay;
-	}
-
 	public boolean isBlocked() {
 		return blocked;
 	}
@@ -160,11 +160,21 @@ public class Lecturer implements Serializable{
 		this.blocked = blocked;
 	}
 
+	public Set<Role> getRoles() {
+		return roles;
+	}
+
+	public void setRoles(Set<Role> roles) {
+		this.roles = roles;
+	}
+
 	@Override
 	public String toString() {
-		return "Lecturer [lecturer_Id=" + lecturer_id + ", name=" + name + ", surname=" + surname + ", username="
-				+ username + ", password=" + password + ", address=" + address + ", jmbg=" + jmbg + ", pay=" + pay
-				+ ", blocked=" + blocked + "]";
+		return "User [user_id=" + user_id + ", name=" + name + ", surname=" + surname + ", username=" + username
+				+ ", password=" + password + ", address=" + address + ", jmbg=" + jmbg + ", blocked=" + blocked
+				+ ", roles=" + roles + "]";
 	}
-	
+
+    
+    
 }

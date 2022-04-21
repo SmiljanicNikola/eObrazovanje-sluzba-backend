@@ -1,12 +1,13 @@
 package ftn.uns.eObrazovanje.repository;
 
-import java.util.List;
-
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import ftn.uns.eObrazovanje.model.Payment;
+import ftn.uns.eObrazovanje.model.User;
 
 @Repository
-public interface PaymentRepo extends JpaRepository<Payment, Integer>{
+public interface UserRepo extends JpaRepository<User, Integer>{
+	
+	User findByUsername(String username);
+
 }
