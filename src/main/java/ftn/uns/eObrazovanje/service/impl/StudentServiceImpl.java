@@ -1,5 +1,6 @@
 package ftn.uns.eObrazovanje.service.impl;
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.List;
@@ -8,7 +9,9 @@ import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import ftn.uns.eObrazovanje.helper.CSVHelper;
 import ftn.uns.eObrazovanje.model.Account;
 import ftn.uns.eObrazovanje.model.Role;
 import ftn.uns.eObrazovanje.model.Student;
@@ -40,6 +43,9 @@ public class StudentServiceImpl implements StudentService {
 	
 	@Autowired
 	private StudentHistoryRepo historyRepo;
+	
+	@Autowired
+	private CSVHelper CSVHelper;
 	
 	@Autowired
 	PasswordEncoder encoder;
@@ -111,4 +117,14 @@ public class StudentServiceImpl implements StudentService {
 		return studentRepo.save(st);
 	}
 
+	@Override
+	public void uploadStudents(MultipartFile file) {
+		try {
+			
+		      List<Student> students = CSVHelper.csvToStudents(file.getInputStream());
+		      studentRepo.saveAll(students);
+		    } catch (IOException e) {
+		      throw new RuntimeException("fail to store csv data: " + e.getMessage());
+		    }
+	}
 }
