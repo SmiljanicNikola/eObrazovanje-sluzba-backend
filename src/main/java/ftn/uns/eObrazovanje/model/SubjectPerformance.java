@@ -4,8 +4,10 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -13,6 +15,12 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Table(name = "subject_performances")
@@ -26,16 +34,20 @@ public class SubjectPerformance implements Serializable{
 	@Column(name = "school_year", unique = false, nullable = false)
 	private String school_year;
 	
-    @OneToMany(mappedBy="subjectPerformance")
+	
+    @JsonIgnore
+	@OneToMany(mappedBy="subjectPerformance", fetch = FetchType.EAGER)
     private List<AttendingCourses> attendingCourses = new ArrayList<AttendingCourses>();
     
     @ManyToOne
 	@JoinColumn(name = "subject_id", referencedColumnName = "subject_id")
 	private Subject subject;
     
+    @JsonIgnore
     @OneToMany(mappedBy="subjectPerformance")
     private List<PreExaminationObligations> examinationObligations = new ArrayList<PreExaminationObligations>();
     
+    @JsonIgnore
     @OneToMany(mappedBy="subjectPerformance")
     private List<LecturerOnTheSubject> lecturersOnTheSubject = new ArrayList<LecturerOnTheSubject>();
 

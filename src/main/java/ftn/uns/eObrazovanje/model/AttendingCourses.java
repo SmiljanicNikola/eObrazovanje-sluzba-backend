@@ -4,8 +4,10 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -14,6 +16,10 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 
@@ -31,10 +37,13 @@ public class AttendingCourses implements Serializable{
     @JoinColumn(name="student_id", referencedColumnName = "student_id")
     private Student student;
     
-    @ManyToOne
+ 
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="subject_performance_id", nullable=false)
     private SubjectPerformance subjectPerformance;
     
+    @JsonIgnore
+    @LazyCollection(LazyCollectionOption.FALSE)
     @OneToMany(mappedBy="attendingCourses")
     private List<TakingExam> takingExams = new ArrayList<TakingExam>();
 
@@ -78,7 +87,7 @@ public class AttendingCourses implements Serializable{
 	@Override
 	public String toString() {
 		return "AttendingCourses [attending_courses_id=" + attending_courses_id + ", student=" + student
-				+ ", subjectPerformance=" + subjectPerformance + ", taking_exams=" + takingExams + "]";
+				+  ", taking_exams=" + takingExams + "]";
 	}
 
 	public AttendingCourses(Integer attending_courses_id, Student student, SubjectPerformance subjectPerformance,
