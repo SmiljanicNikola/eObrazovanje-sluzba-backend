@@ -22,13 +22,13 @@ public class Payment implements Serializable{
 	private Integer payment_id;
 
 	@Column(name = "purpose_of_payment", unique = false, nullable = false)
-	private String purpose_of_payment;
+	private String purposeOfPayment;
 
 	@Column(name = "amount", unique = false, nullable = false)
-	private String amount;
+	private Double amount;
 
 	@Column(name = "date_of_payment", unique = false, nullable = false)
-	private LocalDate date_of_payment;
+	private LocalDate dateOfPayment;
 	
     @ManyToOne
     @JoinColumn(name="account_id", nullable=false)
@@ -37,46 +37,31 @@ public class Payment implements Serializable{
     @Column(name = "deleted", unique = false, nullable = false)
 	private boolean deleted;
 
-	public Payment(Integer payment_id, String purpose_of_payment, String amount, LocalDate date_of_payment, Account account) {
-		super();
-		this.payment_id = payment_id;
-		this.purpose_of_payment = purpose_of_payment;
-		this.amount = amount;
-		this.date_of_payment = date_of_payment;
-		this.account = account;
-	}
-	
-	
-
-	public Payment(String purpose_of_payment, String amount, LocalDate date_of_payment, Account account,
+    
+    
+	public Payment(Integer payment_id, String purposeOfPayment, Double amount, LocalDate dateOfPayment, Account account,
 			boolean deleted) {
 		super();
-		this.purpose_of_payment = purpose_of_payment;
+		this.payment_id = payment_id;
+		this.purposeOfPayment = purposeOfPayment;
 		this.amount = amount;
-		this.date_of_payment = date_of_payment;
+		this.dateOfPayment = dateOfPayment;
 		this.account = account;
 		this.deleted = deleted;
 	}
 
-
-
-	public boolean isDeleted() {
-		return deleted;
-	}
-
-
-
-	public void setDeleted(boolean deleted) {
+	public Payment(String purposeOfPayment, Double amount, LocalDate dateOfPayment, Account account, boolean deleted) {
+		super();
+		this.purposeOfPayment = purposeOfPayment;
+		this.amount = amount;
+		this.dateOfPayment = dateOfPayment;
+		this.account = account;
 		this.deleted = deleted;
 	}
-
-
 
 	public Payment() {
 		super();
 	}
-
-
 
 	public Integer getPayment_id() {
 		return payment_id;
@@ -87,57 +72,28 @@ public class Payment implements Serializable{
 	}
 
 	public String getPurposeOfPayment() {
-		return purpose_of_payment;
+		return purposeOfPayment;
 	}
 
 	public void setPurposeOfPayment(String purposeOfPayment) {
-		this.purpose_of_payment = purposeOfPayment;
+		this.purposeOfPayment = purposeOfPayment;
 	}
 
-	public String getAmount() {
+	public Double getAmount() {
 		return amount;
 	}
 
-	public void setAmount(String amount) {
+	public void setAmount(Double amount) {
 		this.amount = amount;
 	}
 
-	
-
-	public Payment(String purpose_of_payment, String amount, LocalDate date_of_payment,
-			Account account) {
-		super();
-		this.purpose_of_payment = purpose_of_payment;
-		this.amount = amount;
-		this.date_of_payment = date_of_payment;
-		this.account = account;
+	public LocalDate getDateOfPayment() {
+		return dateOfPayment;
 	}
 
-
-
-	public String getPurpose_of_payment() {
-		return purpose_of_payment;
+	public void setDateOfPayment(LocalDate dateOfPayment) {
+		this.dateOfPayment = dateOfPayment;
 	}
-
-
-
-	public void setPurpose_of_payment(String purpose_of_payment) {
-		this.purpose_of_payment = purpose_of_payment;
-	}
-
-
-
-	public LocalDate getDate_of_payment() {
-		return date_of_payment;
-	}
-
-
-
-	public void setDate_of_payment(LocalDate date_of_payment) {
-		this.date_of_payment = date_of_payment;
-	}
-
-
 
 	public Account getAccount() {
 		return account;
@@ -147,11 +103,15 @@ public class Payment implements Serializable{
 		this.account = account;
 	}
 
-	@Override
-	public String toString() {
-		return "Payment [payment_id=" + payment_id + ", purposeOfPayment=" + purpose_of_payment + ", amount=" + amount
-				+ ", datum=" + date_of_payment + ", account_id=" + account + "]";
+	public boolean isDeleted() {
+		return deleted;
 	}
+
+	public void setDeleted(boolean deleted) {
+		this.deleted = deleted;
+	}
+
+	
 	
 	
 

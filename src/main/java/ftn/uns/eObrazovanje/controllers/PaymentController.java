@@ -59,9 +59,9 @@ public class PaymentController {
 	@PostMapping()
 	public ResponseEntity<Payment> savePayment(@RequestBody AddPaymentRequest addPaymentRequest){
 		Payment payment = new Payment();
-		payment.setPurpose_of_payment(addPaymentRequest.getPurpose_of_payment());
+		payment.setPurposeOfPayment(addPaymentRequest.getPurposeOfPayment());
 		payment.setAmount(addPaymentRequest.getAmount());
-		payment.setDate_of_payment(addPaymentRequest.getDate_of_payment());
+		payment.setDateOfPayment(addPaymentRequest.getDateOfPayment());
 		//payment.setAccount(this.accountService.findOne(addPaymentRequest.getAccount_id()));
 		payment.setDeleted(false);
 		
@@ -77,9 +77,9 @@ public class PaymentController {
 		if(payment == null) {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
-		payment.setPurpose_of_payment(paymentRequest.getPurpose_of_payment());
+		payment.setPurposeOfPayment(paymentRequest.getPurposeOfPayment());
 		payment.setAmount(paymentRequest.getAmount());
-		payment.setDate_of_payment(paymentRequest.getDate_of_payment());
+		payment.setDateOfPayment(paymentRequest.getDateOfPayment());
 		
 		payment = paymentService.save(payment);
 		return new ResponseEntity<>(payment, HttpStatus.OK);

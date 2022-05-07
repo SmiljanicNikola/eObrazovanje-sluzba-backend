@@ -15,6 +15,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "students")
 public class Student implements Serializable{
@@ -57,6 +59,7 @@ public class Student implements Serializable{
 	 @JoinColumn(name = "history_id", referencedColumnName = "history_id")
 	 private StudentHistory studentHistory;
 	
+	@JsonIgnore
     @OneToMany(mappedBy="student", cascade=CascadeType.ALL, fetch = FetchType.EAGER)
     private List<AttendingCourses> attendingCourses;
     
