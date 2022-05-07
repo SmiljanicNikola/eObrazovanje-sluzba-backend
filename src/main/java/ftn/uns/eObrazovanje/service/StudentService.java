@@ -2,7 +2,8 @@ package ftn.uns.eObrazovanje.service;
 
 import java.util.List;
 
-import ftn.uns.eObrazovanje.model.Admin;
+import org.springframework.web.multipart.MultipartFile;
+
 import ftn.uns.eObrazovanje.model.Student;
 import ftn.uns.eObrazovanje.model.DTO.StudentDTO;
 
@@ -22,5 +23,8 @@ public interface StudentService {
     void remove(Integer id);
     
     Student save(StudentDTO student);
+    
+    
+    void uploadStudents(MultipartFile file);
 
 }

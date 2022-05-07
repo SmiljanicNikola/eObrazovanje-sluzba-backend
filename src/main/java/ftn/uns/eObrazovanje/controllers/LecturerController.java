@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import ftn.uns.eObrazovanje.model.Lecturer;
-import ftn.uns.eObrazovanje.model.Student;
 import ftn.uns.eObrazovanje.model.User;
 import ftn.uns.eObrazovanje.model.DTO.LecturerDTO;
 import ftn.uns.eObrazovanje.repository.UserRepo;
