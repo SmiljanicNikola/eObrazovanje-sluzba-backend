@@ -14,6 +14,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 
 @Entity
 @Table(name = "attending_courses")
@@ -24,6 +26,7 @@ public class AttendingCourses implements Serializable{
     @Column(name = "attending_courses_id", unique = true, nullable = false)
 	private Integer attending_courses_id;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name="student_id", referencedColumnName = "student_id")
     private Student student;

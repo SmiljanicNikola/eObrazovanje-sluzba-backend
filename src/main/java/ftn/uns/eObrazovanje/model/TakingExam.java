@@ -117,6 +117,10 @@ public class TakingExam implements Serializable{
 				+ deleted + ", lecturer=" + lecturer + ", examDates=" + examDates + ", attendingCourses="
 				+ attendingCourses + "]";
 	}
+
+	public TakingExam() {
+		super();
+	}
 	
 	
 
