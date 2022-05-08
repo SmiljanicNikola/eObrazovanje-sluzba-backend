@@ -17,7 +17,7 @@ public class AttendingCoursesServiceImpl implements AttendingCoursesService{
 	private AttendingCourseRepo courseRepo;
 
 	@Override
-	public AttendingCourses findByUsername(String username) {
+	public List<AttendingCourses> findByUsername(String username) {
 		return courseRepo.findByUsername(username);
 	}
 

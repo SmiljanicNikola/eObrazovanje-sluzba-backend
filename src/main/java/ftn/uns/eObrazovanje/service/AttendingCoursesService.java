@@ -9,7 +9,7 @@ import ftn.uns.eObrazovanje.model.DTO.StudentDTO;
 
 public interface AttendingCoursesService {
 	
-    AttendingCourses findByUsername(String username);
+	List<AttendingCourses> findByUsername(String username);
 
     List<AttendingCourses> findAll();
 
