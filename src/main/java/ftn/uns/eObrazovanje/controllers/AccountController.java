@@ -17,7 +17,7 @@ import ftn.uns.eObrazovanje.model.Account;
 import ftn.uns.eObrazovanje.service.AccountService;
 
 @RestController
-@RequestMapping(value = "api/account")
+@RequestMapping(value = "api/accounts")
 public class AccountController {
 
 	@Autowired
@@ -38,6 +38,21 @@ public class AccountController {
 		}
 
 		return new ResponseEntity<>(account, HttpStatus.OK);
+	}
+
+	@GetMapping(value = "student/{id}")
+	public ResponseEntity<Account> getAccountByStudentId(@PathVariable("id") Integer id) {
+		List<Account> accounts = accSer.findAll();
+		Account odgovarajuciAccount = new Account();
+		for(Account account : accounts) {
+			if (account.getStudent().getStudent_id() == id) {
+				if (account == null) {
+					return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+				}
+				odgovarajuciAccount = account;
+			}
+		}
+		return new ResponseEntity<>(odgovarajuciAccount, HttpStatus.OK);
 	}
 
 	@PostMapping

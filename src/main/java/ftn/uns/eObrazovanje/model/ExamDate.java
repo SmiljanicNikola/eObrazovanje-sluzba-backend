@@ -1,5 +1,7 @@
 package ftn.uns.eObrazovanje.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -33,7 +35,8 @@ public class ExamDate implements Serializable{
     @ManyToOne
     @JoinColumn(name="taking_exam_id", referencedColumnName = "taking_exam_id", nullable=false)
     private TakingExam takingExam;
-    
+
+	@JsonIgnore
     @OneToMany(mappedBy="examDate")
     private List<PreExaminationObligations> examinationObligations = new ArrayList<PreExaminationObligations>();
     
