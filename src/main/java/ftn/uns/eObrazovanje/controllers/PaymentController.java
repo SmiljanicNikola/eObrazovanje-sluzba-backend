@@ -1,5 +1,6 @@
 package ftn.uns.eObrazovanje.controllers;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,6 +44,21 @@ public class PaymentController {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 		return new ResponseEntity<>(payment, HttpStatus.OK);
+	}
+
+	@GetMapping(value = "account/{id}")
+	public ResponseEntity<List<Payment>> getPaymentsByAccountId(@PathVariable("id") Integer id){
+		List<Payment> payments = paymentService.findAll();
+		List<Payment> paymentsOfSpecificStudent = new ArrayList<Payment>();
+		for (Payment payment : payments){
+			if(payment.getAccount().getAccount_id() == id){
+				paymentsOfSpecificStudent.add(payment);
+			}
+		}
+		/*if(payments == null) {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}*/
+		return new ResponseEntity<>(paymentsOfSpecificStudent, HttpStatus.OK);
 	}
 	
 	@DeleteMapping(value = "/{id}")
