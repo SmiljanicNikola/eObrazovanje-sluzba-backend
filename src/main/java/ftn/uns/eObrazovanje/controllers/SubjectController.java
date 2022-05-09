@@ -23,7 +23,7 @@ import ftn.uns.eObrazovanje.service.SubjectService;
 
 @RestController
 @CrossOrigin(origins="*")
-@RequestMapping(value = "api/subject")
+@RequestMapping(value = "api/subjects")
 public class SubjectController {
 
 	@Autowired

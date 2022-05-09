@@ -2,6 +2,8 @@ package ftn.uns.eObrazovanje.service.impl;
 
 import java.util.List;
 
+import ftn.uns.eObrazovanje.repository.TakingExamRepo;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import ftn.uns.eObrazovanje.model.TakingExam;
@@ -10,10 +12,12 @@ import ftn.uns.eObrazovanje.service.TakingExamService;
 @Service
 public class TakingExamServiceImpl implements TakingExamService{
 
+	@Autowired
+	private TakingExamRepo takingExamRepo;
+
 	@Override
 	public List<TakingExam> findAll() {
-		// TODO Auto-generated method stub
-		return null;
+		return takingExamRepo.findAll();
 	}
 
 	@Override
@@ -24,8 +28,7 @@ public class TakingExamServiceImpl implements TakingExamService{
 
 	@Override
 	public TakingExam findOne(Integer id) {
-		// TODO Auto-generated method stub
-		return null;
+		return takingExamRepo.findById(id).orElse(null);
 	}
 
 	@Override

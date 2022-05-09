@@ -41,6 +41,7 @@ public class StudentController {
 	@GetMapping
 	public ResponseEntity<List<Student>> getStudents(){
 		List<Student> students = studentService.findAll();
+		//System.out.println(students.get(3).getAttendingCourses());
 		
 		return ResponseEntity.ok().body(students); 
 	}

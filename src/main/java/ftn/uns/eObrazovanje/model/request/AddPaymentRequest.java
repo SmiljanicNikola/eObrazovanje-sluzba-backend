@@ -6,15 +6,34 @@ public class AddPaymentRequest {
 
 	private Integer payment_id;
 
-	private String purpose_of_payment;
+	private String purposeOfPayment;
 
-	private String amount;
+	private Double amount;
 
-	private LocalDate date_of_payment;
+	private LocalDate dateOfPayment;
 	
-    private Integer account_id;
+    private Integer accountId;
     
 	private boolean deleted;
+
+	
+	public AddPaymentRequest(String purposeOfPayment, Double amount, LocalDate dateOfPayment, Integer accountId) {
+		super();
+		this.purposeOfPayment = purposeOfPayment;
+		this.amount = amount;
+		this.dateOfPayment = dateOfPayment;
+		this.accountId = accountId;
+	}
+
+	public AddPaymentRequest(String purposeOfPayment, Double amount, LocalDate dateOfPayment, Integer accountId,
+			boolean deleted) {
+		super();
+		this.purposeOfPayment = purposeOfPayment;
+		this.amount = amount;
+		this.dateOfPayment = dateOfPayment;
+		this.accountId = accountId;
+		this.deleted = deleted;
+	}
 
 	public Integer getPayment_id() {
 		return payment_id;
@@ -24,36 +43,38 @@ public class AddPaymentRequest {
 		this.payment_id = payment_id;
 	}
 
-	public String getPurpose_of_payment() {
-		return purpose_of_payment;
+	
+
+	public String getPurposeOfPayment() {
+		return purposeOfPayment;
 	}
 
-	public void setPurpose_of_payment(String purpose_of_payment) {
-		this.purpose_of_payment = purpose_of_payment;
+	public void setPurposeOfPayment(String purposeOfPayment) {
+		this.purposeOfPayment = purposeOfPayment;
 	}
 
-	public String getAmount() {
+	public LocalDate getDateOfPayment() {
+		return dateOfPayment;
+	}
+
+	public void setDateOfPayment(LocalDate dateOfPayment) {
+		this.dateOfPayment = dateOfPayment;
+	}
+
+	public Double getAmount() {
 		return amount;
 	}
 
-	public void setAmount(String amount) {
+	public void setAmount(Double amount) {
 		this.amount = amount;
 	}
 
-	public LocalDate getDate_of_payment() {
-		return date_of_payment;
+	public Integer getAccountId() {
+		return accountId;
 	}
 
-	public void setDate_of_payment(LocalDate date_of_payment) {
-		this.date_of_payment = date_of_payment;
-	}
-
-	public Integer getAccount_id() {
-		return account_id;
-	}
-
-	public void setAccount_id(Integer account_id) {
-		this.account_id = account_id;
+	public void setAccountId(Integer accountId) {
+		this.accountId = accountId;
 	}
 
 	public boolean isDeleted() {
@@ -68,41 +89,12 @@ public class AddPaymentRequest {
 		super();
 	}
 
-	public AddPaymentRequest(Integer payment_id, String purpose_of_payment, String amount, LocalDate date_of_payment,
-			Integer account_id, boolean deleted) {
-		super();
-		this.payment_id = payment_id;
-		this.purpose_of_payment = purpose_of_payment;
-		this.amount = amount;
-		this.date_of_payment = date_of_payment;
-		this.account_id = account_id;
-		this.deleted = deleted;
-	}
-
-	public AddPaymentRequest(String purpose_of_payment, String amount, LocalDate date_of_payment, Integer account_id,
-			boolean deleted) {
-		super();
-		this.purpose_of_payment = purpose_of_payment;
-		this.amount = amount;
-		this.date_of_payment = date_of_payment;
-		this.account_id = account_id;
-		this.deleted = deleted;
-	}
-
-	public AddPaymentRequest(Integer payment_id, String purpose_of_payment, String amount, LocalDate date_of_payment,
-			Integer account_id) {
-		super();
-		this.payment_id = payment_id;
-		this.purpose_of_payment = purpose_of_payment;
-		this.amount = amount;
-		this.date_of_payment = date_of_payment;
-		this.account_id = account_id;
-	}
+	
 
 	@Override
 	public String toString() {
-		return "AddPaymentRequest [payment_id=" + payment_id + ", purpose_of_payment=" + purpose_of_payment
-				+ ", amount=" + amount + ", date_of_payment=" + date_of_payment + ", account_id=" + account_id
+		return "AddPaymentRequest [payment_id=" + payment_id + ", purpose_of_payment=" + purposeOfPayment
+				+ ", amount=" + amount + ", date_of_payment=" + dateOfPayment + ", account_id=" + accountId
 				+ ", deleted=" + deleted + "]";
 	}
 	
