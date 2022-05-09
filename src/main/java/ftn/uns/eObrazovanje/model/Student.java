@@ -59,7 +59,7 @@ public class Student implements Serializable{
 	 @JoinColumn(name = "history_id", referencedColumnName = "history_id")
 	 private StudentHistory studentHistory;
 	
-	
+	@JsonIgnore
     @OneToMany(mappedBy="student", cascade=CascadeType.ALL, fetch = FetchType.EAGER)
     private List<AttendingCourses> attendingCourses;
     

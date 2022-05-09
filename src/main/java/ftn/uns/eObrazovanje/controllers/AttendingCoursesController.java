@@ -1,6 +1,11 @@
 package ftn.uns.eObrazovanje.controllers;
 
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+
+import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -15,10 +20,12 @@ import org.springframework.web.bind.annotation.RestController;
 import ftn.uns.eObrazovanje.model.AttendingCourses;
 import ftn.uns.eObrazovanje.model.Student;
 import ftn.uns.eObrazovanje.model.SubjectPerformance;
+import ftn.uns.eObrazovanje.model.TakingExam;
 import ftn.uns.eObrazovanje.model.DTO.AttendingCourseDTO;
 import ftn.uns.eObrazovanje.service.AttendingCoursesService;
 import ftn.uns.eObrazovanje.service.StudentService;
 import ftn.uns.eObrazovanje.service.SubjectPerformanceService;
+import ftn.uns.eObrazovanje.service.TakingExamService;
 
 @RestController
 @CrossOrigin(origins="*")
@@ -34,6 +41,9 @@ public class AttendingCoursesController {
 	@Autowired
 	private SubjectPerformanceService subjectService;
 	
+	@Autowired
+	private TakingExamService takingExamService;
+	
 	@GetMapping
 	public ResponseEntity<List<AttendingCourses>> getCourses(){
 		List<AttendingCourses> courses = attendingCourseService.findAll();
@@ -41,11 +51,17 @@ public class AttendingCoursesController {
 		return ResponseEntity.ok().body(courses);
 	}
 
+	@Transactional
 	@GetMapping(value = "/student/{username}")
-	public ResponseEntity<List<AttendingCourses>> getCourseByUsername(@PathVariable("username") String username){
-		List<AttendingCourses> attendingCourse = attendingCourseService.findByUsername(username);
+	public ResponseEntity<?> getCourseByUsername(@PathVariable("username") String username){
+		Set<AttendingCourses> attendingCourse = attendingCourseService.findByUsername(username);
+		Set<TakingExam> exams = takingExamService.findAll();
 		
-		return ResponseEntity.ok().body(attendingCourse);
+		Set<Object> s = new HashSet<Object>();
+
+		s.addAll(attendingCourse);
+		s.addAll(exams);
+		return ResponseEntity.ok().body(exams);
 	}
 	
 	@GetMapping(value = "/{id}")

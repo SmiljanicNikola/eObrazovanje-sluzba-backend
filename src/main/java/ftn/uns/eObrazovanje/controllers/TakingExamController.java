@@ -25,12 +25,12 @@ public class TakingExamController {
 	@Autowired
 	private TakingExamService takingExamService;
 	
-	@GetMapping 
-	public ResponseEntity<List<TakingExam>> getTakingExams(){
-		List<TakingExam> takingExams = takingExamService.findAll();
-		
-		return new ResponseEntity<>(takingExams, HttpStatus.OK);
-	}
+//	@GetMapping 
+//	public ResponseEntity<List<TakingExam>> getTakingExams(){
+//		List<TakingExam> takingExams = takingExamService.findAll();
+//		
+//		return new ResponseEntity<>(takingExams, HttpStatus.OK);
+//	}
 	
 	@GetMapping(value = "/{id}")
 	public ResponseEntity<TakingExam> getTakingExam(@PathVariable("id") Integer id){

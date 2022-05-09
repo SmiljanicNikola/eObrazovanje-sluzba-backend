@@ -8,6 +8,7 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -38,11 +39,12 @@ public class TakingExam implements Serializable{
     @JoinColumn(name="lecturer_id", nullable=false)
     private Lecturer lecturer;
 
-	@JsonIgnore
+    @JsonIgnore
     @OneToMany(mappedBy="takingExam")
     private List<ExamDate> examDates = new ArrayList<ExamDate>();
     
-    @ManyToOne
+
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="attending_courses_id", nullable=false)
     private AttendingCourses attendingCourses;
 
@@ -118,7 +120,7 @@ public class TakingExam implements Serializable{
 	public String toString() {
 		return "TakingExam [taking_exam_id=" + taking_exam_id + ", grade=" + grade + ", passed=" + passed + ", deleted="
 				+ deleted + ", lecturer=" + lecturer + ", examDates=" + examDates + ", attendingCourses="
-				+ attendingCourses + "]";
+				+ null + "]";
 	}
 
 	public TakingExam() {

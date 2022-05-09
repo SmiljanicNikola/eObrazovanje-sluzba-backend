@@ -1,12 +1,13 @@
 package ftn.uns.eObrazovanje.service;
 
 import java.util.List;
+import java.util.Set;
 
 import ftn.uns.eObrazovanje.model.TakingExam;
 
 public interface TakingExamService {
 	
-	List<TakingExam> findAll();
+	Set<TakingExam> findAll();
 	
 	TakingExam save(TakingExam takingExam);
 	

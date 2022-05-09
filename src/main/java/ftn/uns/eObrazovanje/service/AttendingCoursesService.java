@@ -1,6 +1,7 @@
 package ftn.uns.eObrazovanje.service;
 
 import java.util.List;
+import java.util.Set;
 
 import ftn.uns.eObrazovanje.model.AttendingCourses;
 import ftn.uns.eObrazovanje.model.Student;
@@ -9,7 +10,7 @@ import ftn.uns.eObrazovanje.model.DTO.StudentDTO;
 
 public interface AttendingCoursesService {
 	
-	List<AttendingCourses> findByUsername(String username);
+	Set<AttendingCourses> findByUsername(String username);
 
     List<AttendingCourses> findAll();
 
