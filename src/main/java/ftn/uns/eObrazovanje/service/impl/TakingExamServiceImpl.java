@@ -22,6 +22,11 @@ public class TakingExamServiceImpl implements TakingExamService{
 	}
 
 	@Override
+	public List<TakingExam> findAllList() {
+		return takingExamRepo.findAll();
+	}
+
+	@Override
 	public TakingExam save(TakingExam takingExam) {
 		// TODO Auto-generated method stub
 		return null;

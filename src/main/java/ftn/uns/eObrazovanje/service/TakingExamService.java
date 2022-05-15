@@ -8,6 +8,8 @@ import ftn.uns.eObrazovanje.model.TakingExam;
 public interface TakingExamService {
 	
 	Set<TakingExam> findAll();
+
+	List<TakingExam> findAllList();
 	
 	TakingExam save(TakingExam takingExam);
 	

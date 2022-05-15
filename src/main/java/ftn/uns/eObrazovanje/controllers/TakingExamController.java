@@ -3,6 +3,9 @@ package ftn.uns.eObrazovanje.controllers;
 import java.net.URISyntaxException;
 import java.util.List;
 
+import ftn.uns.eObrazovanje.model.request.AddTakingExamRequest;
+import ftn.uns.eObrazovanje.service.AttendingCoursesService;
+import ftn.uns.eObrazovanje.service.LecturerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,13 +27,19 @@ public class TakingExamController {
 
 	@Autowired
 	private TakingExamService takingExamService;
+
+	@Autowired
+	private LecturerService lecturerService;
+
+	@Autowired
+	private AttendingCoursesService attendingCoursesService;
 	
-//	@GetMapping 
-//	public ResponseEntity<List<TakingExam>> getTakingExams(){
-//		List<TakingExam> takingExams = takingExamService.findAll();
-//		
-//		return new ResponseEntity<>(takingExams, HttpStatus.OK);
-//	}
+	@GetMapping
+	public ResponseEntity<List<TakingExam>> getTakingExams(){
+	List<TakingExam> takingExams = takingExamService.findAllList();
+
+		return new ResponseEntity<>(takingExams, HttpStatus.OK);
+	}
 	
 	@GetMapping(value = "/{id}")
 	public ResponseEntity<TakingExam> getTakingExam(@PathVariable("id") Integer id){
@@ -68,9 +77,24 @@ public class TakingExamController {
     }
 	
 	
-	@PostMapping()
+	/*@PostMapping()
 	public ResponseEntity<TakingExam> save(@RequestBody TakingExam takingExam){
 		TakingExam newTakingExam = takingExamService.save(takingExam);
 		return ResponseEntity.status(201).body(newTakingExam);
+	}*/
+
+	@PostMapping()
+	public ResponseEntity<TakingExam> saveStavka(@RequestBody AddTakingExamRequest addTakingExamRequest){
+
+		TakingExam takingExam = new TakingExam();
+		takingExam.setGrade(addTakingExamRequest.getGrade());
+		takingExam.setPassed(false);
+		takingExam.setLecturer(this.lecturerService.findOne(addTakingExamRequest.getLecturerId()));
+		takingExam.setAttendingCourses(this.attendingCoursesService.findOne(addTakingExamRequest.getAttendingCoursesId()));
+		takingExam.setDeleted(false);
+
+		takingExam = takingExamService.save(takingExam);
+		return new ResponseEntity<>(takingExam, HttpStatus.CREATED);
+
 	}
 }
