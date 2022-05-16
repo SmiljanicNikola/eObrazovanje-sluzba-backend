@@ -28,8 +28,8 @@ public class TakingExamServiceImpl implements TakingExamService{
 
 	@Override
 	public TakingExam save(TakingExam takingExam) {
-		// TODO Auto-generated method stub
-		return null;
+		takingExamRepo.save(takingExam);
+		return takingExam;
 	}
 
 	@Override

@@ -84,17 +84,31 @@ public class TakingExamController {
 	}*/
 
 	@PostMapping()
-	public ResponseEntity<TakingExam> saveStavka(@RequestBody AddTakingExamRequest addTakingExamRequest){
+	public ResponseEntity<TakingExam> saveTakingExam(@RequestBody AddTakingExamRequest addTakingExamRequest){
 
 		TakingExam takingExam = new TakingExam();
 		takingExam.setGrade(addTakingExamRequest.getGrade());
-		takingExam.setPassed(false);
+		takingExam.setPassed(addTakingExamRequest.isPassed());
 		takingExam.setLecturer(this.lecturerService.findOne(addTakingExamRequest.getLecturerId()));
 		takingExam.setAttendingCourses(this.attendingCoursesService.findOne(addTakingExamRequest.getAttendingCoursesId()));
-		takingExam.setDeleted(false);
+		takingExam.setDeleted(addTakingExamRequest.isDeleted());
 
 		takingExam = takingExamService.save(takingExam);
 		return new ResponseEntity<>(takingExam, HttpStatus.CREATED);
 
 	}
-}
+	/*@PostMapping()
+	public ResponseEntity<TakingExam> saveTakingExam(@RequestBody TakingExam addTakingExamRequest) {
+
+		TakingExam takingExam = new TakingExam();
+		takingExam.setGrade(addTakingExamRequest.getGrade());
+		takingExam.setPassed(addTakingExamRequest.isPassed());
+		takingExam.setLecturer((addTakingExamRequest.getLecturer()));
+		takingExam.setAttendingCourses(addTakingExamRequest.getAttendingCourses());
+		takingExam.setDeleted(addTakingExamRequest.isDeleted());
+
+		takingExam = takingExamService.save(takingExam);
+		return new ResponseEntity<>(takingExam, HttpStatus.CREATED);
+
+		}*/
+	}
