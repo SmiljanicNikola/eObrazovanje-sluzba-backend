@@ -34,6 +34,14 @@ public class TakingExamController {
 	@Autowired
 	private AttendingCoursesService attendingCoursesService;
 	
+//	@PostMapping
+//	public ResponseEntity<TakingExam> save(@RequestBody TakingExam takingExam){
+//		System.out.println(takingExam);
+//		TakingExam newTakingExam = takingExamService.save(takingExam);
+//		return ResponseEntity.status(201).body(newTakingExam);
+//	}
+	
+	
 	@GetMapping
 	public ResponseEntity<List<TakingExam>> getTakingExams(){
 	List<TakingExam> takingExams = takingExamService.findAllList();
@@ -76,14 +84,8 @@ public class TakingExamController {
             .body(result);
     }
 	
-	
-	/*@PostMapping()
-	public ResponseEntity<TakingExam> save(@RequestBody TakingExam takingExam){
-		TakingExam newTakingExam = takingExamService.save(takingExam);
-		return ResponseEntity.status(201).body(newTakingExam);
-	}*/
 
-	@PostMapping()
+	@PostMapping
 	public ResponseEntity<TakingExam> saveTakingExam(@RequestBody AddTakingExamRequest addTakingExamRequest){
 
 		TakingExam takingExam = new TakingExam();
