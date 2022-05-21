@@ -21,7 +21,7 @@ import ftn.uns.eObrazovanje.model.TakingExam;
 import ftn.uns.eObrazovanje.service.LecturerOnTheSubjectService;
 
 @Controller
-@RequestMapping(value = "api/lecturersOnTheSubject/")
+@RequestMapping(value = "api/lecturersOnTheSubject")
 public class LecturerOnTheSubjectController {
 
 	@Autowired
