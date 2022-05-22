@@ -1,6 +1,7 @@
 package ftn.uns.eObrazovanje.controllers;
 
 import java.net.URISyntaxException;
+import java.util.ArrayList;
 import java.util.List;
 
 import ftn.uns.eObrazovanje.model.request.AddTakingExamRequest;
@@ -10,18 +11,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import ftn.uns.eObrazovanje.model.TakingExam;
 import ftn.uns.eObrazovanje.service.TakingExamService;
 
 @Controller
+@CrossOrigin(origins="*")
 @RequestMapping(value = "api/taking-xams")
 public class TakingExamController {
 
@@ -56,6 +52,18 @@ public class TakingExamController {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 		return new ResponseEntity<>(takingExam, HttpStatus.OK);
+	}
+
+	@GetMapping(value = "lecturer/{username}")
+	public ResponseEntity<List<TakingExam>> getTakingExamByLecturerUsername(@PathVariable("username") String username){
+		List<TakingExam> takingExams = takingExamService.findAllList();
+		List<TakingExam> lecturersTakingExams = new ArrayList<TakingExam>();
+		for(TakingExam te : takingExams){
+			if((te.getLecturer().getUsername()).equalsIgnoreCase(username));
+				lecturersTakingExams.add(te);
+		}
+
+		return new ResponseEntity<>(lecturersTakingExams, HttpStatus.OK);
 	}
 	
 	@DeleteMapping(value = "/{id}")
