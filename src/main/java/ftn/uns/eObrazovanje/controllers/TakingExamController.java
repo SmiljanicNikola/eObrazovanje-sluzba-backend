@@ -6,6 +6,7 @@ import java.util.List;
 
 import ftn.uns.eObrazovanje.model.request.AddTakingExamRequest;
 import ftn.uns.eObrazovanje.service.AttendingCoursesService;
+import ftn.uns.eObrazovanje.service.ExamDateService;
 import ftn.uns.eObrazovanje.service.LecturerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -29,6 +30,9 @@ public class TakingExamController {
 
 	@Autowired
 	private AttendingCoursesService attendingCoursesService;
+	
+	@Autowired
+	private ExamDateService examDateService;
 	
 //	@PostMapping
 //	public ResponseEntity<TakingExam> save(@RequestBody TakingExam takingExam){
@@ -95,13 +99,13 @@ public class TakingExamController {
 
 	@PostMapping
 	public ResponseEntity<TakingExam> saveTakingExam(@RequestBody AddTakingExamRequest addTakingExamRequest){
-
 		TakingExam takingExam = new TakingExam();
 		takingExam.setGrade(addTakingExamRequest.getGrade());
 		takingExam.setPassed(addTakingExamRequest.isPassed());
 		takingExam.setLecturer(this.lecturerService.findOne(addTakingExamRequest.getLecturerId()));
 		takingExam.setAttendingCourses(this.attendingCoursesService.findOne(addTakingExamRequest.getAttendingCoursesId()));
 		takingExam.setDeleted(addTakingExamRequest.isDeleted());
+		takingExam.setExamDate(examDateService.findOne(addTakingExamRequest.getExamDateId()));
 
 		takingExam = takingExamService.save(takingExam);
 		return new ResponseEntity<>(takingExam, HttpStatus.CREATED);

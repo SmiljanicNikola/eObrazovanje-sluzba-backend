@@ -44,7 +44,7 @@ public class TakingExam implements Serializable{
 //    private List<ExamDate> examDates = new ArrayList<ExamDate>();
     
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name="exam_dates_id", nullable=false)
+    @JoinColumn(name="exam_date_id", nullable=false)
     private ExamDate examDate;
     
 
@@ -63,6 +63,27 @@ public class TakingExam implements Serializable{
 		this.examDate = examDate;
 		this.attendingCourses = attendingCourses;
 	}
+	
+	
+
+
+
+
+	public TakingExam(Integer grade, boolean passed, boolean deleted, Lecturer lecturer, ExamDate examDate,
+			AttendingCourses attendingCourses) {
+		super();
+		this.grade = grade;
+		this.passed = passed;
+		this.deleted = deleted;
+		this.lecturer = lecturer;
+		this.examDate = examDate;
+		this.attendingCourses = attendingCourses;
+	}
+
+
+
+
+
 
 	public Integer getTaking_exam_id() {
 		return taking_exam_id;

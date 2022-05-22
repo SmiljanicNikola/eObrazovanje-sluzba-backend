@@ -12,6 +12,8 @@ public class AddTakingExamRequest {
     private Integer attendingCoursesId;
 
     private boolean deleted;
+    
+    private Integer examDateId;
 
     public Integer getGrade() {
         return grade;
@@ -25,7 +27,15 @@ public class AddTakingExamRequest {
         return lecturerId;
     }
 
-    public Integer getAttendingCoursesId() {
+    public Integer getExamDateId() {
+		return examDateId;
+	}
+
+	public void setExamDateId(Integer examDateId) {
+		this.examDateId = examDateId;
+	}
+
+	public Integer getAttendingCoursesId() {
         return attendingCoursesId;
     }
 
@@ -56,18 +66,18 @@ public class AddTakingExamRequest {
     public AddTakingExamRequest() {
     }
 
-    public AddTakingExamRequest(Integer grade, boolean passed, Integer lecturerId, Integer attendingCoursesId) {
-        this.grade = grade;
-        this.passed = passed;
-        this.lecturerId = lecturerId;
-        this.attendingCoursesId = attendingCoursesId;
-    }
 
-    public AddTakingExamRequest(Integer grade, boolean passed, Integer lecturerId, Integer attendingCoursesId, boolean deleted) {
-        this.grade = grade;
-        this.passed = passed;
-        this.lecturerId = lecturerId;
-        this.attendingCoursesId = attendingCoursesId;
-        this.deleted = deleted;
-    }
+
+    public AddTakingExamRequest(Integer grade, boolean passed, Integer lecturerId, Integer attendingCoursesId,
+			boolean deleted, Integer examDateId) {
+		super();
+		this.grade = grade;
+		this.passed = passed;
+		this.lecturerId = lecturerId;
+		this.attendingCoursesId = attendingCoursesId;
+		this.deleted = deleted;
+		this.examDateId = examDateId;
+	}
+
+
 }
