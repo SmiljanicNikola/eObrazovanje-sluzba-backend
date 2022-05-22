@@ -8,6 +8,7 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -15,6 +16,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -41,7 +45,7 @@ public class Subject implements Serializable {
 	private boolean blocked;
 
 	@JsonIgnore
-	@OneToMany(cascade = { ALL }, mappedBy = "subject")
+	@OneToMany(cascade = { ALL },mappedBy = "subject")
 	private List<SubjectPerformance> subjectPerformances = new ArrayList<SubjectPerformance>();
 
 	@OneToMany(cascade = { ALL }, mappedBy = "subject")

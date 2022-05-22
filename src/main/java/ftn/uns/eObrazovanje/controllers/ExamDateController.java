@@ -1,5 +1,6 @@
 package ftn.uns.eObrazovanje.controllers;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import ftn.uns.eObrazovanje.model.ExamDate;
+import ftn.uns.eObrazovanje.model.TakingExam;
 import ftn.uns.eObrazovanje.model.request.AddExamDateRequest;
 import ftn.uns.eObrazovanje.service.ExamDateService;
 import ftn.uns.eObrazovanje.service.TakingExamService;
@@ -59,13 +61,15 @@ public class ExamDateController {
 	public ResponseEntity<ExamDate> updateExamDate(@RequestBody AddExamDateRequest examDateRequest, @PathVariable("id") Integer id){
 		
 		ExamDate examDate = examDateService.findOne(id);
+		List<TakingExam> exams = new ArrayList<TakingExam>();
+		exams.add(this.takingExamService.findOne(examDateRequest.getTakingExamId()));
 		if(examDate == null) {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
 		examDate.setDate(examDateRequest.getDate());
 		examDate.setName(examDateRequest.getName());
-		examDate.setTakingExam(this.takingExamService.findOne(examDateRequest.getTakingExamId()));
-		//examDate.setDeleted(examDateRe);
+		examDate.setTakingExams(exams);
+		examDate.setDeleted(examDateRequest.isDeleted());
 		//Jos provera
 		
 		examDate = examDateService.save(examDate);
@@ -80,7 +84,7 @@ public class ExamDateController {
 		
 		examDate.setDate(examDateRequest.getDate());
 		examDate.setName(examDateRequest.getName());
-		examDate.setTakingExam(this.takingExamService.findOne(examDateRequest.getTakingExamId()));
+		examDate.setTakingExams(null);
 		examDate.setDeleted(false);
 		
 		examDate = examDateService.save(examDate);

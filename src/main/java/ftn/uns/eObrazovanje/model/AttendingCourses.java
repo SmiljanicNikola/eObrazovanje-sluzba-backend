@@ -32,18 +32,15 @@ public class AttendingCourses implements Serializable{
     @Column(name = "attending_courses_id", unique = true, nullable = false)
 	private Integer attending_courses_id;
 
-    @JsonIgnore
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="student_id", referencedColumnName = "student_id")
     private Student student;
     
- 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="subject_performance_id", nullable=false)
     private SubjectPerformance subjectPerformance;
     
     @JsonIgnore
-    @LazyCollection(LazyCollectionOption.FALSE)
     @OneToMany(mappedBy="attendingCourses")
     private List<TakingExam> takingExams = new ArrayList<TakingExam>();
 

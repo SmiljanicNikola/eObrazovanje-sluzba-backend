@@ -8,6 +8,7 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -38,25 +39,51 @@ public class TakingExam implements Serializable{
     @JoinColumn(name="lecturer_id", nullable=false)
     private Lecturer lecturer;
 
-	@JsonIgnore
-    @OneToMany(mappedBy="takingExam")
-    private List<ExamDate> examDates = new ArrayList<ExamDate>();
+//    @JsonIgnore
+//    @OneToMany(mappedBy="takingExam")
+//    private List<ExamDate> examDates = new ArrayList<ExamDate>();
     
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name="exam_date_id", nullable=false)
+    private ExamDate examDate;
+    
+
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="attending_courses_id", nullable=false)
     private AttendingCourses attendingCourses;
 
 	public TakingExam(Integer taking_exam_id, Integer grade, boolean passed, boolean deleted, Lecturer lecturer,
-			List<ExamDate> examDates, AttendingCourses attendingCourses) {
+			ExamDate examDate, AttendingCourses attendingCourses) {
 		super();
 		this.taking_exam_id = taking_exam_id;
 		this.grade = grade;
 		this.passed = passed;
 		this.deleted = deleted;
 		this.lecturer = lecturer;
-		this.examDates = examDates;
+		this.examDate = examDate;
 		this.attendingCourses = attendingCourses;
 	}
+	
+	
+
+
+
+
+	public TakingExam(Integer grade, boolean passed, boolean deleted, Lecturer lecturer, ExamDate examDate,
+			AttendingCourses attendingCourses) {
+		super();
+		this.grade = grade;
+		this.passed = passed;
+		this.deleted = deleted;
+		this.lecturer = lecturer;
+		this.examDate = examDate;
+		this.attendingCourses = attendingCourses;
+	}
+
+
+
+
+
 
 	public Integer getTaking_exam_id() {
 		return taking_exam_id;
@@ -90,12 +117,14 @@ public class TakingExam implements Serializable{
 		this.lecturer = lecturer;
 	}
 
-	public List<ExamDate> getExamDates() {
-		return examDates;
+
+
+	public ExamDate getExamDate() {
+		return examDate;
 	}
 
-	public void setExamDates(List<ExamDate> examDates) {
-		this.examDates = examDates;
+	public void setExamDate(ExamDate examDate) {
+		this.examDate = examDate;
 	}
 
 	public AttendingCourses getAttendingCourses() {
@@ -117,8 +146,8 @@ public class TakingExam implements Serializable{
 	@Override
 	public String toString() {
 		return "TakingExam [taking_exam_id=" + taking_exam_id + ", grade=" + grade + ", passed=" + passed + ", deleted="
-				+ deleted + ", lecturer=" + lecturer + ", examDates=" + examDates + ", attendingCourses="
-				+ attendingCourses + "]";
+				+ deleted + ", lecturer=" + lecturer + ", examDates=" + examDate + ", attendingCourses="
+				+ null + "]";
 	}
 
 	public TakingExam() {

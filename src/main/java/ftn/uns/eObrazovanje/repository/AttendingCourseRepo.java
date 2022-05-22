@@ -1,6 +1,7 @@
 package ftn.uns.eObrazovanje.repository;
 
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -13,5 +14,5 @@ import ftn.uns.eObrazovanje.model.AttendingCourses;
 public interface AttendingCourseRepo extends JpaRepository<AttendingCourses, Integer>{
 
 	@Query(value = "SELECT u FROM AttendingCourses u WHERE u.student.username = :username")
-	List<AttendingCourses> findByUsername(@Param("username") String username);	
+	Set<AttendingCourses> findByUsername(@Param("username") String username);	
 }

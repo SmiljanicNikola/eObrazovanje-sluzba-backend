@@ -1,6 +1,7 @@
 package ftn.uns.eObrazovanje.service.impl;
 
 import java.util.List;
+import java.util.Set;
 
 import ftn.uns.eObrazovanje.repository.TakingExamRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,14 +17,19 @@ public class TakingExamServiceImpl implements TakingExamService{
 	private TakingExamRepo takingExamRepo;
 
 	@Override
-	public List<TakingExam> findAll() {
+	public Set<TakingExam> findAll() {
+		return takingExamRepo.find();
+	}
+
+	@Override
+	public List<TakingExam> findAllList() {
 		return takingExamRepo.findAll();
 	}
 
 	@Override
 	public TakingExam save(TakingExam takingExam) {
-		// TODO Auto-generated method stub
-		return null;
+		takingExamRepo.save(takingExam);
+		return takingExam;
 	}
 
 	@Override
@@ -34,7 +40,6 @@ public class TakingExamServiceImpl implements TakingExamService{
 	@Override
 	public void remove(Integer id) {
 		// TODO Auto-generated method stub
-		
 	}
 	
 	

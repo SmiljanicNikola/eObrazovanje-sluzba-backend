@@ -14,6 +14,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "roles_lecturer")
 public class Rolee implements Serializable{
@@ -26,6 +28,7 @@ public class Rolee implements Serializable{
 	@Column(name = "name", unique = false, nullable = false)
 	private String name;
 	
+	@JsonIgnore
 	@OneToMany(cascade= {ALL}, mappedBy= "role")
     private List<LecturerOnTheSubject> lecturersOnTheSubject = new ArrayList<LecturerOnTheSubject>();
 

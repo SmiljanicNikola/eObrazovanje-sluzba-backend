@@ -32,9 +32,13 @@ public class ExamDate implements Serializable{
 	@Column(name = "name", unique = false, nullable = false)
 	private String name;
 	
-    @ManyToOne
-    @JoinColumn(name="taking_exam_id", referencedColumnName = "taking_exam_id", nullable=false)
-    private TakingExam takingExam;
+//    @ManyToOne
+//    @JoinColumn(name="taking_exam_id", referencedColumnName = "taking_exam_id", nullable=false)
+//    private TakingExam takingExam;
+	
+    @JsonIgnore
+    @OneToMany(mappedBy="examDate")
+    private List<TakingExam> takingExams = new ArrayList<TakingExam>();
 
 	@JsonIgnore
     @OneToMany(mappedBy="examDate")
@@ -67,43 +71,45 @@ public class ExamDate implements Serializable{
 		this.name = name;
 	}
 
-	public TakingExam getTakingExam() {
-		return takingExam;
+
+	
+	
+
+	
+
+	public List<TakingExam> getTakingExams() {
+		return takingExams;
 	}
 
-	public void setTakingExam(TakingExam takingExam) {
-		this.takingExam = takingExam;
+	public void setTakingExams(List<TakingExam> takingExams) {
+		this.takingExams = takingExams;
 	}
-	
-	
 
-	
-
-	public ExamDate(LocalDate date, String name, TakingExam takingExam, boolean deleted) {
+	public ExamDate(LocalDate date, String name, List<TakingExam> takingExams, boolean deleted) {
 		super();
 		this.date = date;
 		this.name = name;
-		this.takingExam = takingExam;
+		this.takingExams = takingExams;
 		this.deleted = deleted;
 	}
 
-	public ExamDate(LocalDate date, String name, TakingExam takingExam,
+	public ExamDate(LocalDate date, String name, List<TakingExam> takingExams,
 			List<PreExaminationObligations> examinationObligations, boolean deleted) {
 		super();
 		this.date = date;
 		this.name = name;
-		this.takingExam = takingExam;
+		this.takingExams = takingExams;
 		this.examinationObligations = examinationObligations;
 		this.deleted = deleted;
 	}
 
-	public ExamDate(Integer id, LocalDate date, String name, TakingExam takingExam,
+	public ExamDate(Integer id, LocalDate date, String name, List<TakingExam> takingExams,
 			List<PreExaminationObligations> examinationObligations, boolean deleted) {
 		super();
 		this.id = id;
 		this.date = date;
 		this.name = name;
-		this.takingExam = takingExam;
+		this.takingExams = takingExams;
 		this.examinationObligations = examinationObligations;
 		this.deleted = deleted;
 	}
