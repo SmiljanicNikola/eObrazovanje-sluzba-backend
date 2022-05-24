@@ -17,6 +17,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.springframework.web.bind.annotation.CrossOrigin;
+
 @Entity
 @Table(name="departments")
 public class Department implements Serializable{
@@ -35,8 +37,8 @@ public class Department implements Serializable{
 	@Column(name = "blocked", unique = false, nullable = false)
 	private boolean blocked;
 	
-	@OneToMany(cascade= {ALL}, mappedBy= "department")
-    private List<Semester> semesters = new ArrayList<Semester>();
+//	@OneToMany(cascade= {ALL}, mappedBy= "department")
+//    private List<Semester> semesters = new ArrayList<Semester>();
 
 	public Integer getId() {
 		return id;
@@ -76,6 +78,14 @@ public class Department implements Serializable{
 		this.numberOfStudents = numberOfStudents;
 		this.name = name;
 		this.blocked = blocked;
+	}
+	
+	
+
+	public Department(Integer numberOfStudents, String name) {
+		super();
+		this.numberOfStudents = numberOfStudents;
+		this.name = name;
 	}
 
 	public Department() {

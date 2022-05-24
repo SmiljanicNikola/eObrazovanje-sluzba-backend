@@ -97,7 +97,7 @@ public class TakingExamController {
     }
 	
 
-	@PostMapping
+	/*@PostMapping
 	public ResponseEntity<TakingExam> saveTakingExam(@RequestBody AddTakingExamRequest addTakingExamRequest){
 		TakingExam takingExam = new TakingExam();
 		takingExam.setGrade(addTakingExamRequest.getGrade());
@@ -110,7 +110,7 @@ public class TakingExamController {
 		takingExam = takingExamService.save(takingExam);
 		return new ResponseEntity<>(takingExam, HttpStatus.CREATED);
 
-	}
+	}*/
 	/*@PostMapping()
 	public ResponseEntity<TakingExam> saveTakingExam(@RequestBody TakingExam addTakingExamRequest) {
 

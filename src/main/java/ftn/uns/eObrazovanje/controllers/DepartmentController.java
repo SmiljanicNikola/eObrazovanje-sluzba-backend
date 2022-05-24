@@ -7,6 +7,7 @@ import java.util.Objects;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,6 +23,7 @@ import ftn.uns.eObrazovanje.service.DepartmanService;
 
 @RestController
 @RequestMapping(value = "api/departments")
+@CrossOrigin(origins = "http://localhost:4200")
 public class DepartmentController {
 	
 	@Autowired
@@ -29,6 +31,7 @@ public class DepartmentController {
 	
 	@GetMapping
 	public ResponseEntity<List<Department>> getDepartments(){
+		System.out.println("lavor");
 		List<Department> departments = depServ.findAll();
 		
 		return new ResponseEntity<>(departments, HttpStatus.OK); 
@@ -44,15 +47,15 @@ public class DepartmentController {
         return new ResponseEntity<>(department, HttpStatus.OK);
     }
     
-    @GetMapping(value = "/name/{name}")
-    public ResponseEntity<Department> getDepartmentByName(@PathVariable("name") String name) {
-    	Department department = depServ.findByName(name);
-        if (department  == null) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-
-        return new ResponseEntity<>(department, HttpStatus.OK);
-    }
+//    @GetMapping(value = "/name/{name}")
+//    public ResponseEntity<Department> getDepartmentByName(@PathVariable("name") String name) {
+//    	Department department = depServ.findByName(name);
+//        if (department  == null) {
+//            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+//        }
+//
+//        return new ResponseEntity<>(department, HttpStatus.OK);
+//    }
     
     @PutMapping("/{id}")
     public ResponseEntity<Department> updateDepartment(

@@ -28,7 +28,7 @@ public class SemesterController {
 	@GetMapping
 	public ResponseEntity<List<Semester>> getSemesters() {
 		List<Semester> semesters = semesterService.findAll();
-
+		System.out.println(semesters.get(0).getDepartment());
 		return new ResponseEntity<>(semesters, HttpStatus.OK);
 	}
 
