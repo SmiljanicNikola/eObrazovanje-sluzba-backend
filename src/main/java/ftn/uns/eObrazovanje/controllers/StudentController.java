@@ -67,9 +67,32 @@ public class StudentController {
     }
     
 	@PostMapping
-	public void save(@RequestBody StudentDTO studentDto) {
-		studentService.save(studentDto);
+	public ResponseEntity<Student> save(@RequestBody StudentDTO studentDto) {
+		if (studentDto.getUsername() == null || Objects.equals(studentDto.getUsername(), "") ) {
+        	return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        if (studentDto.getPassword() == null || Objects.equals(studentDto.getPassword(), "") ) {
+        	return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+
+        if (studentDto.getIndexNumber() == null || Objects.equals(studentDto.getIndexNumber(), "") ) {
+        	return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        if (studentDto.getFirstname() == null || Objects.equals(studentDto.getFirstname(), "") ) {
+        	return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        if (studentDto.getLastname() == null || Objects.equals(studentDto.getLastname(), "") ) {
+        	return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+
+        if (studentDto.getJmbg() == null || Objects.equals(studentDto.getJmbg(), "") ) {
+        	return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+		Student student = studentService.save(studentDto);
+		return ResponseEntity.ok().body(student);
+		
 	}
+	
 	
     @PutMapping("/{id}")
     public ResponseEntity<Student> updateStudent(
