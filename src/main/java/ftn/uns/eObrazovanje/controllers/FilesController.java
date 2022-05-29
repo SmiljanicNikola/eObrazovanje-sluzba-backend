@@ -27,20 +27,24 @@ import ftn.uns.eObrazovanje.service.FilesStorageService;
 @CrossOrigin(origins="*")
 @RequestMapping(value = "api/uploadfile")
 public class FilesController {
+	
 	  @Autowired
 	  FilesStorageService storageService;
+	  
 	  @PostMapping("/upload")
-	  public ResponseEntity<ResponseMessage> uploadFile(@RequestParam("file") MultipartFile file, String username) {
+	  public ResponseEntity<ResponseMessage> uploadFile(@RequestParam("file") MultipartFile file,@RequestParam("username") String username) {
 	    String message = "";
+	    System.out.println(username);
 	    try {
 	      storageService.save(file, username);
-	      message = "Uploaded the file successfully: " + username + "-" + file.getOriginalFilename();
+	      message = "Uploaded the file successfully: "+ username  + "-" + file.getOriginalFilename();
 	      return ResponseEntity.status(HttpStatus.OK).body(new ResponseMessage(message));
 	    } catch (Exception e) {
-	      message = "Could not upload the file: " + username + "-" + file.getOriginalFilename() + "!";
+	      message = "Could not upload the file: "  + username+ "-" + file.getOriginalFilename() + "!";
 	      return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(new ResponseMessage(message));
 	    }
 	  }
+	  
 	  @GetMapping("/files")
 	  public ResponseEntity<List<FileInfo>> getListFiles() {
 	    List<FileInfo> fileInfos = storageService.loadAll().map(path -> {
@@ -51,6 +55,7 @@ public class FilesController {
 	    }).collect(Collectors.toList());
 	    return ResponseEntity.status(HttpStatus.OK).body(fileInfos);
 	  }
+	  
 	  @GetMapping("/files/{filename:.+}")
 	  @ResponseBody
 	  public ResponseEntity<Resource> getFile(@PathVariable String filename) {
