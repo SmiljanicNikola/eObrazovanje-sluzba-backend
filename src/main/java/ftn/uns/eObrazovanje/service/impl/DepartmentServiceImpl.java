@@ -2,6 +2,7 @@ package ftn.uns.eObrazovanje.service.impl;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import ftn.uns.eObrazovanje.model.Department;
@@ -9,7 +10,7 @@ import ftn.uns.eObrazovanje.repository.DepartmentRepo;
 import ftn.uns.eObrazovanje.service.DepartmanService;
 @Service
 public class DepartmentServiceImpl implements DepartmanService{
-
+	@Autowired
 	private DepartmentRepo departRepo;
 	
 	@Override

@@ -77,6 +77,12 @@ public class Department implements Serializable{
 		this.name = name;
 		this.blocked = blocked;
 	}
+	
+	public Department(Integer numberOfStudents, String name) {
+		super();
+		this.numberOfStudents = numberOfStudents;
+		this.name = name;
+	}
 
 	public Department() {
 		super();
