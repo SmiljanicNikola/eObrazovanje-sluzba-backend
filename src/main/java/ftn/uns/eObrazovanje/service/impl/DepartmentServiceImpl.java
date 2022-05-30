@@ -10,6 +10,7 @@ import ftn.uns.eObrazovanje.repository.DepartmentRepo;
 import ftn.uns.eObrazovanje.service.DepartmanService;
 @Service
 public class DepartmentServiceImpl implements DepartmanService{
+
 	@Autowired
 	private DepartmentRepo departRepo;
 	
@@ -29,10 +30,6 @@ public class DepartmentServiceImpl implements DepartmanService{
 		return departRepo.findById(departmenId).orElse(null);
 	}
 
-	@Override
-	public Department findByName(String name) {
-		return departRepo.findByName(name);
-	}
 
 	@Override
 	public void remove(Integer id) {
@@ -42,6 +39,7 @@ public class DepartmentServiceImpl implements DepartmanService{
 
 	@Override
 	public Department save(Department department) {
+		System.out.println(department);
 		return departRepo.save(department);
 	}
 

@@ -13,8 +13,6 @@ public interface DepartmanService {
     
     Department findOne(Integer departmenId);
     
-    Department findByName(String name);
-    
     void remove(Integer id);
     
     Department save(Department department);
