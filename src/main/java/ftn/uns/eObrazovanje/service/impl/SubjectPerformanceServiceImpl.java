@@ -17,14 +17,12 @@ public class SubjectPerformanceServiceImpl implements SubjectPerformanceService 
 
 	@Override
 	public List<SubjectPerformance> findAll() {
-		// TODO Auto-generated method stub
-		return null;
+		return repo.findAll();
 	}
 
 	@Override
 	public SubjectPerformance save(SubjectPerformance subjectPerformance) {
-		// TODO Auto-generated method stub
-		return null;
+		return repo.save(subjectPerformance);
 	}
 
 	@Override

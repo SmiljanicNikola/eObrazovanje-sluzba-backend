@@ -80,8 +80,6 @@ public class Department implements Serializable{
 		this.blocked = blocked;
 	}
 	
-	
-
 	public Department(Integer numberOfStudents, String name) {
 		super();
 		this.numberOfStudents = numberOfStudents;
