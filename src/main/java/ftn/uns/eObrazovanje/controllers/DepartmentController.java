@@ -24,7 +24,6 @@ import ftn.uns.eObrazovanje.service.DepartmanService;
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping(value = "api/departments")
-@CrossOrigin(origins = "http://localhost:4200")
 public class DepartmentController {
 	
 	@Autowired
