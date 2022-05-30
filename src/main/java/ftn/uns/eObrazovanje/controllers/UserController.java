@@ -2,6 +2,7 @@ package ftn.uns.eObrazovanje.controllers;
 
 import ftn.uns.eObrazovanje.model.Student;
 import ftn.uns.eObrazovanje.model.User;
+import ftn.uns.eObrazovanje.model.request.UpdateUserRequest;
 import ftn.uns.eObrazovanje.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -9,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @RestController
 @CrossOrigin(origins="*")
@@ -45,5 +47,26 @@ public class UserController {
 
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
+
+    @PutMapping(value = "/{id}")
+    public ResponseEntity<?> updateUser(@RequestBody UpdateUserRequest updateUserRequest,
+                                             @PathVariable Integer id) {
+        try {
+            User existingUser = userService.findOne(id);
+            if(existingUser != null) {
+                existingUser.setName(existingUser.getName());
+                existingUser.setSurname(existingUser.getSurname());
+                existingUser.setUsername(existingUser.getUsername());
+                existingUser.setAddress(existingUser.getAddress());
+                existingUser.setJmbg(existingUser.getJmbg());
+
+                userService.save(existingUser);
+            }
+            return new ResponseEntity<>(HttpStatus.OK);
+        }catch(NoSuchElementException e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
 
 }
