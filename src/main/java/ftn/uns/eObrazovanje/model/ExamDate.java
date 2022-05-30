@@ -71,12 +71,6 @@ public class ExamDate implements Serializable{
 		this.name = name;
 	}
 
-
-	
-	
-
-	
-
 	public List<TakingExam> getTakingExams() {
 		return takingExams;
 	}
@@ -93,8 +87,13 @@ public class ExamDate implements Serializable{
 		this.deleted = deleted;
 	}
 
+	public ExamDate(LocalDate date, String name) {
+		this.date = date;
+		this.name = name;
+	}
+
 	public ExamDate(LocalDate date, String name, List<TakingExam> takingExams,
-			List<PreExaminationObligations> examinationObligations, boolean deleted) {
+					List<PreExaminationObligations> examinationObligations, boolean deleted) {
 		super();
 		this.date = date;
 		this.name = name;
