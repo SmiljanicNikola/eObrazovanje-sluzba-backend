@@ -116,7 +116,7 @@ public class StudentController {
         user.setSurname(student.getLastname());
         user.setUsername(student.getUsername());
         user.setAddress(student.getAdress());
-        user.setPassword(student.getPassword());
+        //user.setPassword(student.getPassword());
         user.setBlocked(student.isBlocked());
         user.setJmbg(student.getJmbg());
         

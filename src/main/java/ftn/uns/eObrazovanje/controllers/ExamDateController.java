@@ -6,14 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import ftn.uns.eObrazovanje.model.ExamDate;
 import ftn.uns.eObrazovanje.model.TakingExam;
@@ -22,6 +15,7 @@ import ftn.uns.eObrazovanje.service.ExamDateService;
 import ftn.uns.eObrazovanje.service.TakingExamService;
 
 @RestController
+@CrossOrigin(origins="*")
 @RequestMapping(value = "api/examDates")
 public class ExamDateController {
 	
@@ -51,8 +45,8 @@ public class ExamDateController {
 	public ResponseEntity<?> deleteExamDate(@PathVariable("id") Integer id){
 		ExamDate examDate = examDateService.findOne(id);
 		
-		examDate.setDeleted(true);
-		examDateService.save(examDate);
+		//examDate.setDeleted(true);
+		examDateService.remove(id);
 		
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
@@ -91,7 +85,4 @@ public class ExamDateController {
 		return new ResponseEntity<>(examDate, HttpStatus.CREATED);
 		
 	}
-	
-	
-
 }

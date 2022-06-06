@@ -71,6 +71,24 @@ public class AddExamDateRequest {
 		this.deleted = deleted;
 	}
 
+	public AddExamDateRequest(LocalDate date, String name, boolean deleted) {
+		this.date = date;
+		this.name = name;
+		this.deleted = deleted;
+	}
+
+	public AddExamDateRequest(Integer id, LocalDate date, String name, boolean deleted) {
+		this.id = id;
+		this.date = date;
+		this.name = name;
+		this.deleted = deleted;
+	}
+
+	public AddExamDateRequest(LocalDate date, String name) {
+		this.date = date;
+		this.name = name;
+	}
+
 	@Override
 	public String toString() {
 		return "AddExamDateRequest [id=" + id + ", date=" + date + ", name=" + name + ", takingExamId=" + takingExamId

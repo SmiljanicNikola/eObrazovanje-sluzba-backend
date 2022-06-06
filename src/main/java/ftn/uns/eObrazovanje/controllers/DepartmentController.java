@@ -31,6 +31,7 @@ public class DepartmentController {
 	
 	@GetMapping
 	public ResponseEntity<List<Department>> getDepartments(){
+		System.out.println("lavor");
 		List<Department> departments = depServ.findAll();
 		
 		return new ResponseEntity<>(departments, HttpStatus.OK); 
@@ -46,15 +47,15 @@ public class DepartmentController {
         return new ResponseEntity<>(department, HttpStatus.OK);
     }
     
-    @GetMapping(value = "/name/{name}")
-    public ResponseEntity<Department> getDepartmentByName(@PathVariable("name") String name) {
-    	Department department = depServ.findByName(name);
-        if (department  == null) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-
-        return new ResponseEntity<>(department, HttpStatus.OK);
-    }
+//    @GetMapping(value = "/name/{name}")
+//    public ResponseEntity<Department> getDepartmentByName(@PathVariable("name") String name) {
+//    	Department department = depServ.findByName(name);
+//        if (department  == null) {
+//            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+//        }
+//
+//        return new ResponseEntity<>(department, HttpStatus.OK);
+//    }
     
     @PutMapping("/{id}")
     public ResponseEntity<Department> updateDepartment(

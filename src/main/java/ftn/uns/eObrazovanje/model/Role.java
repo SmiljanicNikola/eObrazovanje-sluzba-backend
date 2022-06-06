@@ -1,5 +1,7 @@
 package ftn.uns.eObrazovanje.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.util.HashSet;
 import java.util.Set;
 
@@ -26,7 +28,8 @@ public class Role {
     @Column(name = "name", unique = true, nullable = false)
 	private String name;
     
-    
+
+	@JsonIgnore
     @ManyToMany(mappedBy = "roles", cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
     private Set<User> users = new HashSet<>();
 
