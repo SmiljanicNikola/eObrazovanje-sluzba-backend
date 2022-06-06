@@ -1,5 +1,6 @@
 package ftn.uns.eObrazovanje.controllers;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import ftn.uns.eObrazovanje.model.PreExaminationObligations;
 import ftn.uns.eObrazovanje.model.TypeOfRequirement;
+import ftn.uns.eObrazovanje.model.DTO.PreExaminationDTO;
+import ftn.uns.eObrazovanje.model.DTO.TypeOfRequirementDTO;
 import ftn.uns.eObrazovanje.model.request.AddPreExaminationObligationRequest;
 import ftn.uns.eObrazovanje.service.PreExaminationObligationService;
 import ftn.uns.eObrazovanje.service.TypeOfRequirementService;
@@ -28,10 +31,13 @@ public class TypeOfRequirementController {
 	TypeOfRequirementService typeOfRequirementService;
 	
 	@GetMapping 
-	public ResponseEntity<List<TypeOfRequirement>> getTypeOfRequirements(){
+	public ResponseEntity<List<TypeOfRequirementDTO>> getTypeOfRequirements(){
 		List<TypeOfRequirement> typeOfRequirements = typeOfRequirementService.findAll();
-		
-		return new ResponseEntity<>(typeOfRequirements, HttpStatus.OK);
+		List<TypeOfRequirementDTO> typeList = new ArrayList<TypeOfRequirementDTO>();
+		for(TypeOfRequirement item:typeOfRequirements) {
+			typeList.add(new TypeOfRequirementDTO(item));
+		};
+		return new ResponseEntity<>(typeList, HttpStatus.OK);
 	}
 	
 	@GetMapping(value = "/{id}")

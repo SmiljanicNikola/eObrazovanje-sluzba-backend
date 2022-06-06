@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import ftn.uns.eObrazovanje.model.AttendingCourses;
+import ftn.uns.eObrazovanje.model.Student;
 import ftn.uns.eObrazovanje.model.DTO.AttendingCourseDTO;
 import ftn.uns.eObrazovanje.repository.AttendingCourseRepo;
 import ftn.uns.eObrazovanje.service.AttendingCoursesService;
