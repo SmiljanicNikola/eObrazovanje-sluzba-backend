@@ -3,12 +3,12 @@ package ftn.uns.eObrazovanje.model.DTO;
 public class LecturerDTO {
 	
 	private Integer id;
-	private String username;
 	private String firstname;
 	private String lastname;
+	private String username;
 	private String password;
-	private String jmbg;
 	private String adress;
+	private String jmbg;
 	private Integer pay;
 	public Integer getId() {
 		return id;
@@ -58,15 +58,15 @@ public class LecturerDTO {
 	public void setPay(Integer pay) {
 		this.pay = pay;
 	}
-	public LecturerDTO(String username, String firstname, String lastname, String password, String jmbg, String adress,
-			Integer pay) {
+	public LecturerDTO(String firstname, String lastname,String username,  String password, String adress,
+			String jmbg,Integer pay) {
 		super();
-		this.username = username;
 		this.firstname = firstname;
 		this.lastname = lastname;
+		this.username = username;
 		this.password = password;
-		this.jmbg = jmbg;
 		this.adress = adress;
+		this.jmbg = jmbg;
 		this.pay = pay;
 	}
 	public LecturerDTO() {
@@ -74,8 +74,8 @@ public class LecturerDTO {
 	}
 	@Override
 	public String toString() {
-		return "LecturerDTO [id=" + id + ", username=" + username + ", firstname=" + firstname + ", lastname="
-				+ lastname + ", password=" + password + ", jmbg=" + jmbg + ", adress=" + adress + ", pay=" + pay + "]";
+		return "LecturerDTO [id=" + id + ",  firstname=" + firstname + ", lastname="
+				+ lastname + ",username=" + username + ", password=" + password + ", adress=" + adress +", jmbg=" + jmbg +  ", pay=" + pay + "]";
 	}
 	
 	
