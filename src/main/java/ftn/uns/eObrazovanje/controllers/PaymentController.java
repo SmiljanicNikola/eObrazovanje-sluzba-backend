@@ -73,12 +73,13 @@ public class PaymentController {
 	}
 	
 	@PostMapping()
-	public ResponseEntity<Payment> savePayment(@RequestBody AddPaymentRequest addPaymentRequest){
+	public ResponseEntity<Payment> savePayment(@RequestBody Payment addPaymentRequest){
 		Payment payment = new Payment();
+		System.out.println(addPaymentRequest);
 		payment.setPurposeOfPayment(addPaymentRequest.getPurposeOfPayment());
 		payment.setAmount(addPaymentRequest.getAmount());
 		payment.setDateOfPayment(addPaymentRequest.getDateOfPayment());
-		//payment.setAccount(this.accountService.findOne(addPaymentRequest.getAccount_id()));
+		payment.setAccount(this.accountService.findOne(addPaymentRequest.getAccount().getAccount_id()));
 		payment.setDeleted(false);
 		
 		payment = paymentService.save(payment);

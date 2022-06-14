@@ -111,6 +111,12 @@ public class Payment implements Serializable{
 		this.deleted = deleted;
 	}
 
+	@Override
+	public String toString() {
+		return "Payment [payment_id=" + payment_id + ", purposeOfPayment=" + purposeOfPayment + ", amount=" + amount
+				+ ", dateOfPayment=" + dateOfPayment + ", account=" + account + ", deleted=" + deleted + "]";
+	}
+
 	
 	
 	
