@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import ftn.uns.eObrazovanje.model.Account;
 import ftn.uns.eObrazovanje.model.Payment;
 import ftn.uns.eObrazovanje.model.request.AddPaymentRequest;
 import ftn.uns.eObrazovanje.service.AccountService;
@@ -73,15 +74,18 @@ public class PaymentController {
 	}
 	
 	@PostMapping()
-	public ResponseEntity<Payment> savePayment(@RequestBody Payment addPaymentRequest){
+	public ResponseEntity<Payment> savePayment(@RequestBody AddPaymentRequest addPaymentRequest){
 		Payment payment = new Payment();
+		Account account = accountService.findOne(addPaymentRequest.getAccount().getAccount_id());
 		System.out.println(addPaymentRequest);
 		payment.setPurposeOfPayment(addPaymentRequest.getPurposeOfPayment());
 		payment.setAmount(addPaymentRequest.getAmount());
 		payment.setDateOfPayment(addPaymentRequest.getDateOfPayment());
 		payment.setAccount(this.accountService.findOne(addPaymentRequest.getAccount().getAccount_id()));
+		double oldBalance = account.getAccountBallance();
+		account.setAccountBallance((float) (oldBalance + addPaymentRequest.getAmount()));
 		payment.setDeleted(false);
-		
+		accountService.save(account);
 		payment = paymentService.save(payment);
 		return new ResponseEntity<>(payment, HttpStatus.CREATED);
 		

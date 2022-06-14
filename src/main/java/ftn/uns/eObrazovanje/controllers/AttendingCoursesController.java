@@ -73,7 +73,7 @@ public class AttendingCoursesController {
 	@GetMapping(value = "/{id}")
 	public ResponseEntity<AttendingCourses> getCourse(@PathVariable("id") Integer id){
 		AttendingCourses course = attendingCourseService.findOne(id);
-		
+		System.out.println("ID: " + course);
 		return ResponseEntity.ok().body(course);
 	}
 	
