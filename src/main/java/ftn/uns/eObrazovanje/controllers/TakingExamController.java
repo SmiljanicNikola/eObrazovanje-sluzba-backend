@@ -4,8 +4,12 @@ import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.mail.MessagingException;
+import javax.mail.internet.AddressException;
+
 import ftn.uns.eObrazovanje.model.request.AddTakingExamRequest;
 import ftn.uns.eObrazovanje.service.AttendingCoursesService;
+import ftn.uns.eObrazovanje.service.EmailService;
 import ftn.uns.eObrazovanje.service.ExamDateService;
 import ftn.uns.eObrazovanje.service.LecturerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +31,9 @@ public class TakingExamController {
 
 	@Autowired
 	private LecturerService lecturerService;
+	
+	@Autowired
+	private EmailService emailService;
 
 	@Autowired
 	private AttendingCoursesService attendingCoursesService;
@@ -85,11 +92,13 @@ public class TakingExamController {
     public ResponseEntity<TakingExam> updateTakingExam(
         @PathVariable(value = "id", required = false) final Integer id,
         @RequestBody TakingExam takingExam
-    ) throws URISyntaxException {
+    ) throws URISyntaxException, AddressException, MessagingException {
         if (takingExamService.findOne(id) == null) {
         	return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
-
+        System.out.println("STUDENT: " + takingExam.getAttendingCourses().getStudent().getAdress());
+        System.out.println(takingExam.getAttendingCourses().getSubjectPerformance().getSubject().getName());
+        emailService.sendmail(takingExam.getAttendingCourses().getStudent().getAdress(), takingExam.getAttendingCourses().getSubjectPerformance().getSubject().getName());
         TakingExam result = takingExamService.save(takingExam);
         return ResponseEntity
             .ok()
