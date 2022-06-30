@@ -98,7 +98,8 @@ public class TakingExamController {
         }
         System.out.println("STUDENT: " + takingExam.getAttendingCourses().getStudent().getAdress());
         System.out.println(takingExam.getAttendingCourses().getSubjectPerformance().getSubject().getName());
-        emailService.sendmail(takingExam.getAttendingCourses().getStudent().getAdress(), takingExam.getAttendingCourses().getSubjectPerformance().getSubject().getName());
+        if ( takingExamService.findOne(id).getGrade() <= 5 )
+        	emailService.sendmail(takingExam.getAttendingCourses().getStudent().getAdress(), takingExam.getAttendingCourses().getSubjectPerformance().getSubject().getName());
         TakingExam result = takingExamService.save(takingExam);
         return ResponseEntity
             .ok()

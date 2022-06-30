@@ -30,20 +30,18 @@ public class EmailServiceImpl implements EmailService{
 		   
 		   Session session = Session.getInstance(props, new javax.mail.Authenticator() {
 		      protected PasswordAuthentication getPasswordAuthentication() {
-		         return new PasswordAuthentication("nemanja12344@gmail.com", "");
+		         return new PasswordAuthentication("nemanja12344@gmail.com", "humgfvznnmlduxpa");
 		      }
 		   });
 		   Message msg = new MimeMessage(session);
-		   msg.setFrom(new InternetAddress("nemanaj12344@gmail.com", false));
+		   msg.setFrom(new InternetAddress("nemanja12344@gmail.com", false));
 
-		   msg.setRecipients(Message.RecipientType.TO, InternetAddress.parse("nemanja123444@gmail.com"));
+		   msg.setRecipients(Message.RecipientType.TO, InternetAddress.parse(email));
 		   msg.setSubject("Fakultet - Unos Ocena");
 		   String content = "Profesor iz predmeta " + subjectName + " je uneo vasu ocenu. <a href='https://localhost:4200/home'>Sajt</a>'";
 		   msg.setContent(content , "text/html");
 		   msg.setSentDate(new Date());
 
-		   Transport.send(msg);   {
-		
-		   }
+		   Transport.send(msg);   {}
 	}
 }
