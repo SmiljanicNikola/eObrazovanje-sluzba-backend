@@ -30,7 +30,7 @@ public class EmailServiceImpl implements EmailService{
 		   
 		   Session session = Session.getInstance(props, new javax.mail.Authenticator() {
 		      protected PasswordAuthentication getPasswordAuthentication() {
-		         return new PasswordAuthentication("nemanja12344@gmail.com", "gtowdmyzuasgmsib");
+		         return new PasswordAuthentication("nemanja12344@gmail.com", "");
 		      }
 		   });
 		   Message msg = new MimeMessage(session);
@@ -38,7 +38,7 @@ public class EmailServiceImpl implements EmailService{
 
 		   msg.setRecipients(Message.RecipientType.TO, InternetAddress.parse("nemanja123444@gmail.com"));
 		   msg.setSubject("Fakultet - Unos Ocena");
-		   String content = "Profesor iz predmeta " + subjectName + " je uneo vasu ocenu. <a href='https://localhost:4200/home>Sajt</a>'";
+		   String content = "Profesor iz predmeta " + subjectName + " je uneo vasu ocenu. <a href='https://localhost:4200/home'>Sajt</a>'";
 		   msg.setContent(content , "text/html");
 		   msg.setSentDate(new Date());
 
