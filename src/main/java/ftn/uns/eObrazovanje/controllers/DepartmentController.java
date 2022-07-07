@@ -83,7 +83,7 @@ public class DepartmentController {
     @DeleteMapping(value = "/{id}")
     public ResponseEntity<?> deleteDepartment(@PathVariable("id") Integer id) {
         Department department = depServ.findOne(id);
-        
+        System.out.println("ID: " + id);
         if (department.isBlocked()) {
         	department.setBlocked(false);
         	depServ.save(department);

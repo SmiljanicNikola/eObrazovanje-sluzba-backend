@@ -17,6 +17,7 @@ public interface AttendingCoursesService {
     void add(AttendingCourses attendingCourse);
     
     AttendingCourses findOne(Integer id);
+    List<Student> getStudents(Integer courseID);
     
     void remove(Integer id);
     

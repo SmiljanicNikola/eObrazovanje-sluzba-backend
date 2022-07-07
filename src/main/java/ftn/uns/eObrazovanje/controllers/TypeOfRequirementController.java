@@ -18,14 +18,13 @@ import org.springframework.web.bind.annotation.RestController;
 
 import ftn.uns.eObrazovanje.model.PreExaminationObligations;
 import ftn.uns.eObrazovanje.model.TypeOfRequirement;
-import ftn.uns.eObrazovanje.model.DTO.PreExaminationDTO;
-import ftn.uns.eObrazovanje.model.DTO.TypeOfRequirementDTO;
+import ftn.uns.eObrazovanje.model.DTO.TypeOfRequirementsDTO;
 import ftn.uns.eObrazovanje.model.request.AddPreExaminationObligationRequest;
 import ftn.uns.eObrazovanje.service.PreExaminationObligationService;
 import ftn.uns.eObrazovanje.service.TypeOfRequirementService;
 
 @RestController
-@CrossOrigin(origins="*")
+@CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping(value = "api/typeOfRequirements")
 public class TypeOfRequirementController {
 	
@@ -33,13 +32,13 @@ public class TypeOfRequirementController {
 	TypeOfRequirementService typeOfRequirementService;
 	
 	@GetMapping 
-	public ResponseEntity<List<TypeOfRequirementDTO>> getTypeOfRequirements(){
+	public ResponseEntity<List<TypeOfRequirementsDTO>> getTypeOfRequirements(){
 		List<TypeOfRequirement> typeOfRequirements = typeOfRequirementService.findAll();
-		List<TypeOfRequirementDTO> typeList = new ArrayList<TypeOfRequirementDTO>();
-		for(TypeOfRequirement item:typeOfRequirements) {
-			typeList.add(new TypeOfRequirementDTO(item));
-		};
-		return new ResponseEntity<>(typeList, HttpStatus.OK);
+		List<TypeOfRequirementsDTO> dtos = new ArrayList<TypeOfRequirementsDTO>();
+		for(TypeOfRequirement type: typeOfRequirements) {
+			dtos.add(new TypeOfRequirementsDTO(type));
+		}
+		return new ResponseEntity<>(dtos, HttpStatus.OK);
 	}
 	
 	@GetMapping(value = "/{id}")

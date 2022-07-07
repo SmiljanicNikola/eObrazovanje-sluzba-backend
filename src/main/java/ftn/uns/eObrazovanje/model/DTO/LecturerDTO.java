@@ -10,6 +10,7 @@ public class LecturerDTO {
 	private String adress;
 	private String jmbg;
 	private Integer pay;
+	
 	public Integer getId() {
 		return id;
 	}

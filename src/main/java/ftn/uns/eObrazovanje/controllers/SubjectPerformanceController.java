@@ -16,7 +16,7 @@ import ftn.uns.eObrazovanje.service.SubjectPerformanceService;
 
 
 @Controller
-@CrossOrigin("*")
+@CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping(value = "api/subject-performance")
 public class SubjectPerformanceController {
 	

@@ -25,7 +25,7 @@ import ftn.uns.eObrazovanje.repository.UserRepo;
 import ftn.uns.eObrazovanje.service.LecturerService;
 
 @RestController
-@CrossOrigin(origins = "*")
+@CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping(value = "api/lecturers")
 public class LecturerController {
 
@@ -65,24 +65,37 @@ public class LecturerController {
 	}
 
 	@PutMapping("/{id}")
-	public ResponseEntity<Lecturer> updateLecturer(@PathVariable(value = "id", required = false) final Integer id,
-			@RequestBody LecturerDTO lecturer) throws URISyntaxException {
-		if (lecturer.getId() == null) {
-			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-		}
-		if (!Objects.equals(id, lecturer.getId())) {
-			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-		}
+    public ResponseEntity<Lecturer> updateLecturer(
+        @PathVariable(value = "id", required = false) final Integer id,
+        @RequestBody LecturerDTO lecturer
+    ) throws URISyntaxException {
+        if (lecturer.getId() == null) {
+        	return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        if (!Objects.equals(id, lecturer.getId())) {
+        	return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
 
-		if (lecturerService.findOne(id) == null) {
-			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-		}
-		
+        if (lecturerService.findOne(id) == null) {
+        	return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        
+        User user =userRepo.findByUsername(lecturer.getUsername());
+        if(user != null) {
+        	
+        	user.setName(lecturer.getFirstname());
+        	user.setSurname(lecturer.getLastname());
+        	user.setUsername(lecturer.getUsername());
+        	user.setAddress(lecturer.getAdress());
+        	userRepo.save(user);
+        }
+        
 
-		Lecturer l = lecturerService.save(lecturer);
-		return ResponseEntity.ok().body(l);
-	}
-
+  
+        Lecturer entity = lecturerService.save(lecturer);
+        return ResponseEntity
+            .ok().body(entity);
+    }
 	@DeleteMapping(value = "/{id}")
 	public ResponseEntity<?> deleteLecturer(@PathVariable("id") Integer id) {
 		Lecturer lecturer = lecturerService.findOne(id);

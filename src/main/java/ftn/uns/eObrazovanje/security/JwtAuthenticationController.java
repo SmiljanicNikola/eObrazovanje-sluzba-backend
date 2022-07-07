@@ -66,7 +66,8 @@ public class JwtAuthenticationController {
 	public ResponseEntity<?> login(@Valid @RequestBody LoginRequest loginRequest){
 		
 		User user = userRepository.findByUsername(loginRequest.getUsername());
-		
+		if ( user == null ) 
+			return (ResponseEntity<?>) ResponseEntity.badRequest();
 		if(!user.isBlocked()) {
 			Authentication authentication = authenticationManager.authenticate(
 					new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));

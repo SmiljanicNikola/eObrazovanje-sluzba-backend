@@ -12,12 +12,11 @@ import ftn.uns.eObrazovanje.model.User;
 import ftn.uns.eObrazovanje.repository.UserRepo;
 
 @Service
-public class UserDetailsServiceImpl implements UserDetailsService{
+public class UserDetailsServiceImpl implements UserDetailsService {
 
 	@Autowired
 	private UserRepo userRepository;
-	
-	
+
 	@Override
 	@Transactional
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {

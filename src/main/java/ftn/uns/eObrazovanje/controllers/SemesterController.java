@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,6 +21,7 @@ import ftn.uns.eObrazovanje.service.SemesterService;
 
 @Controller
 @RequestMapping(value = "api/semester")
+@CrossOrigin(origins = "http://localhost:4200")
 public class SemesterController {
 
 	@Autowired
@@ -28,7 +30,7 @@ public class SemesterController {
 	@GetMapping
 	public ResponseEntity<List<Semester>> getSemesters() {
 		List<Semester> semesters = semesterService.findAll();
-		System.out.println(semesters.get(0).getDepartment());
+//		System.out.println(semesters.get(0).getDepartment());
 		return new ResponseEntity<>(semesters, HttpStatus.OK);
 	}
 
@@ -44,8 +46,9 @@ public class SemesterController {
 	@DeleteMapping(value = "/{id}")
 	public ResponseEntity<?> deleteSemester(@PathVariable("id") Integer id) {
 		Semester semester = semesterService.findOne(id);
-
+		System.out.println("TEST");
 		if (!semester.isDeleted()) {
+			System.out.println("OBRISANO");
 			semester.setDeleted(true);
 			semesterService.save(semester);
 		}

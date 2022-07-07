@@ -38,7 +38,7 @@ import ftn.uns.eObrazovanje.service.SubjectPerformanceService;
 import ftn.uns.eObrazovanje.service.TakingExamService;
 
 @RestController
-@CrossOrigin(origins="*")
+@CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping(value = "api/attendingCourses")
 public class AttendingCoursesController {
 	
@@ -74,10 +74,16 @@ public class AttendingCoursesController {
 		return ResponseEntity.ok().body(exams);
 	}
 	
+	@GetMapping(value = "/students/{id}")
+	public ResponseEntity<?> geStudents(@PathVariable("id") Integer id){
+		List<Student> students = attendingCourseService.getStudents(id);
+		return ResponseEntity.ok().body(students);
+	}
+	
 	@GetMapping(value = "/{id}")
 	public ResponseEntity<AttendingCourses> getCourse(@PathVariable("id") Integer id){
 		AttendingCourses course = attendingCourseService.findOne(id);
-		
+		System.out.println("ID: " + course);
 		return ResponseEntity.ok().body(course);
 	}
 	
@@ -92,15 +98,4 @@ public class AttendingCoursesController {
 		return ResponseEntity.status(201).body(newCourse);    
 	}
 	
-	@GetMapping(value = "/students/{id}")
-	public ResponseEntity<List<Student>> getStudentsByAttendingCourses(@PathVariable("id") Integer id){
-		List<AttendingCourses> attendingCourses = attendingCourseService.findAll();
-		List<Student> students = studentService.findAll();
-		for (AttendingCourses attendingCourse : attendingCourses) {
-			if ( attendingCourse.getSubjectPerformance().getSubject_performance_id() == id && attendingCourse.getStudent() != null ) {
-				students = students.stream().filter(x -> !x.getStudent_id().equals(attendingCourse.getStudent().getStudent_id())).collect(Collectors.toList());
-			}
-		}
-		return new ResponseEntity<>(students, HttpStatus.OK);
-	}
 }

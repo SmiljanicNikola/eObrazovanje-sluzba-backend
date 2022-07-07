@@ -2,6 +2,8 @@ package ftn.uns.eObrazovanje.model.request;
 
 import java.time.LocalDate;
 
+import ftn.uns.eObrazovanje.model.Account;
+
 public class AddPaymentRequest {
 
 	private Integer payment_id;
@@ -12,26 +14,26 @@ public class AddPaymentRequest {
 
 	private LocalDate dateOfPayment;
 	
-    private Integer accountId;
+    private Account account;
     
 	private boolean deleted;
 
 	
-	public AddPaymentRequest(String purposeOfPayment, Double amount, LocalDate dateOfPayment, Integer accountId) {
+	public AddPaymentRequest(String purposeOfPayment, Double amount, LocalDate dateOfPayment, Account account) {
 		super();
 		this.purposeOfPayment = purposeOfPayment;
 		this.amount = amount;
 		this.dateOfPayment = dateOfPayment;
-		this.accountId = accountId;
+		this.account = account;
 	}
 
-	public AddPaymentRequest(String purposeOfPayment, Double amount, LocalDate dateOfPayment, Integer accountId,
+	public AddPaymentRequest(String purposeOfPayment, Double amount, LocalDate dateOfPayment, Account account,
 			boolean deleted) {
 		super();
 		this.purposeOfPayment = purposeOfPayment;
 		this.amount = amount;
 		this.dateOfPayment = dateOfPayment;
-		this.accountId = accountId;
+		this.account = account;
 		this.deleted = deleted;
 	}
 
@@ -69,12 +71,12 @@ public class AddPaymentRequest {
 		this.amount = amount;
 	}
 
-	public Integer getAccountId() {
-		return accountId;
+	public Account getAccount() {
+		return account;
 	}
 
-	public void setAccountId(Integer accountId) {
-		this.accountId = accountId;
+	public void setAccountId(Account account) {
+		this.account = account;
 	}
 
 	public boolean isDeleted() {
@@ -94,7 +96,7 @@ public class AddPaymentRequest {
 	@Override
 	public String toString() {
 		return "AddPaymentRequest [payment_id=" + payment_id + ", purpose_of_payment=" + purposeOfPayment
-				+ ", amount=" + amount + ", date_of_payment=" + dateOfPayment + ", account_id=" + accountId
+				+ ", amount=" + amount + ", date_of_payment=" + dateOfPayment + ", account=" + account
 				+ ", deleted=" + deleted + "]";
 	}
 	

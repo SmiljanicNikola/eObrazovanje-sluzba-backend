@@ -16,9 +16,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import ftn.uns.eObrazovanje.model.PreExaminationObligations;
+import ftn.uns.eObrazovanje.model.DTO.PreExameDTO;
 import ftn.uns.eObrazovanje.model.LecturerOnTheSubject;
 import ftn.uns.eObrazovanje.model.Payment;
-import ftn.uns.eObrazovanje.model.PreExaminationObligations;
 import ftn.uns.eObrazovanje.model.DTO.PreExaminationDTO;
 import ftn.uns.eObrazovanje.model.request.AddPaymentRequest;
 import ftn.uns.eObrazovanje.model.request.AddPreExaminationObligationRequest;
@@ -29,7 +30,7 @@ import ftn.uns.eObrazovanje.service.SubjectService;
 import ftn.uns.eObrazovanje.service.TypeOfRequirementService;
 
 @RestController
-@CrossOrigin(origins="*")
+@CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping(value = "api/examinationObligations")
 public class PreExaminationObligationController {
 	
@@ -50,23 +51,23 @@ public class PreExaminationObligationController {
 	
 	
 	@GetMapping 
-	public ResponseEntity<List<PreExaminationDTO>> getObligations(){
+	public ResponseEntity<List<PreExameDTO>> getObligations(){
 		List<PreExaminationObligations> preExaminationObligations = examinationObligationService.findAll();
-		List<PreExaminationDTO> preExamDTOList = new ArrayList<PreExaminationDTO>();
-		for(PreExaminationObligations item:preExaminationObligations) {
-			preExamDTOList.add(new PreExaminationDTO(item));
+		List<PreExameDTO> dtos = new ArrayList<PreExameDTO>();
+		for(PreExaminationObligations p : preExaminationObligations) {
+			dtos.add(new PreExameDTO(p));
 		}
-		return new ResponseEntity<>(preExamDTOList, HttpStatus.OK);
+		return new ResponseEntity<>(dtos, HttpStatus.OK);
 	}
 	
 	@GetMapping(value = "/{id}")
-	public ResponseEntity<PreExaminationDTO> getPreExaminationObligation(@PathVariable("id") Integer id){
+	public ResponseEntity<AddPreExaminationObligationRequest> getPreExaminationObligation(@PathVariable("id") Integer id){
+
 		PreExaminationObligations preExaminationObligations = examinationObligationService.findOne(id);
 		if(preExaminationObligations == null) {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
-		PreExaminationDTO preExamDto = new PreExaminationDTO(preExaminationObligations);
-		return new ResponseEntity<>(preExamDto, HttpStatus.OK);
+		return new ResponseEntity<>(new AddPreExaminationObligationRequest(preExaminationObligations), HttpStatus.OK);
 	}
 	
 	@DeleteMapping(value = "/{id}")

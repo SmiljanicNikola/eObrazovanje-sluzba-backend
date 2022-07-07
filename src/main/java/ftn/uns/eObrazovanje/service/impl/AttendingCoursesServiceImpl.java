@@ -48,5 +48,11 @@ public class AttendingCoursesServiceImpl implements AttendingCoursesService{
 		return courseRepo.save(course);
 	}
 
+	@Override
+	public List<Student> getStudents(Integer courseID) {
+		// TODO Auto-generated method stub
+		return courseRepo.findStudents(courseID);
+	}
+
 
 }

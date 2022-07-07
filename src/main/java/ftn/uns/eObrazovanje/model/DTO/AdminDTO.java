@@ -1,41 +1,41 @@
 package ftn.uns.eObrazovanje.model.DTO;
 
 public class AdminDTO {
-	private Integer student_id;
+	private Integer id;
 	private String username;
-	private String firstname;
-	private String lastname;
+	private String name;
+	private String surname;
 	private String password;
 	private String jmbg;
-	private String adress;
+	private String address;
 	public AdminDTO() {
 		super();
 	}
 	public AdminDTO(String username, String firstname, String lastname, String password, String jmbg, String adress) {
 		super();
 		this.username = username;
-		this.firstname = firstname;
-		this.lastname = lastname;
+		this.name = firstname;
+		this.surname = lastname;
 		this.password = password;
 		this.jmbg = jmbg;
-		this.adress = adress;
+		this.address = adress;
 	}
-	public AdminDTO(Integer student_id, String username, String firstname, String lastname, String password,
+	public AdminDTO(Integer id, String username, String firstname, String lastname, String password,
 			String jmbg, String adress) {
 		super();
-		this.student_id = student_id;
+		this.id = id;
 		this.username = username;
-		this.firstname = firstname;
-		this.lastname = lastname;
+		this.name = firstname;
+		this.surname = lastname;
 		this.password = password;
 		this.jmbg = jmbg;
-		this.adress = adress;
+		this.address = adress;
 	}
-	public Integer getStudent_id() {
-		return student_id;
+	public Integer getId() {
+		return id;
 	}
-	public void setStudent_id(Integer student_id) {
-		this.student_id = student_id;
+	public void setId(Integer id) {
+		this.id = id;
 	}
 	public String getUsername() {
 		return username;
@@ -43,17 +43,18 @@ public class AdminDTO {
 	public void setUsername(String username) {
 		this.username = username;
 	}
-	public String getFirstname() {
-		return firstname;
+	
+	public String getName() {
+		return name;
 	}
-	public void setFirstname(String firstname) {
-		this.firstname = firstname;
+	public void setName(String name) {
+		this.name = name;
 	}
-	public String getLastname() {
-		return lastname;
+	public String getSurname() {
+		return surname;
 	}
-	public void setLastname(String lastname) {
-		this.lastname = lastname;
+	public void setSurname(String surname) {
+		this.surname = surname;
 	}
 	public String getPassword() {
 		return password;
@@ -67,12 +68,13 @@ public class AdminDTO {
 	public void setJmbg(String jmbg) {
 		this.jmbg = jmbg;
 	}
-	public String getAdress() {
-		return adress;
+	public String getAddress() {
+		return address;
 	}
-	public void setAdress(String adress) {
-		this.adress = adress;
+	public void setAddress(String address) {
+		this.address = address;
 	}
+
 
 	
 	
