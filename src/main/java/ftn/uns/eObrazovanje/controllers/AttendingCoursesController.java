@@ -1,6 +1,7 @@
 package ftn.uns.eObrazovanje.controllers;
 
 import java.net.URISyntaxException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -34,7 +35,7 @@ import ftn.uns.eObrazovanje.service.SubjectPerformanceService;
 import ftn.uns.eObrazovanje.service.TakingExamService;
 
 @RestController
-@CrossOrigin(origins="*")
+@CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping(value = "api/attendingCourses")
 public class AttendingCoursesController {
 	
@@ -68,6 +69,12 @@ public class AttendingCoursesController {
 		s.addAll(attendingCourse);
 		s.addAll(exams);
 		return ResponseEntity.ok().body(exams);
+	}
+	
+	@GetMapping(value = "/students/{id}")
+	public ResponseEntity<?> geStudents(@PathVariable("id") Integer id){
+		List<Student> students = attendingCourseService.getStudents(id);
+		return ResponseEntity.ok().body(students);
 	}
 	
 	@GetMapping(value = "/{id}")

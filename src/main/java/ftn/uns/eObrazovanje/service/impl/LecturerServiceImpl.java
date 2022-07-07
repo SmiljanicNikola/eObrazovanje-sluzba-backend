@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import ftn.uns.eObrazovanje.model.Admin;
 import ftn.uns.eObrazovanje.model.Lecturer;
 import ftn.uns.eObrazovanje.model.Role;
 import ftn.uns.eObrazovanje.model.Student;
@@ -73,18 +74,24 @@ public class LecturerServiceImpl implements LecturerService{
 
 	@Override
 	public Lecturer save(LecturerDTO lecturer) {
-
-		User user = new User(lecturer.getFirstname(), lecturer.getLastname(), lecturer.getUsername(), encoder.encode(lecturer.getPassword()),lecturer.getAdress(), lecturer.getJmbg(),false);
+		
+		
+		User user = userRepo.findByUsername(lecturer.getUsername());
+		if(user == null) {
+		user = new User(lecturer.getFirstname(), lecturer.getLastname(), lecturer.getUsername(), encoder.encode(lecturer.getPassword()),lecturer.getAdress(), lecturer.getJmbg(),false);
 		Set<Role> role = new HashSet<>();
 		Role role1 = roleRepo.findByName("LECTURER");
 		role.add(role1);
 		user.setRoles(role);
-		
 		userRepo.save(user);
-		System.out.println(user);
-		Lecturer lect = new Lecturer(lecturer.getUsername(), lecturer.getFirstname(), lecturer.getLastname(), encoder.encode(lecturer.getPassword()),
+		}
+		
+		
+		Lecturer lect = lecturerRepo.findByUsername(lecturer.getUsername());
+		if(lect == null) {
+		lect = new Lecturer(lecturer.getUsername(), lecturer.getFirstname(), lecturer.getLastname(), encoder.encode(lecturer.getPassword()),
 				lecturer.getJmbg(), lecturer.getAdress(),lecturer.getPay(),false);
-		System.out.println(lect);
+		}
 		return lecturerRepo.save(lect);
 	}
 

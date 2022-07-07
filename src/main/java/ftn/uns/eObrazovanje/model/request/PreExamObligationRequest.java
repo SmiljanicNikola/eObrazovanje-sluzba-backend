@@ -1,10 +1,7 @@
 package ftn.uns.eObrazovanje.model.request;
 
-import ftn.uns.eObrazovanje.model.PreExaminationObligations;
+public class PreExamObligationRequest {
 
-public class AddPreExaminationObligationRequest {
-	
-	
 	private Integer pre_examination_obligation_id;
 
 	private Integer subjectId;
@@ -87,13 +84,13 @@ public class AddPreExaminationObligationRequest {
 	
 	
 
-	public AddPreExaminationObligationRequest() {
+	public PreExamObligationRequest() {
 		super();
 	}
 
 
 
-	public AddPreExaminationObligationRequest(Integer pre_examination_obligation_id, Integer subjectId,
+	public PreExamObligationRequest(Integer pre_examination_obligation_id, Integer subjectId,
 			Boolean mandatory, Float points, Integer examDateId, Integer subjectPerformanceId,
 			Integer typeOfRequirementId, boolean deleted) {
 		super();
@@ -107,7 +104,7 @@ public class AddPreExaminationObligationRequest {
 		this.deleted = deleted;
 	}
 
-	public AddPreExaminationObligationRequest(Integer subjectId, Boolean mandatory, Float points, Integer examDateId,
+	public PreExamObligationRequest(Integer subjectId, Boolean mandatory, Float points, Integer examDateId,
 			Integer subjectPerformanceId, Integer typeOfRequirementId) {
 		super();
 		this.subjectId = subjectId;
@@ -117,19 +114,8 @@ public class AddPreExaminationObligationRequest {
 		this.subjectPerformanceId = subjectPerformanceId;
 		this.typeOfRequirementId = typeOfRequirementId;
 	}
-	
-	public AddPreExaminationObligationRequest(PreExaminationObligations entity) {
-		super();
-		this.subjectId = entity.getSubject().getId();
-		this.mandatory = entity.getMandatory();
-		this.points = entity.getPoints();
-		this.examDateId = entity.getExamDate().getId();
-		this.subjectPerformanceId = entity.getSubjectPerformance().getSubject_performance_id();
-		this.typeOfRequirementId = entity.getTypeOfRequirement().getId();
-		this.pre_examination_obligation_id = entity.getPre_examination_obligation_id();
-	}
 
-	public AddPreExaminationObligationRequest(Integer subjectId, Boolean mandatory, Float points, Integer examDateId,
+	public PreExamObligationRequest(Integer subjectId, Boolean mandatory, Float points, Integer examDateId,
 			Integer subjectPerformanceId, Integer typeOfRequirementId, boolean deleted) {
 		super();
 		this.subjectId = subjectId;

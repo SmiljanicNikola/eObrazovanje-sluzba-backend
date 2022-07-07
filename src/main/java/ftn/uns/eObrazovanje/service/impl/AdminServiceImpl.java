@@ -74,16 +74,24 @@ public class AdminServiceImpl implements AdminService {
 	@Override
 	public Admin save(AdminDTO admin) {
 		
-		User user = new User(admin.getFirstname(), admin.getLastname(), admin.getUsername(), encoder.encode(admin.getPassword()),admin.getAdress(), admin.getJmbg(),false);
-		Set<Role> role = new HashSet<>();
-		Role role1 = roleRepo.findByName("ADMIN");
-		role.add(role1);
-		user.setRoles(role);
+		User user = userRepo.findByUsername(admin.getUsername());
+		if(user == null) {
+			
+			user = new User(admin.getName(), admin.getSurname(), admin.getUsername(), encoder.encode(admin.getPassword()),admin.getAddress(), admin.getJmbg(),false);
+			Set<Role> role = new HashSet<>();
+			Role role1 = roleRepo.findByName("ADMIN");
+			role.add(role1);
+			user.setRoles(role);
+			
+			userRepo.save(user);
+		}
 		
-		userRepo.save(user);
-		
-		Admin adminn = new Admin(admin.getUsername(), admin.getFirstname(), admin.getLastname(), encoder.encode(admin.getPassword()),
-				admin.getJmbg(), admin.getAdress(),false);
+		Admin adminn = adminRepo.findByUsername(admin.getUsername());
+		if(adminn == null) {
+			
+			 adminn = new Admin(admin.getUsername(), admin.getName(), admin.getSurname(), encoder.encode(admin.getPassword()),
+					admin.getJmbg(), admin.getAddress(),false);
+		}
 		
 		return adminRepo.save(adminn);
 	}

@@ -7,8 +7,6 @@ import java.util.Objects;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.crypto.password.PasswordEncoder;
-//import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,63 +18,62 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import ftn.uns.eObrazovanje.model.Admin;
+import ftn.uns.eObrazovanje.model.Lecturer;
 import ftn.uns.eObrazovanje.model.User;
 import ftn.uns.eObrazovanje.model.DTO.AdminDTO;
-import ftn.uns.eObrazovanje.repository.RoleMainRepo;
+import ftn.uns.eObrazovanje.model.DTO.LecturerDTO;
 import ftn.uns.eObrazovanje.repository.UserRepo;
 import ftn.uns.eObrazovanje.service.AdminService;
 
 @RestController
-@CrossOrigin(origins="*")
+@CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping(value = "api/admins")
 public class AdminController {
-	
-    @Autowired
-    private AdminService adminService;
-    
-    @Autowired
-    private UserRepo userRepo;
 
-	
+	@Autowired
+	private AdminService adminService;
+
+	@Autowired
+	private UserRepo userRepo;
+
 	@GetMapping
-	public ResponseEntity<List<Admin>> getAdmins(){
+	public ResponseEntity<List<Admin>> getAdmins() {
 		List<Admin> admins = adminService.findAll();
-		
-		return new ResponseEntity<>(admins, HttpStatus.OK); 
+
+		return new ResponseEntity<>(admins, HttpStatus.OK);
 	}
-	
-    @GetMapping(value = "/{id}")
-    public ResponseEntity<Admin> getAdmin(@PathVariable("id") Integer id) {
-        Admin admin = adminService.findOne(id);
-        if (admin == null) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
 
-        return new ResponseEntity<>(admin, HttpStatus.OK);
-    }
-    
-    @GetMapping(value = "/username/{username}")
-    public ResponseEntity<Admin> getAdminByUsername(@PathVariable("username") String username) {
-    	Admin admin = adminService.findByUsername(username);
-        if (admin  == null) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
+	@GetMapping(value = "/{id}")
+	public ResponseEntity<Admin> getAdmin(@PathVariable("id") Integer id) {
+		Admin admin = adminService.findOne(id);
+		if (admin == null) {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
 
-        return new ResponseEntity<>(admin, HttpStatus.OK);
-    }
-    
+		return new ResponseEntity<>(admin, HttpStatus.OK);
+	}
+
+	@GetMapping(value = "/username/{username}")
+	public ResponseEntity<Admin> getAdminByUsername(@PathVariable("username") String username) {
+		Admin admin = adminService.findByUsername(username);
+		if (admin == null) {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+
+		return new ResponseEntity<>(admin, HttpStatus.OK);
+	}
+
 	@PostMapping
 	public void save(@RequestBody AdminDTO admin) {
 		adminService.save(admin);
 	}
-	
-    @PutMapping("/{id}")
+
+	@PutMapping("/{id}")
     public ResponseEntity<Admin> updateAdmin(
         @PathVariable(value = "id", required = false) final Integer id,
-        @RequestBody Admin admin
+        @RequestBody AdminDTO admin
     ) throws URISyntaxException {
         if (admin.getId() == null) {
-        	System.out.println("blaa");
         	return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
         if (!Objects.equals(id, admin.getId())) {
@@ -88,44 +85,36 @@ public class AdminController {
         }
         
         User user =userRepo.findByUsername(admin.getUsername());
-        
-        user.setName(admin.getName());
-        user.setSurname(admin.getSurname());
-        user.setUsername(admin.getUsername());
-        user.setAddress(admin.getAddress());
-        user.setPassword(admin.getPassword());
-        user.setBlocked(admin.isBlocked());
-        user.setJmbg(admin.getJmbg());
-        
-        userRepo.save(user);
-        
-
-        adminService.add(admin);
-        return ResponseEntity
-            .ok()
-            .body(admin);
-    }
-    
-    @DeleteMapping(value = "/{id}")
-    public ResponseEntity<?> deleteAdmin(@PathVariable("id") Integer id) {
-        Admin admin = adminService.findOne(id);
-        
-        if (admin.isBlocked()) {
-        	admin.setBlocked(false);
-        	adminService.add(admin);
-
-
-        } else {
-        	admin.setBlocked(true);
-        	adminService.add(admin);
-            return new ResponseEntity<>(HttpStatus.OK);
-        
+        if(user != null) {
+        	user.setName(admin.getName());
+            user.setSurname(admin.getSurname());
+            user.setUsername(admin.getUsername());
+            user.setAddress(admin.getAddress());
+            userRepo.save(user);
         }
-        return new ResponseEntity<>(HttpStatus.OK);
-    }
-    
+        
+        
 
-    
-    
+  
+        Admin entity = adminService.save(admin);
+        return ResponseEntity
+            .ok().body(entity);
+    }
+	@DeleteMapping(value = "/{id}")
+	public ResponseEntity<?> deleteAdmin(@PathVariable("id") Integer id) {
+		Admin admin = adminService.findOne(id);
+
+		if (admin.isBlocked()) {
+			admin.setBlocked(false);
+			adminService.add(admin);
+
+		} else {
+			admin.setBlocked(true);
+			adminService.add(admin);
+			return new ResponseEntity<>(HttpStatus.OK);
+
+		}
+		return new ResponseEntity<>(HttpStatus.OK);
+	}
 
 }
