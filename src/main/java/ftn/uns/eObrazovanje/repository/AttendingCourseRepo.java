@@ -16,6 +16,7 @@ public interface AttendingCourseRepo extends JpaRepository<AttendingCourses, Int
 
 	@Query(value = "SELECT u FROM AttendingCourses u WHERE u.student.username = :username")
 	Set<AttendingCourses> findByUsername(@Param("username") String username);	
+
 	
 	@Query(value = "SELECT s from Student s LEFT JOIN s.attendingCourses at Where  at.subjectPerformance.subject_performance_id !=:performanceID OR at.attending_courses_id IS NULL")
 	List<Student> findStudents(@Param("performanceID") Integer performanceID);

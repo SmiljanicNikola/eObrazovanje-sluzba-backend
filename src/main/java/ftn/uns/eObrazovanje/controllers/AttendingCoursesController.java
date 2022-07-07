@@ -7,6 +7,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 import javax.transaction.Transactional;
 
@@ -23,6 +25,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import ftn.uns.eObrazovanje.model.AttendingCourses;
+import ftn.uns.eObrazovanje.model.LecturerOnTheSubject;
 import ftn.uns.eObrazovanje.model.Student;
 import ftn.uns.eObrazovanje.model.SubjectPerformance;
 import ftn.uns.eObrazovanje.model.TakingExam;

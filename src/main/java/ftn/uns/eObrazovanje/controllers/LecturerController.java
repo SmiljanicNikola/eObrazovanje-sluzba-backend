@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import ftn.uns.eObrazovanje.model.Lecturer;
 import ftn.uns.eObrazovanje.model.User;
+import ftn.uns.eObrazovanje.model.DTO.AdminDTO;
 import ftn.uns.eObrazovanje.model.DTO.LecturerDTO;
 import ftn.uns.eObrazovanje.repository.UserRepo;
 import ftn.uns.eObrazovanje.service.LecturerService;
@@ -59,25 +60,8 @@ public class LecturerController {
 	}
 
 	@PostMapping
-	public ResponseEntity<Lecturer> saveLecturer(@RequestBody LecturerDTO lecturerDto) {
-		if (lecturerDto.getUsername() == null || Objects.equals(lecturerDto.getUsername(), "")) {
-			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-		}
-		if (lecturerDto.getPassword() == null || Objects.equals(lecturerDto.getPassword(), "")) {
-			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-		}
-		if (lecturerDto.getFirstname() == null || Objects.equals(lecturerDto.getFirstname(), "")) {
-			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-		}
-		if (lecturerDto.getLastname() == null || Objects.equals(lecturerDto.getLastname(), "")) {
-			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-		}
-
-		if (lecturerDto.getJmbg() == null || Objects.equals(lecturerDto.getJmbg(), "")) {
-			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-		}
-		Lecturer lecturerNew = lecturerService.save(lecturerDto);
-		return ResponseEntity.status(201).body(lecturerNew);
+	public void save(@RequestBody LecturerDTO admin) {
+		lecturerService.save(admin);
 	}
 
 	@PutMapping("/{id}")

@@ -58,8 +58,8 @@ public class Lecturer implements Serializable{
 		super();
 	}
 
-	public Lecturer(Integer lecturer_id, String name, String surname, String username, String password, String address,
-			String jmbg, Integer pay, boolean blocked) {
+	public Lecturer(Integer lecturer_id,String username, String name, String surname,  String password, String jmbg,String address,
+			 Integer pay, boolean blocked) {
 		super();
 		this.lecturer_id = lecturer_id;
 		this.name = name;
@@ -73,7 +73,7 @@ public class Lecturer implements Serializable{
 	}
 
 	
-	public Lecturer(String name, String surname, String username, String password, String address, String jmbg,
+	public Lecturer(String username,String name, String surname,  String password, String jmbg,String address, 
 			Integer pay,boolean blocked) {
 		super();
 		this.name = name;

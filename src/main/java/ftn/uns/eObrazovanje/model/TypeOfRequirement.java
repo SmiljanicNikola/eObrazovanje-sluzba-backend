@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -30,7 +31,7 @@ public class TypeOfRequirement implements Serializable{
     @JoinColumn(name="pre_examination_obligations_id", referencedColumnName = "pre_examination_obligation_id")
     private PreExaminationObligations preExaminationObligations;*/
 	
-	@OneToMany(mappedBy="typeOfRequirement")
+	@OneToMany(mappedBy="typeOfRequirement", fetch = FetchType.EAGER)
     private List<PreExaminationObligations> preExaminationObligations = new ArrayList<PreExaminationObligations>();
 
 	public String getName() {

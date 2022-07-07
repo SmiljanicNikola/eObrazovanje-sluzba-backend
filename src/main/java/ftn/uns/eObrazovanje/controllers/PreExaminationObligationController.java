@@ -18,6 +18,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import ftn.uns.eObrazovanje.model.PreExaminationObligations;
 import ftn.uns.eObrazovanje.model.DTO.PreExameDTO;
+import ftn.uns.eObrazovanje.model.LecturerOnTheSubject;
+import ftn.uns.eObrazovanje.model.Payment;
+import ftn.uns.eObrazovanje.model.DTO.PreExaminationDTO;
+import ftn.uns.eObrazovanje.model.request.AddPaymentRequest;
 import ftn.uns.eObrazovanje.model.request.AddPreExaminationObligationRequest;
 import ftn.uns.eObrazovanje.service.ExamDateService;
 import ftn.uns.eObrazovanje.service.PreExaminationObligationService;
@@ -58,6 +62,7 @@ public class PreExaminationObligationController {
 	
 	@GetMapping(value = "/{id}")
 	public ResponseEntity<AddPreExaminationObligationRequest> getPreExaminationObligation(@PathVariable("id") Integer id){
+
 		PreExaminationObligations preExaminationObligations = examinationObligationService.findOne(id);
 		if(preExaminationObligations == null) {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -77,24 +82,29 @@ public class PreExaminationObligationController {
 	}
 	
 	@PutMapping(value = "/{id}")
-	public ResponseEntity<PreExaminationObligations> updateObligation(@RequestBody AddPreExaminationObligationRequest examinationObligationRequest, @PathVariable("id") Integer id){
+	public ResponseEntity<PreExaminationDTO> updateObligation(@RequestBody AddPreExaminationObligationRequest examinationObligationRequest, @PathVariable("id") Integer id){
 		
 		PreExaminationObligations preExaminationObligation = examinationObligationService.findOne(id);
 		if(preExaminationObligation == null) {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
-		//preExaminationObligation.setExamDate(this.examDateService.findOne(examinationObligationRequest.getExamDateId()));
+		preExaminationObligation.setSubject(this.subjectService.findOne(examinationObligationRequest.getSubjectId()));
+		preExaminationObligation.setMandatory(examinationObligationRequest.getMandatory());
 		preExaminationObligation.setPoints(examinationObligationRequest.getPoints());
-		//preExaminationObligation.setTypeOfRequirement(typeOfRequirement);
+		preExaminationObligation.setExamDate(this.examDateService.findOne(examinationObligationRequest.getExamDateId()));
+		preExaminationObligation.setSubjectPerformance(this.subjectPerformanceService.findOne(examinationObligationRequest.getSubjectPerformanceId()));
+		preExaminationObligation.setTypeOfRequirement(this.typeOfRequirementService.findOne(examinationObligationRequest.getTypeOfRequirementId()));
+		preExaminationObligation.setDeleted(false);
 		
 		preExaminationObligation = examinationObligationService.save(preExaminationObligation);
-		return new ResponseEntity<>(preExaminationObligation, HttpStatus.OK);
+		PreExaminationDTO preExamDto = new PreExaminationDTO(preExaminationObligation);
+		return new ResponseEntity<>(preExamDto, HttpStatus.OK);
 		
 	}
 	
 	
 	@PostMapping()
-	public ResponseEntity<PreExaminationObligations> savePreExaminationObligation(@RequestBody AddPreExaminationObligationRequest examinationObligationRequest){
+	public ResponseEntity<PreExaminationDTO> savePreExaminationObligation(@RequestBody AddPreExaminationObligationRequest examinationObligationRequest){
 		
 		PreExaminationObligations preExaminationObligation = new PreExaminationObligations();
 		
@@ -107,8 +117,23 @@ public class PreExaminationObligationController {
 		preExaminationObligation.setDeleted(false);
 		
 		preExaminationObligation = examinationObligationService.save(preExaminationObligation);
-		return new ResponseEntity<>(preExaminationObligation, HttpStatus.CREATED);
+		PreExaminationDTO preExamDto = new PreExaminationDTO(preExaminationObligation);
+		return new ResponseEntity<>(preExamDto, HttpStatus.CREATED);
 		
 	}
+	
+	@GetMapping(value = "/subject/{id}")
+	public ResponseEntity<List<PreExaminationObligations>> getPreExamBySubjectId(@PathVariable("id") Integer id){
+		List<PreExaminationObligations> preExams = examinationObligationService.findAll();
+		List<PreExaminationObligations> lsitOfPreExam = new ArrayList<>();
+		for (PreExaminationObligations preExam : preExams) {
+			if ( preExam.getSubject().getId() == id ) {
+				lsitOfPreExam.add(preExam);
+			}
+		}
+		return new ResponseEntity<>(lsitOfPreExam, HttpStatus.OK);
+	}
+	
+	
 	
 }

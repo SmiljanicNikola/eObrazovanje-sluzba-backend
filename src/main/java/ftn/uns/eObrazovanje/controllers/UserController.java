@@ -7,6 +7,7 @@ import ftn.uns.eObrazovanje.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -19,6 +20,9 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    PasswordEncoder passwordEncoder;
 
     @GetMapping
     public ResponseEntity<List<User>> getUsers(){
@@ -61,6 +65,21 @@ public class UserController {
                 existingUser.setJmbg(existingUser.getJmbg());
 
                 userService.save(existingUser);
+            }
+            return new ResponseEntity<>(HttpStatus.OK);
+        }catch(NoSuchElementException e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @PutMapping("updatePassword/username/{username}")
+    public ResponseEntity<?> updatePassword(@RequestBody User user,
+                                            @PathVariable String username) {
+        try {
+            User existUser = userService.findByUsername(username);
+            if(existUser != null) {
+                existUser.setPassword(passwordEncoder.encode(user.getPassword()));
+                userService.save(existUser);
             }
             return new ResponseEntity<>(HttpStatus.OK);
         }catch(NoSuchElementException e) {
